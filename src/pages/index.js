@@ -1,16 +1,14 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { GlobalStyle, DivIndex } from '../styles'
+import { DivIndex } from '../styles'
 
 import Layout from '../components/Layout'
 
 export default function Index() {
   return (
-    <React.Fragment>
-      <GlobalStyle />
+    <React.Fragment>      
       <Head>
         <title>Index Page</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Layout>
