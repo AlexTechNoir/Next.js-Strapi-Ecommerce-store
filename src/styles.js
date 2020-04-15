@@ -37,6 +37,8 @@ export const StyledHeader = styled.header`
   grid-template-rows: auto auto;
   grid-template-columns: auto auto 1fr auto;
   background: #f8f9fa;
+  margin-bottom: 2em;
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
   > :first-child {
     cursor: pointer;
   }
@@ -114,6 +116,56 @@ export const StyledNav = styled.nav`
 //index.js
 export const DivIndex = styled.div`
   grid-area: 2 / 2 / 3 / 3;
+  display: grid;
+  grid-template-rows: auto auto auto;
+  > .carousel-root {
+    grid-area: 1 / 1 / 2 / 2;
+    justify-self: center;
+    margin-bottom: 2em;  
+    max-width: 960px;  
+    max-height: 500px;
+    &:hover {
+      cursor: pointer;
+    }
+    &:active {
+      cursor: grabbing;
+    }
+  }
+  > :nth-child(2) {
+    margin-left: 1rem;
+  }
+  > :last-child {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 290px);
+    grid-row-gap: .5rem;
+    grid-column-gap: .5rem;
+    justify-content: center;	
+  }
+`
+
+//Product.js
+export const DivProduct = styled.div`
+  height: 400px;
+  width: 290px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  &:hover {
+    box-shadow: .1rem .1rem 1rem .1rem rgba(0,0,0,.3);
+    text-decoration: none;
+  }
+  > a {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5em;
+    color: #343a40;
+    &:hover {
+      text-decoration: none;
+    }
+    > img {
+      align-self: center;
+    }
+  }
 `
 
 //about.js

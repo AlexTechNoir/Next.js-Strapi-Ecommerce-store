@@ -17,6 +17,9 @@ export default function Layout(props) {
 
         {/* Google Font */}
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"></link>
+
+        {/* React Responsive Carousel */}
+        <link rel="stylesheet" href="carousel.css" />
       </Head>
 
       <DivGrid>

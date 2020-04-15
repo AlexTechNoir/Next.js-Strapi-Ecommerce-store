@@ -1,22 +1,26 @@
 import Head from 'next/head'
-import Link from 'next/link'
+import dynamic from 'next/dynamic'
 import { DivIndex } from '../styles'
 
 import Layout from '../components/Layout'
+import FeaturedProducts from '../components/index/FeaturedProducts'
+
+const FeaturedCarousel = dynamic(
+  () => import('../components/index/FeaturedCarousel'),
+  { ssr: false }
+)
 
 export default function Index() {
   return (
     <React.Fragment>      
       <Head>
-        <title>Index Page</title>
+        <title>Alimazon - Home Page</title>
       </Head>
 
       <Layout>
         <DivIndex>
-          <div>Index</div>
-          <Link href="/about">
-            <a>Go To About</a>
-          </Link>
+          <FeaturedCarousel />
+          <FeaturedProducts />
         </DivIndex>
       </Layout>
     </React.Fragment>
