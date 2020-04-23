@@ -1,14 +1,14 @@
 import React, { useEffect, useContext } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
-import { DivProducts } from '../styles'
-import Context from '../context'
-import { tablets } from '../data'
+import { DivProducts } from '../../styles'
+import Context from '../../context'
+import { tablets } from '../../data'
 import useSWR from 'swr'
 import ReactPaginate from 'react-paginate'
 
-import Layout from '../components/Layout'
-import Product from '../components/Product'
+import Layout from '../../components/Layout'
+import Product from '../../components/Product'
 
 function fetcher(url) {
   return fetch(url).then(r => r.json())
@@ -27,7 +27,7 @@ export default function mobilePhones() {
   return (
     <React.Fragment>
       <Head>
-        <title>Tablets</title>
+        <title>Tablets - Alimazon</title>
       </Head>
 
       <Layout>

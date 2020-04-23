@@ -142,7 +142,7 @@ export const DivIndex = styled.div`
   }
 `
 
-//mobile-phones.js
+//products/mobile-phones.js, laptops.js, tablets.js
 export const DivProducts = styled.div`
   grid-area: 2 / 2 / 3 / 3;
   display: flex;
@@ -164,7 +164,7 @@ export const DivProducts = styled.div`
     width: fit-content;
     align-items: center;
     padding: 0;
-    margin-top: 40px;
+    margin-top: 2.5em;
     > li > a {
       display: flex;
       align-items: center;
@@ -186,6 +186,39 @@ export const DivProducts = styled.div`
         text-decoration: none;
       }
     }
+  }
+`
+
+//products/mobile-phones.js, laptops.js, tablets.js
+export const DivSales = styled.div`
+  grid-area: 2 / 2 / 3 / 3;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  > :first-child {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    > img {
+      width: 100%;
+      height: 100%;
+    }
+    > :last-child {
+      margin: auto;
+      > :first-child {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  }
+  > :last-child {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 290px);
+    grid-row-gap: .5rem;
+    grid-column-gap: .5rem;
+    justify-content: center;	
+    margin-top: 1em;
   }
 `
 
@@ -217,6 +250,28 @@ export const DivProduct = styled.div`
 //about.js
 export const DivAbout = styled.div`
   grid-area: 2 / 2 / 3 / 3;
+  background: #f8f9fa;
+  border-radius: 5px;
+  padding: 2.5em;
+  > p {
+    text-align: justify;
+    text-justify: inter-word;
+    > img {
+      display: block;
+      margin: 0 auto 1em auto;
+      float: none;
+    }
+  }
+`
+
+//contact-us.js
+export const DivContactForm = styled.div`
+  grid-area: 2 / 2 / 3 / 3;
+  display: flex;
+  flex-direction: column;
+  background: #f8f9fa;
+  border-radius: 5px;
+  padding: 2.5em;
 `
 
 //Footer.js

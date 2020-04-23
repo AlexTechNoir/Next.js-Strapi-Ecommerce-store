@@ -11,24 +11,24 @@ export default function FeaturedCarousel() {
       showIndicators={false}
       showThumbs={false}
       infiniteLoop={true}
-      autoPlay= {true}
+      autoPlay={true}
       stopOnHover={true}
       interval={5000}
       transitionTime={500}
       swipeable={true}
       emulateTouch={true}
     >
-      <Link href="/about">
+      <Link href="/sales/mobile-phones">
         <div>
           <img src="/img/carousel/01.webp" alt="First slide" />
         </div>
       </Link>
-      <Link href="/about">
+      <Link href="/sales/laptops">
         <div>
           <img src="/img/carousel/02.webp" alt="Second slide" />
         </div>
       </Link>
-      <Link href="/about">
+      <Link href="/sales/tablets">
         <div>
           <img src="/img/carousel/03.webp" alt="Third slide" />
         </div>

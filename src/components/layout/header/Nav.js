@@ -8,17 +8,17 @@ export default function Nav() {
     <StyledNav>
       <ul className="nav">
         <li className="nav-item">
-          <Link href="/mobile-phones">
+          <Link href="/products/mobile-phones">
             <a className="nav-link"><b>Mobile Phones</b></a>
           </Link>
         </li>
         <li className="nav-item">
-          <Link href="/laptops">
+          <Link href="/products/laptops">
             <a className="nav-link"><b>Laptops</b></a>
           </Link>
         </li>
         <li className="nav-item">
-          <Link href="/tablets">
+          <Link href="/products/tablets">
             <a className="nav-link"><b>Tablets</b></a>
           </Link>
         </li>

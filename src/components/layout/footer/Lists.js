@@ -9,7 +9,7 @@ export default function Lists() {
           <Link href="/about"><a className="nav-link">About Us</a></Link>
         </li>
         <li className="list-group-item">
-          <Link href="/#"><a className="nav-link">Contact Us</a></Link>
+          <Link href="/contact-us"><a className="nav-link">Contact Us</a></Link>
         </li>
         <li className="list-group-item">
           <a href="/#" className="nav-link">Lorem ipsum sin amet</a>
