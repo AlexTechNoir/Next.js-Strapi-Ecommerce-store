@@ -1,5 +1,6 @@
 import React from 'react'
 import App from 'next/app'
+import { withRouter } from 'next/router'
 import Context from '../context'
 import { data } from '../data'
 
@@ -7,8 +8,13 @@ class ContextProvider extends App {
   constructor() {
     super()
     this.state = {
-      data: []
+      data: [],
+      currentPage: 1,
+      itemsPerPage: 8
     }
+
+    this.paginate = this.paginate.bind(this)
+    this.resetPage = this.resetPage.bind(this)
   }
 
   componentDidMount() {
@@ -22,12 +28,27 @@ class ContextProvider extends App {
     })
   }
 
+  paginate(e) { 
+    window.scrollTo(0, 0)
+    this.setState(() => {
+      return { currentPage: e.selected + 1 }
+    })
+  }
+
+  resetPage() {
+    this.setState(() => {
+      return { currentPage: 1 }
+    })
+  }
+
   render() {
     const { Component, pageProps } = this.props
 
     return (
       <Context.Provider value={{
-        ...this.state
+        ...this.state,
+        paginate: this.paginate,
+        resetPage: this.resetPage
       }}>
         <Component {...pageProps} />
       </Context.Provider>
@@ -35,4 +56,4 @@ class ContextProvider extends App {
   }
 }
 
-export default ContextProvider
+export default withRouter(ContextProvider)

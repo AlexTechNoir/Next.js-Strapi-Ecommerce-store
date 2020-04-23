@@ -3,21 +3,22 @@ import Link from 'next/link'
 import { StyledNav } from '../../../styles'
 
 export default function Nav() {
+
   return (
     <StyledNav>
       <ul className="nav">
         <li className="nav-item">
-          <Link href="/#">
+          <Link href="/mobile-phones">
             <a className="nav-link"><b>Mobile Phones</b></a>
           </Link>
         </li>
         <li className="nav-item">
-          <Link href="/#">
+          <Link href="/laptops">
             <a className="nav-link"><b>Laptops</b></a>
           </Link>
         </li>
         <li className="nav-item">
-          <Link href="/#">
+          <Link href="/tablets">
             <a className="nav-link"><b>Tablets</b></a>
           </Link>
         </li>

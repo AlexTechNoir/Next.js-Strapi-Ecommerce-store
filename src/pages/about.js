@@ -14,7 +14,7 @@ export default function About() {
       <Layout>
         <DivAbout>
           <div>About</div>
-          <Link href="/index">
+          <Link href="/">
             <a>Go To Index</a>
           </Link>
         </DivAbout>

@@ -99,7 +99,7 @@ export const StyledNav = styled.nav`
   position: absolute;
   top: 104px;
   left: -60px;
-  z-index: 1;
+  z-index: 3;
   > ul {
     display: flex;
     flex-direction: column;
@@ -116,11 +116,10 @@ export const StyledNav = styled.nav`
 //index.js
 export const DivIndex = styled.div`
   grid-area: 2 / 2 / 3 / 3;
-  display: grid;
-  grid-template-rows: auto auto auto;
+  display: flex;
+  flex-direction: column;
   > .carousel-root {
-    grid-area: 1 / 1 / 2 / 2;
-    justify-self: center;
+    align-self: center;
     margin-bottom: 2em;  
     max-width: 960px;  
     max-height: 500px;
@@ -140,6 +139,53 @@ export const DivIndex = styled.div`
     grid-row-gap: .5rem;
     grid-column-gap: .5rem;
     justify-content: center;	
+  }
+`
+
+//mobile-phones.js
+export const DivProducts = styled.div`
+  grid-area: 2 / 2 / 3 / 3;
+  display: flex;
+  flex-direction: column;
+  > :nth-child(2) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 290px);
+    grid-row-gap: .5rem;
+    grid-column-gap: .5rem;
+    justify-content: center;	
+  }
+  > :last-child {
+    align-self: center;    
+    display: flex;
+    list-style: none;
+    height: 2.5em;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: fit-content;
+    align-items: center;
+    padding: 0;
+    margin-top: 40px;
+    > li > a {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      padding: 0 10px;
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    > .active > a {
+      font-weight: bold;
+      text-decoration: underline;
+      pointer-events: none;
+    }
+    > .disabled > a {
+      text-decoration: none;
+      &:hover {
+        text-decoration: none;
+      }
+    }
   }
 `
 
