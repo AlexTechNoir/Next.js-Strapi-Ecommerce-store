@@ -1,5 +1,7 @@
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
+import fetch from 'node-fetch'
+import useSWR from 'swr'
 import { DivIndex } from '../styles'
 
 import Layout from '../components/Layout'
@@ -10,7 +12,19 @@ const FeaturedCarousel = dynamic(
   { ssr: false }
 )
 
-export default function Index() {
+const fetcher = url => {
+  return fetch(url).then(res => res.json())
+}
+
+export async function getServerSideProps() {
+  const data = await fetcher('http://localhost:3000/api/data?category=best_offers')
+  return { props: { data } }
+}
+
+export default function Index(props) {
+  const initialData = props.data
+  const { data } = useSWR('http://localhost:3000/api/data?category=best_offers', fetcher, { initialData })
+
   return (
     <React.Fragment>      
       <Head>
@@ -20,7 +34,7 @@ export default function Index() {
       <Layout>
         <DivIndex>
           <FeaturedCarousel />
-          <FeaturedProducts />
+          <FeaturedProducts data={data} />
         </DivIndex>
       </Layout>
     </React.Fragment>

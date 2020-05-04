@@ -30,7 +30,7 @@ export default function Timer() {
   return (
     <h1>
       <span> 
-        <span>Offer ends:</span>
+        <span>Offer ends in:</span>
         <span>
           { 
             Math.sign(timeDifference) !== -1

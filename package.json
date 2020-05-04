@@ -14,6 +14,7 @@
     "@fortawesome/react-fontawesome": "^0.1.9",
     "@zeit/next-css": "^1.0.1",
     "next": "9.3.4",
+    "node-fetch": "^2.6.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-paginate": "^6.3.2",

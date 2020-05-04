@@ -9,35 +9,18 @@ class ContextProvider extends App {
     super()
     this.state = {
       data: [],
-      currentPage: 1,
       itemsPerPage: 8
     }
-
-    this.paginate = this.paginate.bind(this)
-    this.resetPage = this.resetPage.bind(this)
   }
 
   componentDidMount() {
     let tempData = []
     data.forEach(dataItem => {
       const item = {...dataItem}
-      tempData = [...tempData, item]  
+      tempData = [...tempData, item] 
     })
     this.setState(() => {
       return { data: tempData }
-    })
-  }
-
-  paginate(e) { 
-    window.scrollTo(0, 0)
-    this.setState(() => {
-      return { currentPage: e.selected + 1 }
-    })
-  }
-
-  resetPage() {
-    this.setState(() => {
-      return { currentPage: 1 }
     })
   }
 
@@ -46,9 +29,7 @@ class ContextProvider extends App {
 
     return (
       <Context.Provider value={{
-        ...this.state,
-        paginate: this.paginate,
-        resetPage: this.resetPage
+        ...this.state
       }}>
         <Component {...pageProps} />
       </Context.Provider>

@@ -1,21 +1,15 @@
-import React, { useContext } from 'react'
-import Context from '../../context'
-
+import React from 'react'
 import Product from '../Product'
 
-export default function FeaturedProducts() {
-  const { data } = useContext(Context)
-
+export default function FeaturedProducts({ data }) {
   return (
     <React.Fragment>
-      <h2>Best Offers</h2>
+      <h1>Best Offers</h1>
       <div>
         {
-          data
-            .filter( dataItem => dataItem.price === 250 )
-            .map( dataItem => {
-              return <Product key={dataItem.id} dataItem={dataItem} />
-            })
+          data.map( dataItem => {
+            return <Product key={dataItem.id} dataItem={dataItem} />
+          })
         }
       </div>
     </React.Fragment>

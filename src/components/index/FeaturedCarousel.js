@@ -18,19 +18,19 @@ export default function FeaturedCarousel() {
       swipeable={true}
       emulateTouch={true}
     >
-      <Link href="/sales/mobile-phones">
+      <Link href="/sales/[category]" as="/sales/Mobile Phones">
         <div>
-          <img src="/img/carousel/01.webp" alt="First slide" />
+          <img src="/img/carousel/Mobile Phones/01.webp" alt="First slide" />
         </div>
       </Link>
-      <Link href="/sales/laptops">
+      <Link href="/sales/[category]" as="/sales/Laptops">
         <div>
-          <img src="/img/carousel/02.webp" alt="Second slide" />
+          <img src="/img/carousel/Laptops/01.webp" alt="Second slide" />
         </div>
       </Link>
-      <Link href="/sales/tablets">
+      <Link href="/sales/[category]" as="/sales/Tablets">
         <div>
-          <img src="/img/carousel/03.webp" alt="Third slide" />
+          <img src="/img/carousel/Tablets/01.webp" alt="Third slide" />
         </div>
       </Link>
     </Carousel>
