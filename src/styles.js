@@ -3,14 +3,16 @@ import styled, { createGlobalStyle } from 'styled-components'
 export const GlobalStyle = createGlobalStyle` 
   * {
     box-sizing: border-box;
-    font-family: 'Roboto Condensed', sans-serif;
+    &:not([data-offset-key]):not([data-text]) {
+      font-family: 'Roboto Condensed', sans-serif;
+    }
   }
 
   html, body {
     padding: 0;
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-      Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+      Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, Georgia, sans-serif;
     height: 100%;
     scroll-behavior: smooth;
     background-color: #e9e9e9; 
@@ -81,6 +83,7 @@ export const StyledHeader = styled.header`
     margin-right: 1em;
     > * {
       color: #007bff;
+      align-self: center;
       cursor: pointer;      
       margin: 0 .2em 0 .2em;
     }
@@ -142,7 +145,7 @@ export const DivIndex = styled.div`
   }
 `
 
-//products/mobile-phones.js, laptops.js, tablets.js
+//products/mobile-phones,laptops,tablets/[id].js
 export const DivProducts = styled.div`
   grid-area: 2 / 2 / 3 / 3;
   display: flex;
@@ -189,7 +192,7 @@ export const DivProducts = styled.div`
   }
 `
 
-//products/mobile-phones.js, laptops.js, tablets.js
+//sales/[category].js
 export const DivSales = styled.div`
   grid-area: 2 / 2 / 3 / 3;
   justify-self: center;
@@ -222,8 +225,82 @@ export const DivSales = styled.div`
   }
 `
 
+//product-page/[id].js
+export const DivProductPage = styled.div`
+  grid-area: 2 / 2 / 3 / 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  > :first-child {
+    align-self: flex-start;
+  }
+  > .carousel-root {
+    margin-bottom: 2em;
+    max-width: 400px;
+    max-height: 400px;
+    > div > .thumbs-wrapper > ul {
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      > :nth-child(3) {
+        margin-right: 0;
+      }
+    }
+  }
+  > :nth-child(3) {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  > :nth-child(4) {
+    align-self: stretch;
+    > button {
+      width: 50%;
+      margin-top: 2.5em;
+      padding: .5em 2em .5em 2em;
+      box-shadow: none;
+      border-radius: 0;
+    }
+  }
+  > :nth-child(5) {
+    background: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    > .wrapper {
+      width: 100%;
+      .colorPickerPopup {
+        top: 23px;
+      }
+      .linkPopup {
+        left: -42px;
+        top: 23px;
+        height: 233px;
+      }
+      .emojiPopup {
+        top: 23px;
+        left: -148px;
+      }
+      .embeddedPopup {
+        top: 23px;
+        left: -111px;
+      }
+      .imagePopup {
+        top: 23px;
+        left: -186px;
+      }
+      > .editor {        
+        width: 100%;
+        padding: 0 1em 0 1em;
+      }
+    }
+  }
+`
+
 //Product.js
-export const DivProduct = styled.div`
+export const DivProductListItem = styled.div`
   height: 400px;
   width: 290px;
   background: #f8f9fa;

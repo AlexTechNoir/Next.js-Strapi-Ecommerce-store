@@ -3,10 +3,11 @@ import Link from 'next/link'
 import { Carousel } from 'react-responsive-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 
+
 export default function FeaturedCarousel() {
   return (
     <Carousel
-      showArrows={true}
+      showArrows={false}
       showStatus={false}
       showIndicators={false}
       showThumbs={false}

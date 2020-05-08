@@ -5,7 +5,7 @@ import { DivSales } from '../../Styles'
 
 import Layout from '../../components/Layout'
 import Timer from '../../components/Timer'
-import Product from '../../components/Product'
+import ProductListItem from '../../components/ProductListItem'
 
 export async function getStaticPaths() {
   return {
@@ -43,7 +43,7 @@ export default function MobilePhonesDiscount({ params, data }) {
               data
                 .filter(dataItem => dataItem.category === params.category && dataItem.hasDiscount === true)
                 .map(dataItem => {
-                  return <Product key={dataItem.id} dataItem={dataItem} />
+                  return <ProductListItem key={dataItem.id} dataItem={dataItem} />
                 })
             }
           </div>

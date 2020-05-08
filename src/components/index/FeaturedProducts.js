@@ -1,5 +1,5 @@
 import React from 'react'
-import Product from '../Product'
+import ProductListItem from '../ProductListItem'
 
 export default function FeaturedProducts({ data }) {
   return (
@@ -8,7 +8,7 @@ export default function FeaturedProducts({ data }) {
       <div>
         {
           data.map( dataItem => {
-            return <Product key={dataItem.id} dataItem={dataItem} />
+            return <ProductListItem key={dataItem.id} dataItem={dataItem} />
           })
         }
       </div>

@@ -10,7 +10,7 @@ import Context from '../../../context'
 import { laptops } from '../../../data'
 
 import Layout from '../../../components/Layout'
-import Product from '../../../components/Product'
+import ProductListItem from '../../../components/ProductListItem'
 
 const fetcher = url => {
   return fetch(url).then(res => res.json())
@@ -57,7 +57,7 @@ export default function mobilePhones(props) {
           <div>
             {
               data.map(dataItem => {
-                return <Product key={dataItem.id} dataItem={dataItem} />
+                return <ProductListItem key={dataItem.id} dataItem={dataItem} />
               })
             }
           </div>

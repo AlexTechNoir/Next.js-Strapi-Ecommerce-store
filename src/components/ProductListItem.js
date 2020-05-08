@@ -1,8 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
-import { DivProduct } from '../styles'
+import { DivProductListItem } from '../styles'
 
-export default function Product({ dataItem }) {
+export default function ProductListItem({ dataItem }) {
   const {
     id,
     title,
@@ -17,8 +17,8 @@ export default function Product({ dataItem }) {
   } = dataItem
 
   return (
-    <DivProduct>
-      <Link href="/#">
+    <DivProductListItem>
+      <Link href="/product-page/[id].js" as={`/product-page/${id}`}>
         <a>
           <img 
             alt="Product"
@@ -32,6 +32,6 @@ export default function Product({ dataItem }) {
           <h4>{price}</h4>
         </a>
       </Link>
-    </DivProduct>
+    </DivProductListItem>
   )
 }
