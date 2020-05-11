@@ -26,7 +26,7 @@ export default function Index(props) {
   const { data } = useSWR('http://localhost:3000/api/data?category=best_offers', fetcher, { initialData })
 
   return (
-    <React.Fragment>      
+    <React.Fragment>
       <Head>
         <title>Alimazon - Home Page</title>
       </Head>

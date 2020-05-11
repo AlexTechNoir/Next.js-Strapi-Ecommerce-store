@@ -19,6 +19,13 @@ export default (req, res) => {
   } else if (req.query.category === 'best_offers') {
     const result = data.filter(dataItem => dataItem.price === 250)
     res.status(200).json(result)
+  } else if (req.query.category === 'search') {
+    const searchResults = data.filter(dataItem =>
+      dataItem.title
+        .toLowerCase()
+        .includes(req.query.value.toLowerCase().trim())
+    )
+    res.status(200).json(searchResults)
   } else {
     res.status(200).json(data)
   }
