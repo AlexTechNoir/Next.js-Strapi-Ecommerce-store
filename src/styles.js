@@ -225,6 +225,31 @@ export const DivSales = styled.div`
   }
 `
 
+//Product.js
+export const DivProductListItem = styled.div`
+  height: 400px;
+  width: 290px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  &:hover {
+    box-shadow: .1rem .1rem 1rem .1rem rgba(0,0,0,.3);
+    text-decoration: none;
+  }
+  > a {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5em;
+    color: #343a40;
+    &:hover {
+      text-decoration: none;
+    }
+    > img {
+      align-self: center;
+    }
+  }
+`
+
 //product-page/[id].js
 export const DivProductPage = styled.div`
   grid-area: 2 / 2 / 3 / 3;
@@ -255,6 +280,28 @@ export const DivProductPage = styled.div`
     padding-right: 1rem;
   }
   > :nth-child(4) {
+    display: flex;
+    align-content: flex-start;
+    align-items: flex-start;
+    align-self: flex-start;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    > :first-child > div {
+      display: flex;
+      flex-direction: column;
+      > h6 > button {
+        margin-right: 1em;
+      }
+    }
+    > :last-child {
+      background: #dc3545;
+      color: white;
+      margin: 0 1.5em 0 1.5em;
+      padding: .2em .5em .2em .5em;
+      border-radius: 5px;
+    }
+  }
+  > :nth-child(5) {
     align-self: stretch;
     > button {
       width: 50%;
@@ -264,7 +311,7 @@ export const DivProductPage = styled.div`
       border-radius: 0;
     }
   }
-  > :nth-child(5) {
+  > :nth-child(6) {
     background: #f8f9fa;
     display: flex;
     flex-direction: column;
@@ -295,31 +342,6 @@ export const DivProductPage = styled.div`
         width: 100%;
         padding: 0 1em 0 1em;
       }
-    }
-  }
-`
-
-//Product.js
-export const DivProductListItem = styled.div`
-  height: 400px;
-  width: 290px;
-  background: #f8f9fa;
-  border-radius: 10px;
-  &:hover {
-    box-shadow: .1rem .1rem 1rem .1rem rgba(0,0,0,.3);
-    text-decoration: none;
-  }
-  > a {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    padding: 1.5em;
-    color: #343a40;
-    &:hover {
-      text-decoration: none;
-    }
-    > img {
-      align-self: center;
     }
   }
 `
@@ -395,6 +417,46 @@ export const DivSearchResult = styled.div`
     display: flex;
     flex-direction: column;
     align-items: end;
+  }
+`
+
+//cart.js
+export const DivCart = styled.div`
+  grid-area: 2 / 2 / 3 / 3;
+  padding-left: 1em;
+  padding-right: 1em;
+`
+
+//CartListItem.js
+export const DivCartListItem = styled.div`
+  display: grid;
+  grid-template-columns: auto 1fr 2fr 1fr auto;
+  grid-template-rows: auto auto;
+  grid-row-gap: 1rem;
+  grid-column-gap: 1rem;
+  > :first-child {
+    grid-area: 1 / 1 / 2 / 2;
+  }
+  > :nth-child(2) {
+    grid-area: 1 / 2 / 2 / 5;
+    > a, a:hover, a:focus {
+      text-decoration: none;
+    }
+    > a:hover, a:focus {
+      text-shadow: 2px 2px 20px;
+    }
+  }
+  > :nth-child(3) {
+    grid-area: 2 / 1 / 3 / 3;
+    justify-self: start;
+  }
+  > :nth-child(4) {
+    grid-area: 2 / 3 / 3 / 5;
+    justify-self: center;
+  }
+  > :last-child {
+    grid-area: 1 / 5 / 2 / 6;
+    justify-self: end;
   }
 `
 

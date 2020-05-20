@@ -26,12 +26,14 @@ export async function getStaticProps({ params }) {
   const res = await fetch('http://localhost:3000/api/data')
   const data = await res.json()
   const dataItem = data[Number(params.id)]
+
   return { props: { dataItem }}
 }
 
 export default function ProductPage({ dataItem }) {
   const { title, category } = dataItem
-  
+
+  const [ selectedAmount, setSelectedAmount ] = useState(1)
   const [ isReviewsTabVisible, setIsReviewsTabVisible ] = useState(true)
 
   let productCategory
@@ -54,9 +56,13 @@ export default function ProductPage({ dataItem }) {
         <a>Tablets</a>
       </Link>
     )
+  }  
+
+  const chooseAmount = () => {
+    setSelectedAmount(parseInt(document.getElementById("items").value))
   }
 
-  function toggleTabs(e) {
+  const toggleTabs = e => {
     if (e.target.name === 'reviews') {
       setIsReviewsTabVisible(true)
     } else if (e.target.name === 'comments') {
@@ -82,10 +88,12 @@ export default function ProductPage({ dataItem }) {
             </ol>
           </nav>
           <ProductSlider dataItem={dataItem} />
-          <div>
-            <ProductInfo dataItem={dataItem} />
-            <AddToCart dataItem={dataItem} />
-          </div>
+          <ProductInfo dataItem={dataItem} />
+          <AddToCart 
+            dataItem={dataItem}
+            chooseAmount={chooseAmount} 
+            selectedAmount={selectedAmount}
+          />
           <ToggleButtons toggleTabs={toggleTabs} isReviewsTabVisible={isReviewsTabVisible} />
             {
               isReviewsTabVisible
@@ -97,5 +105,3 @@ export default function ProductPage({ dataItem }) {
     </React.Fragment>
   )
 }
-
-

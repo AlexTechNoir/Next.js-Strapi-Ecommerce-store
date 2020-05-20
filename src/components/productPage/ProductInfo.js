@@ -11,7 +11,7 @@ export default function ProductInfo({ dataItem }) {
           rating } = dataItem
 
   return (
-    <React.Fragment>
+    <div>
       <h1>{title}</h1>
       <h2>Company: {company}</h2>
 
@@ -25,6 +25,6 @@ export default function ProductInfo({ dataItem }) {
       </h2>
       <br />
       <h3>Info: {description}</h3>
-    </React.Fragment>
+    </div>
   )
 }

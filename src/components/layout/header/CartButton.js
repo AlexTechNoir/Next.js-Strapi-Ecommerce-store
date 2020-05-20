@@ -5,7 +5,7 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 
 export default function CartButton() {
   return (
-    <Link href="/index">
+    <Link href="/cart">
       <FontAwesomeIcon icon={faShoppingCart} width="1em" />
     </Link>
   )

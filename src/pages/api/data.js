@@ -1,6 +1,8 @@
 import { data, mobile_phones, laptops, tablets } from '../../data'
 
 export default (req, res) => {
+  const id = parseInt(req.query.id)
+
   const page = req.query.page
   const limit = req.query.limit
 
@@ -26,6 +28,9 @@ export default (req, res) => {
         .includes(req.query.value.toLowerCase().trim())
     )
     res.status(200).json(searchResults)
+  } else if (req.query.category === 'object') {
+    const result = data.find(dataItem => dataItem.id === id)
+    res.status(200).json(result)
   } else {
     res.status(200).json(data)
   }
