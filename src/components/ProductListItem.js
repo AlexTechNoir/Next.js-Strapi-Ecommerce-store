@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { DivProductListItem } from '../styles'
 
@@ -16,6 +16,18 @@ export default function ProductListItem({ dataItem }) {
     rating,
   } = dataItem
 
+  const [ isItemInCart, setIsItemInCart ] = useState(false)
+  const [ quantity, setQuantity ] = useState(0)
+
+  useEffect(() => {
+    const cartList = JSON.parse(localStorage.cartList)
+    const item = cartList.find(cartListItem => cartListItem.id === id)
+    if (item !== undefined) {
+      setIsItemInCart(item.isInCart)
+      setQuantity(item.amountInCart)
+    }
+  }, [])
+
   return (
     <DivProductListItem>
       <Link href="/product-page/[id].js" as={`/product-page/${id}`}>
@@ -29,7 +41,14 @@ export default function ProductListItem({ dataItem }) {
           <br />
           <h4>{title}</h4>
           <br />
-          <h4>{price}</h4>
+          <div>
+            <h4>{price}</h4>
+            {
+              isItemInCart
+              ? <div>In cart: {quantity}</div>
+              : null
+            }
+          </div>
         </a>
       </Link>
     </DivProductListItem>

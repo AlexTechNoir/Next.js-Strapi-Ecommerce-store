@@ -1,19 +1,25 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import Context from '../../context'
 import axios from 'axios'
 
-export default function AddToCart({ dataItem , chooseAmount, selectedAmount}) {
+export default function AddToCart({ dataItem }) {
   const { id, price, hasDiscount, inStock } = dataItem
+  const { refreshCart } = useContext(Context)
 
   const [ item, setItem ] = useState(dataItem)
   const [ isInCart, setIsInCart ] = useState(dataItem.isInCart)
+  const [ selectedAmount, setSelectedAmount ] = useState(1)
   
-  const updInStock = inStock - selectedAmount
   const updTotalPrice = price * selectedAmount
 
   let options = []
   
   for (let i = 1; i <= inStock; i++) {
     options.push(<option value={`${i}`}>{i}</option>)
+  }
+
+  const chooseAmount = () => {
+    setSelectedAmount(parseInt(document.getElementById("items").value))
   }
 
   const fetcher = () => {
@@ -36,27 +42,30 @@ export default function AddToCart({ dataItem , chooseAmount, selectedAmount}) {
 
   useEffect(() => {
     if (localStorage.getItem('cartList') === null) {
+      console.log('cartlist null')
       fetcher()
     } else if (localStorage.getItem('cartList') !== null) {
+      console.log('cartlist not null')
       const cartList = JSON.parse(localStorage.cartList)
       const cartListItem = cartList.find(cartListItem => cartListItem.id === id)
       if (cartListItem !== undefined) {
+        console.log('cartlist not null, item defined')
         setItem(cartListItem)
         setIsInCart(cartListItem.isInCart)
       } else if (cartListItem === undefined) {
+        console.log('cartlist not null, item undefined')
         fetcher()
       }
     }
   }, [])
 
-  const addToCart = (id, updInStock, selectedAmount, updTotalPrice) => {
+  const addToCart = (id, selectedAmount, updTotalPrice) => {
     fetch(`http://localhost:3000/api/cart/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
       body: JSON.stringify({
-        inStock: updInStock,
         amountInCart: selectedAmount,
         totalPrice: updTotalPrice
       })
@@ -69,42 +78,26 @@ export default function AddToCart({ dataItem , chooseAmount, selectedAmount}) {
         })
       }
       return r.json()
-    }).then(r => { 
-      if (localStorage.getItem('cartList') === null || JSON.parse(localStorage.cartList).length < 1) {
-        localStorage.setItem('cartList', JSON.stringify(r))
-        const cartList = JSON.parse(localStorage.cartList)
-        const cartListItem = cartList.find(cartListItem => cartListItem.id === id)
-        if (cartListItem !== undefined) {
-          setItem(cartListItem)
-          setIsInCart(cartListItem.isInCart)
-        } else if (cartListItem === undefined) {
-          fetcher()
-        }
-      } else if (localStorage.getItem('cartList') !== null) {
+    }).then(r => {
         const item = r[0]
         const cartList = JSON.parse(localStorage.cartList)
         cartList.push(item)
         localStorage.setItem('cartList', JSON.stringify(cartList))
+        refreshCart()
         const cartListItem = cartList.find(cartListItem => cartListItem.id === id)
-        if (cartListItem !== undefined) {
-          setItem(cartListItem)
-          setIsInCart(cartListItem.isInCart)
-          console.log(isInCart)
-        } else if (cartListItem === undefined) {
-          fetcher()
-        }
+        setItem(cartListItem)
+        setIsInCart(cartListItem.isInCart)
       }
-    })
+    )
   }
 
-  const cancelAdding = (id, inStock, amountInCart) => {
+  const cancelAdding = (id, amountInCart) => {
     fetch(`http://localhost:3000/api/cart/${id}?type=cancel`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
       body: JSON.stringify({
-        inStock: inStock,
         amountInCart: amountInCart
       })
     }).then(r => {
@@ -116,11 +109,12 @@ export default function AddToCart({ dataItem , chooseAmount, selectedAmount}) {
         })
       }
       return r.json()
-    }).then(r => { 
+    }).then(r => {
       const item = r[0]
       const cartList = JSON.parse(localStorage.cartList)
       const filteredCartList = cartList.filter(cartListItem => cartListItem.id !== parseInt(item.id))
       localStorage.setItem('cartList', JSON.stringify(filteredCartList))
+      refreshCart()
       setItem(item)
       setIsInCart(item.isInCart)
     })
@@ -136,9 +130,7 @@ export default function AddToCart({ dataItem , chooseAmount, selectedAmount}) {
                 <button 
                   type="button" 
                   className="btn btn-warning"
-                  onClick={() => {
-                    cancelAdding(id, inStock, item.amountInCart)
-                  }}
+                  onClick={() => cancelAdding(id, item.amountInCart)}
                 >
                   Added (cancel)
                 </button>
@@ -147,7 +139,7 @@ export default function AddToCart({ dataItem , chooseAmount, selectedAmount}) {
           : <div>
               <label htmlFor="items">
                 In stock:
-                <select id="items" onChange={chooseAmount}>
+                <select id="items" onChange={() => chooseAmount()}>
                   {options}
                 </select>
               </label>
@@ -155,9 +147,7 @@ export default function AddToCart({ dataItem , chooseAmount, selectedAmount}) {
                 <button 
                   type="button"
                   className="btn btn-warning" 
-                  onClick={() => {
-                    addToCart(id, updInStock, selectedAmount, updTotalPrice)
-                  }}
+                  onClick={() => addToCart(id, selectedAmount, updTotalPrice)}
                 >
                   Add to cart
                 </button>

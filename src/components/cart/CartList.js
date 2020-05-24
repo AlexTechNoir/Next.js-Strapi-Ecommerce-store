@@ -1,40 +1,48 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { DivCartList } from '../../styles'
+import Context from '../../context'
 
 import CartListItem from './CartListItem'
 
 export default function CartList({ cartList }) {
+  const { clearCart } = useContext(Context)
+
   return (
-    <React.Fragment>
-      <div className="d-flex flex-column justify-content-center mb-3">
+    <DivCartList>
+      <div>
         { 
-          !cartList
-          ? <div>Loading...</div>
-          : cartList.map(cartListItem => {
+          cartList.map(cartListItem => {
             return <CartListItem key={cartListItem.id} cartListItem={cartListItem} />
           })
         }
       </div>
-      <button type="button" className="btn btn-danger mb-5">Clear cart</button>
-      <div className="d-flex flex-column">
-        <h2 className="d-flex no-wrap">
+      <button 
+        type="button" 
+        className="btn btn-danger"
+        onClick={() => clearCart()}
+      >
+        Clear cart
+      </button>
+      <div>
+        <h2>
           Subtotal price:
-          <span className="d-flex no-wrap pl-2">                
+          <span>                
             0
           </span>
         </h2>
-        <h2 className="d-flex no-wrap">
+        <h2>
           Tax:
-          <span className="d-flex no-wrap pl-2">
+          <span>
             0
           </span>
         </h2>
-        <h1 className="d-flex no-wrap">
+        <h1>
           Total price:
-          <span className="d-flex no-wrap pl-2">  
+          <span>  
             0
           </span>
         </h1>
       </div>
-     </React.Fragment>
+     </DivCartList>
   )
 }

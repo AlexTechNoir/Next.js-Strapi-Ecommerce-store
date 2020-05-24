@@ -1,22 +1,14 @@
 
-import React, { useState, useEffect } from 'react'
+import React, { useContext } from 'react'
 import Head from 'next/head'
 import { DivCart } from '../styles'
+import Context from '../context'
 
 import Layout from '../components/Layout'
 import CartList from '../components/cart/CartList'
 
 export default function Cart() {
-  const [ cartList, setCartList ] = useState([])
-
-  useEffect(() => {
-    if (localStorage.getItem('cartList') === null) {
-      localStorage.setItem('cartList', JSON.stringify([]))
-      setCartList(JSON.parse(localStorage.cartList))
-    } else if (localStorage.getItem('cartList') !== null) {
-      setCartList(JSON.parse(localStorage.cartList))
-    }
-  }, [])
+  const { cartList } = useContext(Context)
 
   return (
     <React.Fragment>
@@ -24,12 +16,12 @@ export default function Cart() {
         <meta name="robots" content="noindex" />
       </Head>
       <Layout>
-        <DivCart className="w-100">
+        <DivCart>
           {
-            cartList.length < 1
-            ? <div className="d-flex justify-content-center">
-                <h2>Your shopping cart is empty</h2>
-              </div>
+            !cartList || cartList.length < 1
+            ? <h2>
+                <div>Your shopping cart is empty</div>
+              </h2>
             : <CartList cartList={cartList} />
           }
         </DivCart>

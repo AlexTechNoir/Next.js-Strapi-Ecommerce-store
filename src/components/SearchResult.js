@@ -1,5 +1,5 @@
   
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { DivSearchResult } from '../Styles'
 
@@ -13,9 +13,18 @@ export default function SearchResult({ result }) {
           isInCart, 
           amountInCart, 
           rating } = result
+
+    const [ isItemInCart, setIsItemInCart ] = useState(false)
+    const [ quantity, setQuantity ] = useState(0)
   
-  const [ inputValue, setInputValue ] = useState(0)
-  const [ isInfoVisible, setIsInfoVisible] = useState(false)
+    useEffect(() => {
+      const cartList = JSON.parse(localStorage.cartList)
+      const item = cartList.find(cartListItem => cartListItem.id === id)
+      if (item !== undefined) {
+        setIsItemInCart(item.isInCart)
+        setQuantity(item.amountInCart)
+      }
+    }, [])
 
   let productCategory
 
@@ -37,25 +46,6 @@ export default function SearchResult({ result }) {
         <a>Tablets</a>
       </Link>
     )
-  } 
-
-  function counter(e) {
-    if (e.target.name === "-" && inputValue > 0) {
-      setIsInfoVisible(false)
-      setInputValue(inputValue - 1)
-    } else if (e.target.name === "-" && inputValue <= 0) {
-      return null
-    } else if (e.target.name === "+") {
-      setIsInfoVisible(false)
-      setInputValue(inputValue + 1)
-    }
-  }
-
-  function showInfo(inputValue) {
-    if (inputValue >= 1) {
-      setIsInfoVisible(true)
-      setTimeout(() => setIsInfoVisible(false), 3000)
-    } else { return null }
   }
 
   return (
@@ -75,42 +65,12 @@ export default function SearchResult({ result }) {
         <h6>{productCategory}</h6>
       </div>
       <div>
-        <div>
-          <button
-            className="btn btn-outline-dark border-right-0 rounded-0"
-            type="button"
-            name="-"
-            onClick={counter}
-          >
-            {" "}-{" "}
-          </button>
-          <input
-            className="btn btn-outline-dark border-left-0 border-right-0 rounded-0"
-            type="text"
-            value={inputValue}
-            size="1"
-            readOnly
-          />
-          <button
-            className="btn btn-outline-dark border-left-0 rounded-0"
-            type="button"
-            name="+"
-            onClick={counter}
-          >
-            {" "}+{" "}
-          </button>
-        </div>
-        <button type="button" className="btn btn-warning" onClick={showInfo(inputValue)}>
-          Add to cart
-        </button>
-        <div className={isInfoVisible ? "visible" : "invisible"}>
-          +{inputValue} items added!
-        </div>
-      </div>
-      <div>
-        <h3>
-          {price}
-        </h3>
+        <h3>{price}</h3>
+        {
+          isItemInCart
+          ? <div>In cart: {quantity}</div>
+          : null
+        }
       </div>
     </DivSearchResult>
   )

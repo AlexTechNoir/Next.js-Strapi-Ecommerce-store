@@ -7,8 +7,35 @@ class ContextProvider extends App {
   constructor() {
     super()
     this.state = {
-      itemsPerPage: 8
+      itemsPerPage: 8,
+      cartList: []
     }
+
+    this.refreshCart = this.refreshCart.bind(this)
+    this.clearCart = this.clearCart.bind(this)
+  }
+
+  componentDidMount() {
+    if (localStorage.cartList === undefined) {
+      localStorage.setItem('cartList', JSON.stringify([]))
+    }
+    this.setState({
+      cartList: JSON.parse(localStorage.cartList)
+    })
+  }
+
+  refreshCart() {
+    this.setState({
+      cartList: JSON.parse(localStorage.cartList)
+    })
+  }
+
+  clearCart() {
+    localStorage.setItem('cartList', JSON.stringify([]))
+    this.setState({
+      cartList: JSON.parse(localStorage.cartList)
+    })
+    window.scrollTo(0,0)
   }
 
   render() {
@@ -16,7 +43,9 @@ class ContextProvider extends App {
 
     return (
       <Context.Provider value={{
-        ...this.state
+        ...this.state,
+        refreshCart: this.refreshCart,
+        clearCart: this.clearCart
       }}>
         <Component {...pageProps} />
       </Context.Provider>

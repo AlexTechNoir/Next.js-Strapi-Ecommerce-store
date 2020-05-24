@@ -33,7 +33,6 @@ export async function getStaticProps({ params }) {
 export default function ProductPage({ dataItem }) {
   const { title, category } = dataItem
 
-  const [ selectedAmount, setSelectedAmount ] = useState(1)
   const [ isReviewsTabVisible, setIsReviewsTabVisible ] = useState(true)
 
   let productCategory
@@ -56,10 +55,6 @@ export default function ProductPage({ dataItem }) {
         <a>Tablets</a>
       </Link>
     )
-  }  
-
-  const chooseAmount = () => {
-    setSelectedAmount(parseInt(document.getElementById("items").value))
   }
 
   const toggleTabs = e => {
@@ -89,11 +84,7 @@ export default function ProductPage({ dataItem }) {
           </nav>
           <ProductSlider dataItem={dataItem} />
           <ProductInfo dataItem={dataItem} />
-          <AddToCart 
-            dataItem={dataItem}
-            chooseAmount={chooseAmount} 
-            selectedAmount={selectedAmount}
-          />
+          <AddToCart dataItem={dataItem} />
           <ToggleButtons toggleTabs={toggleTabs} isReviewsTabVisible={isReviewsTabVisible} />
             {
               isReviewsTabVisible

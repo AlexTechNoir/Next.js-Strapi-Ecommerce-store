@@ -225,7 +225,7 @@ export const DivSales = styled.div`
   }
 `
 
-//Product.js
+//ProductListItem.js
 export const DivProductListItem = styled.div`
   height: 400px;
   width: 290px;
@@ -246,6 +246,17 @@ export const DivProductListItem = styled.div`
     }
     > img {
       align-self: center;
+    }
+    > :last-child {
+      display: flex;
+      justify-content: space-between;
+      > div {
+        background: #dc3545;
+        color: white;
+        margin: 0 1.5em 0 1.5em;
+        padding: .3em .5em .2em .5em;
+        border-radius: 5px;
+      }
     }
   }
 `
@@ -357,7 +368,7 @@ export const DivSearchResults = styled.div`
 export const DivSearchResult = styled.div`
   display: grid;
   grid-template-rows: auto auto;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto auto;
   border: 1px solid #dc3545;
   border-radius: 5px;
   background: #f8f9fa;
@@ -384,47 +395,60 @@ export const DivSearchResult = styled.div`
       color: #007bff;
     }
   }
-  > :nth-child(3) {
-    grid-area: 2 / 1 / 3 / 2;
-    align-self: center;
-    justify-self: center;
-    display: flex;
-    flex-direction: column;
-    > :first-child() {
-      display: flex;
-      margin-bottom: 2em;
-    }
-    > :nth-child(2) {
-      width: auto;
-    }
-    > :last-child {
-      display: inline-block;
-      width: auto;
-      margin-top: 7px;
-      background-color: rgba(248,80,50,1);
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 5px 0;
-      position: relative;
-      z-index: 1;
-    }
-  }
   > :last-child {
-    grid-area: 2 / 2 / 3 / 3;
-    align-self: start;
-    justify-self: end;
+    grid-area: 2 / 1 / 3 / 3;    
     display: flex;
-    flex-direction: column;
-    align-items: end;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 1em;
+    > h3 {
+      margin-bottom: 0;
+    }
+    > div {
+      background: #dc3545;
+      color: white;
+      margin: 0 1.5em 0 1.5em;
+      padding: .3em .5em .2em .5em;
+      border-radius: 5px;
+    }
   }
 `
 
 //cart.js
 export const DivCart = styled.div`
   grid-area: 2 / 2 / 3 / 3;
+  width: 100%;
   padding-left: 1em;
   padding-right: 1em;
+  > h2 {
+    display: flex;
+    justify-content: center;
+  }
+`
+
+//CartList.js
+export const DivCartList = styled.div`
+  width: 100%;
+  > :first-child {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 1.5em;
+  }
+  > :nth-child(2) {
+    margin-bottom: 2.5em;
+  }
+  > :last-child {
+    display: flex;
+    flex-direction: column;
+    > h1, h2 {
+      display: flex;
+      > span {
+        display: flex;
+        padding-left: 1em;
+      }
+    }
+  }
 `
 
 //CartListItem.js
@@ -434,6 +458,11 @@ export const DivCartListItem = styled.div`
   grid-template-rows: auto auto;
   grid-row-gap: 1rem;
   grid-column-gap: 1rem;
+  border-radius: 5px;
+  background: #f8f9fa;
+  margin-bottom: 1em;
+  padding: 1em;
+  border: 1px solid #dc3545;
   > :first-child {
     grid-area: 1 / 1 / 2 / 2;
   }
@@ -441,6 +470,9 @@ export const DivCartListItem = styled.div`
     grid-area: 1 / 2 / 2 / 5;
     > a, a:hover, a:focus {
       text-decoration: none;
+      > h5 {
+        color: #343a40;
+      }
     }
     > a:hover, a:focus {
       text-shadow: 2px 2px 20px;
@@ -449,10 +481,17 @@ export const DivCartListItem = styled.div`
   > :nth-child(3) {
     grid-area: 2 / 1 / 3 / 3;
     justify-self: start;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0;
   }
   > :nth-child(4) {
-    grid-area: 2 / 3 / 3 / 5;
-    justify-self: center;
+    grid-area: 2 / 2 / 3 / 6;
+    justify-self: start;
+    display: flex;
+    > :nth-child(2) {
+      margin-left: .2em;
+    }
   }
   > :last-child {
     grid-area: 1 / 5 / 2 / 6;
