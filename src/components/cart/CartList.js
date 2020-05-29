@@ -1,12 +1,9 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { DivCartList } from '../../styles'
-import Context from '../../context'
 
 import CartListItem from './CartListItem'
 
-export default function CartList({ cartList }) {
-  const { clearCart } = useContext(Context)
-
+export default function CartList({ cartList, clearCart }) {
   return (
     <DivCartList>
       <div>
@@ -43,6 +40,6 @@ export default function CartList({ cartList }) {
           </span>
         </h1>
       </div>
-     </DivCartList>
+    </DivCartList>
   )
 }

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
-import fetch from 'node-fetch'
 import { DivProductPage } from '../../styles'
 
 import Layout from '../../components/Layout'

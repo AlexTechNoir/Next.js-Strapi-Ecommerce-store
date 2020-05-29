@@ -1,7 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import fetch from 'node-fetch'
 import useSWR from 'swr'
 import { DivSearchResults } from '../../styles'
 

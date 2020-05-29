@@ -16,9 +16,10 @@ class ContextProvider extends App {
   }
 
   componentDidMount() {
-    if (localStorage.cartList === undefined) {
+    if (localStorage.getItem('cartList') === null) {
       localStorage.setItem('cartList', JSON.stringify([]))
     }
+    
     this.setState({
       cartList: JSON.parse(localStorage.cartList)
     })
@@ -29,7 +30,7 @@ class ContextProvider extends App {
       cartList: JSON.parse(localStorage.cartList)
     })
   }
-
+  
   clearCart() {
     localStorage.setItem('cartList', JSON.stringify([]))
     this.setState({

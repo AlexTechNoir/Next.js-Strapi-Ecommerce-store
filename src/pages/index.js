@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
-import fetch from 'node-fetch'
 import useSWR from 'swr'
 import { DivIndex } from '../styles'
 

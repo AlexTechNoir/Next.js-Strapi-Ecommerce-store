@@ -2,7 +2,6 @@ import { data, mobile_phones, laptops, tablets } from '../../data'
 
 export default (req, res) => {
   const id = parseInt(req.query.id)
-
   const page = req.query.page
   const limit = req.query.limit
 
@@ -31,6 +30,20 @@ export default (req, res) => {
   } else if (req.query.category === 'object') {
     const result = data.find(dataItem => dataItem.id === id)
     res.status(200).json(result)
+  } else if (req.method === 'PATCH') {
+    const reviewedItem = data[id].reviews.find(i => i.id === id)
+    if (reviewedItem !== undefined) {
+      reviewedItem = req.body
+    }
+    data[id].reviews.push(req.body)
+    const itemReview = {
+      user: req.body.user,
+      review: req.body.review
+    }
+    res.status(200).json(itemReview)
+  } else if (req.method === 'DELETE') {
+    const reviewedItem = data[id].reviews.find(i => i.id === id)
+    reviewedItem.filter(i => i.user !== req.query.user)
   } else {
     res.status(200).json(data)
   }

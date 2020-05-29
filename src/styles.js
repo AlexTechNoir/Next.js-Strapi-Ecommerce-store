@@ -323,38 +323,86 @@ export const DivProductPage = styled.div`
     }
   }
   > :nth-child(6) {
-    background: #f8f9fa;
     display: flex;
     flex-direction: column;
     width: 100%;
-    > .wrapper {
-      width: 100%;
-      .colorPickerPopup {
-        top: 23px;
-      }
-      .linkPopup {
-        left: -42px;
-        top: 23px;
-        height: 233px;
-      }
-      .emojiPopup {
-        top: 23px;
-        left: -148px;
-      }
-      .embeddedPopup {
-        top: 23px;
-        left: -111px;
-      }
-      .imagePopup {
-        top: 23px;
-        left: -186px;
-      }
-      > .editor {        
+    background: #fff; 
+    > :first-child {
+      background: #f8f9fa;      
+      > .wrapper {
         width: 100%;
-        padding: 0 1em 0 1em;
+        .colorPickerPopup {
+          top: 23px;
+        }
+        .linkPopup {
+          left: -42px;
+          top: 23px;
+          height: 233px;
+        }
+        .emojiPopup {
+          top: 23px;
+          left: -148px;
+        }
+        .embeddedPopup {
+          top: 23px;
+          left: -111px;
+        }
+        .imagePopup {
+          top: 23px;
+          left: -186px;
+        }
+        > .editor {        
+          width: 100%;
+          padding: 0 1em 0 1em;
+          border-bottom: 1px solid #F1F1F1;
+        }
+      }
+    }
+    > .post-button {
+      align-self: flex-start;
+      margin: 1em 0 0 1em;
+    }
+    > .note {
+      align-self: center;
+      margin-top: 1em;
+    }
+    > .review {
+      padding: 1em;
+      margin-bottom: 1em;
+      > :first-child {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: .5em;
+        > :first-child {
+          display: flex;        
+          align-items: flex-end; 
+          > img {
+            margin-right: .5em;
+          }
+          > :nth-child(2) {
+            margin-right: .5em;         
+          }
+          > :last-child {
+            cursor: pointer;
+            &:hover {
+              opacity: 0.6;
+            } 
+          }
+        } 
+      }
+      > .wrapper {
+        border: 1px solid black;
+        border-radius: 5px;
+        width: 100%;
+      }
+      > :last-child {
+        display: flex;
       }
     }
   }
+
+
 `
 
 //search/[value].js

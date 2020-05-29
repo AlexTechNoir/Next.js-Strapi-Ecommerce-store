@@ -8,7 +8,7 @@ import Layout from '../components/Layout'
 import CartList from '../components/cart/CartList'
 
 export default function Cart() {
-  const { cartList } = useContext(Context)
+  const { cartList, clearCart } = useContext(Context)
 
   return (
     <React.Fragment>
@@ -22,7 +22,7 @@ export default function Cart() {
             ? <h2>
                 <div>Your shopping cart is empty</div>
               </h2>
-            : <CartList cartList={cartList} />
+            : <CartList cartList={cartList} clearCart={clearCart} />
           }
         </DivCart>
       </Layout>

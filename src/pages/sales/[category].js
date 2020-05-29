@@ -1,6 +1,5 @@
 import React from 'react'
 import Head from 'next/head'
-import fetch from 'node-fetch'
 import { DivSales } from '../../Styles'
 
 import Layout from '../../components/Layout'

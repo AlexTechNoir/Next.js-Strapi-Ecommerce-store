@@ -42,18 +42,14 @@ export default function AddToCart({ dataItem }) {
 
   useEffect(() => {
     if (localStorage.getItem('cartList') === null) {
-      console.log('cartlist null')
       fetcher()
     } else if (localStorage.getItem('cartList') !== null) {
-      console.log('cartlist not null')
       const cartList = JSON.parse(localStorage.cartList)
       const cartListItem = cartList.find(cartListItem => cartListItem.id === id)
       if (cartListItem !== undefined) {
-        console.log('cartlist not null, item defined')
         setItem(cartListItem)
         setIsInCart(cartListItem.isInCart)
       } else if (cartListItem === undefined) {
-        console.log('cartlist not null, item undefined')
         fetcher()
       }
     }
