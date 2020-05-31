@@ -486,7 +486,7 @@ export const DivCartList = styled.div`
   > :nth-child(2) {
     margin-bottom: 2.5em;
   }
-  > :last-child {
+  > :nth-child(3) {
     display: flex;
     flex-direction: column;
     > h1, h2 {

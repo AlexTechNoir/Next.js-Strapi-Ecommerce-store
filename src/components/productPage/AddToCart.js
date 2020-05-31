@@ -4,7 +4,7 @@ import axios from 'axios'
 
 export default function AddToCart({ dataItem }) {
   const { id, price, hasDiscount, inStock } = dataItem
-  const { refreshCart } = useContext(Context)
+  const { refreshCart, evaluateTotalPrice } = useContext(Context)
 
   const [ item, setItem ] = useState(dataItem)
   const [ isInCart, setIsInCart ] = useState(dataItem.isInCart)
@@ -83,6 +83,8 @@ export default function AddToCart({ dataItem }) {
         const cartListItem = cartList.find(cartListItem => cartListItem.id === id)
         setItem(cartListItem)
         setIsInCart(cartListItem.isInCart)
+
+        evaluateTotalPrice()
       }
     )
   }

@@ -20,6 +20,11 @@ class MyDocument extends Document {
           {/* Facebook Comments Plugin */}
           <div id="fb-root"></div>
           <script async defer crossOrigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v7.0&appId=660669431380946"></script>
+
+          {/* PayPal Checkout */}
+          <script src="https://www.paypal.com/sdk/js?client-id=Adrrm9v8CMsKKDnZ4csRq6wdZ245iCGET2k9RiE78vTgtVewM1Cl6MDcwonotjEgmv27vc4733phc21X&currency=USD"></script>
+          {/* <script src="https://www.paypalobjects.com/api/checkout.js" data-version-4 data-namespace="paypal_sdk"></script> */}
+
           <Main />
           <NextScript />
         </body>

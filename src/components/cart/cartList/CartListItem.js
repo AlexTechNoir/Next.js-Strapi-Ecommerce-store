@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import Link from 'next/link'
-import { DivCartListItem } from '../../styles'
-import Context from '../../context'
+import { DivCartListItem } from '../../../styles'
+import Context from '../../../context'
 
 export default function CartListItem({ cartListItem }) {
   const { id,
@@ -13,7 +13,7 @@ export default function CartListItem({ cartListItem }) {
           inStock,
           totalPrice } = cartListItem
   
-  const { refreshCart } = useContext(Context)
+  const { refreshCart, evaluateTotalPrice } = useContext(Context)
 
   const [ currentTotalPrice, setCurrentTotalPrice ] = useState(totalPrice)
 
@@ -55,7 +55,9 @@ export default function CartListItem({ cartListItem }) {
       const changedCartList = storageCartList.map(obj => r.find(o => o.id === obj.id) || obj)
       setCurrentTotalPrice(r[0].totalPrice)
       localStorage.setItem('cartList', JSON.stringify(changedCartList))
+
       refreshCart()
+      evaluateTotalPrice()
     })
   }
 
@@ -79,6 +81,8 @@ export default function CartListItem({ cartListItem }) {
       const changedCartList = storageCartList.filter(obj => obj.id !== r[0].id)
       localStorage.setItem('cartList', JSON.stringify(changedCartList))
       refreshCart()
+
+      evaluateTotalPrice()
     })
   }
 

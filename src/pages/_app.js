@@ -8,11 +8,13 @@ class ContextProvider extends App {
     super()
     this.state = {
       itemsPerPage: 8,
-      cartList: []
+      cartList: [],
+      cartSubTotalPrice: 0
     }
 
     this.refreshCart = this.refreshCart.bind(this)
     this.clearCart = this.clearCart.bind(this)
+    this.evaluateTotalPrice = this.evaluateTotalPrice.bind(this)
   }
 
   componentDidMount() {
@@ -22,7 +24,9 @@ class ContextProvider extends App {
     
     this.setState({
       cartList: JSON.parse(localStorage.cartList)
-    })
+    })    
+
+    this.evaluateTotalPrice()
   }
 
   refreshCart() {
@@ -39,6 +43,24 @@ class ContextProvider extends App {
     window.scrollTo(0,0)
   }
 
+  evaluateTotalPrice() {
+    const cartList = JSON.parse(localStorage.cartList)
+
+    if (cartList.length === 0) {
+      this.setState({
+        cartSubTotalPrice: 0
+      })
+    } else if (cartList.length === 1) {
+      this.setState({
+        cartSubTotalPrice: cartList[0].totalPrice
+      })
+    } else {
+      this.setState({
+        cartSubTotalPrice: cartList.reduce((acc, cur) => acc + cur.totalPrice, 0)
+      })
+    }
+  }
+
   render() {
     const { Component, pageProps } = this.props
 
@@ -46,7 +68,8 @@ class ContextProvider extends App {
       <Context.Provider value={{
         ...this.state,
         refreshCart: this.refreshCart,
-        clearCart: this.clearCart
+        clearCart: this.clearCart,
+        evaluateTotalPrice: this.evaluateTotalPrice
       }}>
         <Component {...pageProps} />
       </Context.Provider>

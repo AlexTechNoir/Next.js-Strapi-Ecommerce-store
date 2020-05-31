@@ -1,9 +1,13 @@
 import React from 'react'
 import { DivCartList } from '../../styles'
 
-import CartListItem from './CartListItem'
+import CartListItem from './cartList/CartListItem'
+import PayPalCheckoutButton from './cartList/PayPalCheckoutButton'
 
-export default function CartList({ cartList, clearCart }) {
+export default function CartList({ cartList, clearCart, cartSubTotalPrice }) {
+  const tax = cartSubTotalPrice * 0.1
+  const cartTotalPrice = tax + cartSubTotalPrice
+
   return (
     <DivCartList>
       <div>
@@ -22,24 +26,16 @@ export default function CartList({ cartList, clearCart }) {
       </button>
       <div>
         <h2>
-          Subtotal price:
-          <span>                
-            0
-          </span>
+          Subtotal price: {cartSubTotalPrice}
         </h2>
         <h2>
-          Tax:
-          <span>
-            0
-          </span>
+          Tax: {tax}
         </h2>
         <h1>
-          Total price:
-          <span>  
-            0
-          </span>
+          Total price: {cartTotalPrice}
         </h1>
       </div>
+      <PayPalCheckoutButton cartTotalPrice={cartTotalPrice} clearCart={clearCart} />
     </DivCartList>
   )
 }
