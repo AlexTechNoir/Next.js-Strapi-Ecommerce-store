@@ -22,8 +22,10 @@ class MyDocument extends Document {
           <script async defer crossOrigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v7.0&appId=660669431380946"></script>
 
           {/* PayPal Checkout */}
-          <script src="https://www.paypal.com/sdk/js?client-id=Adrrm9v8CMsKKDnZ4csRq6wdZ245iCGET2k9RiE78vTgtVewM1Cl6MDcwonotjEgmv27vc4733phc21X&currency=USD"></script>
-          {/* <script src="https://www.paypalobjects.com/api/checkout.js" data-version-4 data-namespace="paypal_sdk"></script> */}
+          <script async src="https://www.paypal.com/sdk/js?client-id=Adrrm9v8CMsKKDnZ4csRq6wdZ245iCGET2k9RiE78vTgtVewM1Cl6MDcwonotjEgmv27vc4733phc21X&currency=USD"></script>
+
+          {/* Formik */}
+          <script async src="https://unpkg.com/formik/dist/formik.umd.production.js"></script>
 
           <Main />
           <NextScript />

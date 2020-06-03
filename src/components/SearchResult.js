@@ -4,15 +4,17 @@ import Link from 'next/link'
 import { DivSearchResult } from '../Styles'
 
 export default function SearchResult({ result }) {
-  const { id, 
-          title, 
-          category,
-          price, 
-          hasDiscount,
-          discount,
-          isInCart, 
-          amountInCart, 
-          rating } = result
+  const {
+    id,
+    title,
+    category,
+    price,
+    hasDiscount,
+    discount,
+    isInCart,
+    amountInCart,
+    rating
+  } = result
 
     const [ isItemInCart, setIsItemInCart ] = useState(false)
     const [ quantity, setQuantity ] = useState(0)

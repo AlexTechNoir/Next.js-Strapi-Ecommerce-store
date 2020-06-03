@@ -7,7 +7,7 @@ import Search from './header/Search'
 import CartButton from './header/CartButton'
 import AuthButtons from './header/AuthButtons'
 
-export default function Header() {
+export default function Header({ handleVisibility }) {
   return (
     <StyledHeader>
       <Logo />
@@ -15,7 +15,7 @@ export default function Header() {
       <Search />
       <div>
         <CartButton />
-        <AuthButtons />
+        <AuthButtons handleVisibility={handleVisibility} />
       </div>
     </StyledHeader>
   )
