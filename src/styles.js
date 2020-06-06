@@ -636,18 +636,20 @@ export const DivCartListItem = styled.div`
     }
   }
   > :nth-child(3) {
-    grid-area: 2 / 1 / 3 / 3;
+    grid-area: 2 / 1 / 3 / 6;
     justify-self: start;
     display: flex;
-    align-items: flex-start;
-    margin-bottom: 0;
-  }
-  > :nth-child(4) {
-    grid-area: 2 / 2 / 3 / 6;
-    justify-self: start;
-    display: flex;
-    > :nth-child(2) {
-      margin-left: .2em;
+    flex-direction: column;
+    > h6 {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 0;
+    }
+    > h5 {
+      display: flex;
+      > :nth-child(2) {
+        margin-left: .2em;
+      }
     }
   }
   > :last-child {
@@ -699,7 +701,6 @@ export const StyledFooter = styled.footer`
     padding: 0;
     > a {
       color: #ffc107;
-
       &:hover {
         color: #ba8b00;
       }
@@ -721,13 +722,6 @@ export const StyledFooter = styled.footer`
       }
     }
     > :first-child {
-      background: #28a745;
-      > select {
-        background: #28a745;
-        border: 1px solid #28a745;
-      }
-    }
-    > :nth-child(2) {
       background: #17a2b8;
       > select {
         background: #17a2b8;

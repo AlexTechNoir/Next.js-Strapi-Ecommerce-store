@@ -4,16 +4,19 @@ import { DivCartListItem } from '../../../styles'
 import Context from '../../../context'
 
 export default function CartListItem({ cartListItem }) {
-  const { id,
-          title, 
-          company,
-          amountInCart,
-          price,
-          hasDiscount,
-          inStock,
-          totalPrice } = cartListItem
+  const {
+    id,
+    title,
+    company,
+    amountInCart,
+    price,
+    hasDiscount,
+    discount,
+    inStock,
+    totalPrice,
+  } = cartListItem
   
-  const { refreshCart, evaluateTotalPrice } = useContext(Context)
+  const { fetchedRates, currency, refreshCart, evaluateTotalPrice } = useContext(Context)
 
   const [ currentTotalPrice, setCurrentTotalPrice ] = useState(totalPrice)
 
@@ -27,6 +30,22 @@ export default function CartListItem({ cartListItem }) {
     const select = document.getElementById(`itemsOf${id}`)
     select.options[amountInCart - 1].setAttribute('selected', true)
   }, [])
+
+  let currencyRate = 1
+  
+  if (currency === '$') {
+    currencyRate = fetchedRates.USD
+  } else if (currency === '₽') {
+    currencyRate = fetchedRates.RUB
+  } else if (currency === 'Ch¥') {
+    currencyRate = fetchedRates.CNY
+  } else if (currency === 'Jp¥') {
+    currencyRate = fetchedRates.JPY
+  } else if (currency === '₩') {
+    currencyRate = fetchedRates.KRW
+  } else if (currency === '₹') {
+    currencyRate = fetchedRates.INR
+  }
 
   const editAmount = async (id, price) => {
     const selectedAmount = document.getElementById(`itemsOf${id}`).value
@@ -104,20 +123,37 @@ export default function CartListItem({ cartListItem }) {
           Company: {company}
         </h6>
       </div>
-      <h6>
-        <label htmlFor={`itemsOf${id}`}>
-          Quantity:
-          <select id={`itemsOf${id}`} onChange={() => editAmount(id, price)}>
-            {options}
-          </select>
-        </label>
-      </h6>
-      <h5>
-        <span>Total price:</span>
-        <span>
-          {currentTotalPrice}
-        </span>
-      </h5>
+      <div>
+        <h6>
+          <label htmlFor={`itemsOf${id}`}>
+            Quantity:
+            <select id={`itemsOf${id}`} onChange={() => editAmount(id, price)}>
+              {options}
+            </select>
+          </label>
+        </h6>
+        <h5>
+          <span>Total price:</span>
+          {
+            !hasDiscount
+            ? <span className="d-flex no-wrap">
+                <span className="align-self-end">{currency}</span>&nbsp;
+                <span className="align-self-end">{(parseFloat(currentTotalPrice * currencyRate)).toFixed(2)}</span>
+              </span>
+            : <span className="d-flex flex-column">
+                <s className="d-flex no-wrap">
+                  <span>{currency}</span>&nbsp;
+                  <span>{(parseFloat(currentTotalPrice * currencyRate)).toFixed(2)}</span>
+                </s>
+                <span className="d-flex no-wrap text-danger">
+                  <span>{currency}</span>&nbsp;
+                  <span>{(parseFloat((currentTotalPrice * currencyRate) * discount)).toFixed(2)}</span>
+                </span>
+              </span>
+          }
+        </h5>
+      </div>
+
       <button
         type="button"
         className="close text-danger d-inline-block"

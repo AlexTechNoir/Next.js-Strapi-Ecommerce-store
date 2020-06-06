@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Link from 'next/link'
+import Context from '../context'
 import { DivProductListItem } from '../styles'
 
 export default function ProductListItem({ dataItem }) {
@@ -11,10 +12,10 @@ export default function ProductListItem({ dataItem }) {
     price,
     hasDiscount,
     discount,
-    isInCart,
-    amountInCart,
     rating,
   } = dataItem
+
+  const { fetchedRates, currency } = useContext(Context)
 
   const [ isItemInCart, setIsItemInCart ] = useState(false)
   const [ quantity, setQuantity ] = useState(0)
@@ -27,6 +28,22 @@ export default function ProductListItem({ dataItem }) {
       setQuantity(item.amountInCart)
     }
   }, [])
+
+  let currencyRate = 1
+  
+  if (currency === '$') {
+    currencyRate = fetchedRates.USD
+  } else if (currency === '₽') {
+    currencyRate = fetchedRates.RUB
+  } else if (currency === 'Ch¥') {
+    currencyRate = fetchedRates.CNY
+  } else if (currency === 'Jp¥') {
+    currencyRate = fetchedRates.JPY
+  } else if (currency === '₩') {
+    currencyRate = fetchedRates.KRW
+  } else if (currency === '₹') {
+    currencyRate = fetchedRates.INR
+  }
 
   return (
     <DivProductListItem>
@@ -42,7 +59,25 @@ export default function ProductListItem({ dataItem }) {
           <h4>{title}</h4>
           <br />
           <div>
-            <h4>{price}</h4>
+            <h4>
+              {
+                !hasDiscount
+                ? <span className="d-flex no-wrap">
+                    <span>{currency}</span>&nbsp;
+                    <span>{(parseFloat(price * currencyRate)).toFixed(2)}</span>
+                  </span>
+                : <span className="d-flex flex-column">
+                    <s className="d-flex no-wrap">
+                      <span>{currency}</span>&nbsp;
+                      <span>{(parseFloat(price * currencyRate)).toFixed(2)}</span>
+                    </s>
+                    <span className="d-flex no-wrap text-danger">
+                      <span>{currency}</span>&nbsp;
+                      <span>{(parseFloat((price * currencyRate) * discount)).toFixed(2)}</span>
+                    </span>
+                  </span>
+              }
+            </h4>
             {
               isItemInCart
               ? <div>In cart: {quantity}</div>

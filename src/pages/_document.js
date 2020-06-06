@@ -24,9 +24,6 @@ class MyDocument extends Document {
           {/* PayPal Checkout */}
           <script async src="https://www.paypal.com/sdk/js?client-id=Adrrm9v8CMsKKDnZ4csRq6wdZ245iCGET2k9RiE78vTgtVewM1Cl6MDcwonotjEgmv27vc4733phc21X&currency=USD"></script>
 
-          {/* Formik */}
-          <script async src="https://unpkg.com/formik/dist/formik.umd.production.js"></script>
-
           <Main />
           <NextScript />
         </body>

@@ -9,22 +9,43 @@ class ContextProvider extends App {
     this.state = {
       itemsPerPage: 8,
       cartList: [],
-      cartSubTotalPrice: 0
+      cartSubTotalPrice: 0,
+      fetchedRates: {},
+      currency: '€'
     }
 
     this.refreshCart = this.refreshCart.bind(this)
     this.clearCart = this.clearCart.bind(this)
     this.evaluateTotalPrice = this.evaluateTotalPrice.bind(this)
+    this.refreshCurrency = this.refreshCurrency.bind(this)
   }
 
   componentDidMount() {
     if (localStorage.getItem('cartList') === null) {
       localStorage.setItem('cartList', JSON.stringify([]))
     }
-    
-    this.setState({
-      cartList: JSON.parse(localStorage.cartList)
-    })    
+
+    if (localStorage.getItem('currency') === null) {
+      localStorage.setItem('currency', JSON.stringify('€'))
+    }
+
+    fetch('https://api.exchangeratesapi.io/latest')
+      .then(r => {
+        if (r.status >= 400) {
+          return r.json().then(errResData => {
+            const err = new Error('Error.')
+            err.data = errResData
+            throw err
+          })
+        }
+        return r.json()
+      }).then(r => {  
+        this.setState({
+          cartList: JSON.parse(localStorage.cartList),
+          fetchedRates: r.rates,
+          currency: JSON.parse(localStorage.currency)
+        }) 
+      })
 
     this.evaluateTotalPrice()
   }
@@ -51,14 +72,22 @@ class ContextProvider extends App {
         cartSubTotalPrice: 0
       })
     } else if (cartList.length === 1) {
+      const cartSubTotalPrice = (cartList[0].totalPrice * cartList[0].discount).toFixed(2)
       this.setState({
-        cartSubTotalPrice: cartList[0].totalPrice
+        cartSubTotalPrice: cartSubTotalPrice
       })
     } else {
+      const cartSubTotalPrice = cartList.reduce((acc, cur) => acc + (cur.totalPrice * cur.discount), 0)
       this.setState({
-        cartSubTotalPrice: cartList.reduce((acc, cur) => acc + cur.totalPrice, 0)
+        cartSubTotalPrice: cartSubTotalPrice
       })
     }
+  }
+
+  refreshCurrency() {
+    this.setState({
+      currency: JSON.parse(localStorage.currency)
+    })
   }
 
   render() {
@@ -69,7 +98,8 @@ class ContextProvider extends App {
         ...this.state,
         refreshCart: this.refreshCart,
         clearCart: this.clearCart,
-        evaluateTotalPrice: this.evaluateTotalPrice
+        evaluateTotalPrice: this.evaluateTotalPrice,
+        refreshCurrency: this.refreshCurrency
       }}>
         <Component {...pageProps} />
       </Context.Provider>

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 
-export default function PayPalCheckoutButton({ cartTotalPrice, clearCart }) {
+export default function PayPalCheckoutButton({ totalPrice, clearCart }) {
   useEffect(() => { 
     paypal.Buttons({
       env: 'sandbox',
@@ -13,8 +13,8 @@ export default function PayPalCheckoutButton({ cartTotalPrice, clearCart }) {
           purchase_units: [{
             description: 'desc',
             amount: {
-              value: cartTotalPrice,
-              currency: 'USD'
+              value: totalPrice,
+              currency: 'EUR'
             }
           }]
         })
@@ -26,7 +26,6 @@ export default function PayPalCheckoutButton({ cartTotalPrice, clearCart }) {
       }),
       onCancel: data => console.log('The payment was cancelled!'),
       onError: err => console.error(err),
-      locale: 'en_US',
       style: {
         layout:  'vertical',
         color:  'gold',
