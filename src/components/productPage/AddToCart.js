@@ -136,7 +136,7 @@ export default function AddToCart({ dataItem }) {
             </div>
           : <div>
               <label htmlFor="items">
-                In stock:
+                In stock:&nbsp;
                 <select id="items" onChange={() => chooseAmount()}>
                   {options}
                 </select>

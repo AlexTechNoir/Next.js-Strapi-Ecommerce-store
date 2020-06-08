@@ -11,16 +11,18 @@ class ContextProvider extends App {
       cartList: [],
       cartSubTotalPrice: 0,
       fetchedRates: {},
-      currency: '€'
+      currency: '€',
+      ratings: []
     }
 
     this.refreshCart = this.refreshCart.bind(this)
     this.clearCart = this.clearCart.bind(this)
     this.evaluateTotalPrice = this.evaluateTotalPrice.bind(this)
     this.refreshCurrency = this.refreshCurrency.bind(this)
+    this.refreshRatings = this.refreshRatings.bind(this)
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     if (localStorage.getItem('cartList') === null) {
       localStorage.setItem('cartList', JSON.stringify([]))
     }
@@ -29,7 +31,11 @@ class ContextProvider extends App {
       localStorage.setItem('currency', JSON.stringify('€'))
     }
 
-    fetch('https://api.exchangeratesapi.io/latest')
+    if (localStorage.getItem('ratings') === null) {
+      localStorage.setItem('ratings', JSON.stringify([]))
+    }
+
+    await fetch('https://api.exchangeratesapi.io/latest')
       .then(r => {
         if (r.status >= 400) {
           return r.json().then(errResData => {
@@ -43,7 +49,8 @@ class ContextProvider extends App {
         this.setState({
           cartList: JSON.parse(localStorage.cartList),
           fetchedRates: r.rates,
-          currency: JSON.parse(localStorage.currency)
+          currency: JSON.parse(localStorage.currency),
+          ratings: JSON.parse(localStorage.ratings)
         }) 
       })
 
@@ -90,6 +97,13 @@ class ContextProvider extends App {
     })
   }
 
+  refreshRatings() {
+    console.log(2)
+    this.setState({
+      ratings: JSON.parse(localStorage.ratings)
+    })
+  }
+
   render() {
     const { Component, pageProps } = this.props
 
@@ -99,7 +113,8 @@ class ContextProvider extends App {
         refreshCart: this.refreshCart,
         clearCart: this.clearCart,
         evaluateTotalPrice: this.evaluateTotalPrice,
-        refreshCurrency: this.refreshCurrency
+        refreshCurrency: this.refreshCurrency,
+        refreshRatings: this.refreshRatings
       }}>
         <Component {...pageProps} />
       </Context.Provider>

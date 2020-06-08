@@ -126,7 +126,7 @@ export default function CartListItem({ cartListItem }) {
       <div>
         <h6>
           <label htmlFor={`itemsOf${id}`}>
-            Quantity:
+            Quantity:&nbsp;
             <select id={`itemsOf${id}`} onChange={() => editAmount(id, price)}>
               {options}
             </select>
@@ -153,7 +153,6 @@ export default function CartListItem({ cartListItem }) {
           }
         </h5>
       </div>
-
       <button
         type="button"
         className="close text-danger d-inline-block"

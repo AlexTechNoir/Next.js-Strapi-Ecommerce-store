@@ -1,8 +1,11 @@
-  
 import React, { useState, useEffect, useContext } from 'react'
 import Link from 'next/link'
 import Context from '../context'
 import { DivSearchResult } from '../Styles'
+import Rating from 'react-rating'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar } from '@fortawesome/free-regular-svg-icons'
+import { faStar as faStarFull } from '@fortawesome/free-solid-svg-icons'
 
 export default function SearchResult({ result }) {
   const {
@@ -13,14 +16,14 @@ export default function SearchResult({ result }) {
     hasDiscount,
     discount,
     isInCart,
-    amountInCart,
-    rating
+    amountInCart
   } = result
 
   const { fetchedRates, currency } = useContext(Context)
 
   const [ isItemInCart, setIsItemInCart ] = useState(false)
   const [ quantity, setQuantity ] = useState(0)
+  const [ rating, setRating ] = useState(0)
 
   useEffect(() => {
     const cartList = JSON.parse(localStorage.cartList)
@@ -28,6 +31,12 @@ export default function SearchResult({ result }) {
     if (item !== undefined) {
       setIsItemInCart(item.isInCart)
       setQuantity(item.amountInCart)
+    }
+
+    const ratings = JSON.parse(localStorage.ratings)
+    const itemRating = ratings.find(i => i.id === id)
+    if (itemRating !== undefined) {
+      setRating(itemRating.rating)
     }
   }, [])
 
@@ -84,6 +93,13 @@ export default function SearchResult({ result }) {
           </a>
         </Link>
         <h6>{productCategory}</h6>
+        <Rating 
+          fractions={2}
+          emptySymbol={<FontAwesomeIcon icon={faStar} width="1em" />}
+          fullSymbol={<FontAwesomeIcon icon={faStarFull} width="1em" />}
+          initialRating={rating}
+          readonly={true}
+        />
       </div>
       <div>
         <h4>

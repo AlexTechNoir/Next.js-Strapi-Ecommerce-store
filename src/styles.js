@@ -356,6 +356,11 @@ export const DivProductListItem = styled.div`
     > img {
       align-self: center;
     }
+    > span > span > :last-child {
+      color: yellow;
+      stroke: black;
+      stroke-width: 30;
+    }
     > :last-child {
       display: flex;
       justify-content: space-between;
@@ -398,6 +403,11 @@ export const DivProductPage = styled.div`
     margin-top: 5rem;
     padding-left: 1rem;
     padding-right: 1rem;
+    > span > span > :last-child {
+      color: yellow;
+      stroke: black;
+      stroke-width: 25;
+    }
   }
   > :nth-child(4) {
     display: flex;
@@ -550,6 +560,11 @@ export const DivSearchResult = styled.div`
     }
     > h6 {
       color: #007bff;
+    }
+    > span > span > :last-child {
+      color: yellow;
+      stroke: black;
+      stroke-width: 25;
     }
   }
   > :last-child {
