@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
 import Context from '../../context'
-import axios from 'axios'
 
 export default function AddToCart({ dataItem }) {
   const { id, price, hasDiscount, inStock } = dataItem
@@ -23,7 +22,7 @@ export default function AddToCart({ dataItem }) {
   }
 
   const fetcher = () => {
-    axios(`http://localhost:3000/api/data?category=object&id=${id}`)
+    fetch(`http://localhost:3000/api/data?category=object&id=${id}`)      
       .then(r => {
         if (r.status >= 400) {
           return r.then(errResData => {
@@ -32,6 +31,9 @@ export default function AddToCart({ dataItem }) {
             throw err
           })
         }
+        return r.json()
+      })
+      .then(r => {
         setItem(r.data)
         setIsInCart(r.data.isInCart)
       })
