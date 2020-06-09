@@ -14,7 +14,7 @@ class MyDocument extends Document {
           <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"></link>
 
           {/* React Responsive Carousel Styles */}
-          <link rel="stylesheet" href="carousel.css" /> 
+          <link rel="stylesheet" href="carousel.css" />
         </Head>
         <body>
           {/* Facebook Comments Plugin */}

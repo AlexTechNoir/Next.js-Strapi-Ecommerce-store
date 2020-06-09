@@ -101,6 +101,16 @@ export default function SearchResult({ result }) {
           readonly={true}
         />
       </div>
+      <div className={isItemInCart ? "bg-danger text-white p-1 rounded" : null}>
+        <span>In cart:</span>&nbsp;
+        <span>
+          {
+            isItemInCart
+            ? quantity
+            : 0
+          }
+        </span>
+      </div>
       <div>
         <h4>
           {
@@ -121,11 +131,6 @@ export default function SearchResult({ result }) {
               </span>
           }
         </h4>
-        {
-          isItemInCart
-          ? <div>In cart: {quantity}</div>
-          : null
-        }
       </div>
     </DivSearchResult>
   )

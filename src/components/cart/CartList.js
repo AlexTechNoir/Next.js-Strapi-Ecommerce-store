@@ -43,13 +43,16 @@ export default function CartList({ cartList, clearCart, cartSubTotalPrice, fetch
       </button>
       <div>
         <h2>
-          Subtotal price: {currency} {subTotal}
+          <span>Subtotal price:</span>&nbsp;
+          <b>{currency} {subTotal}</b>
         </h2>
         <h2>
-          Tax: {currency} {tax}
+          <span>Tax:</span>&nbsp;
+          <b>{currency} {tax}</b>
         </h2>
         <h1>
-          Total price: {currency} {totalPrice}
+          <span>Total price:</span>&nbsp;
+          <b>{currency} {totalPrice}</b>
         </h1>
       </div>
       <PayPalCheckoutButton currency={currency} totalPrice={totalPrice} clearCart={clearCart} />

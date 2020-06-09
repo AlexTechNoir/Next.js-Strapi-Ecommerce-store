@@ -124,35 +124,33 @@ export default function CartListItem({ cartListItem }) {
         </h6>
       </div>
       <div>
-        <h6>
-          <label htmlFor={`itemsOf${id}`}>
-            Quantity:&nbsp;
-            <select id={`itemsOf${id}`} onChange={() => editAmount(id, price)}>
-              {options}
-            </select>
-          </label>
-        </h6>
-        <h5>
-          <span>Total price:</span>
-          {
-            !hasDiscount
-            ? <span className="d-flex no-wrap">
-                <span className="align-self-end">{currency}</span>&nbsp;
-                <span className="align-self-end">{(parseFloat(currentTotalPrice * currencyRate)).toFixed(2)}</span>
-              </span>
-            : <span className="d-flex flex-column">
-                <s className="d-flex no-wrap">
-                  <span>{currency}</span>&nbsp;
-                  <span>{(parseFloat(currentTotalPrice * currencyRate)).toFixed(2)}</span>
-                </s>
-                <span className="d-flex no-wrap text-danger">
-                  <span>{currency}</span>&nbsp;
-                  <span>{(parseFloat((currentTotalPrice * currencyRate) * discount)).toFixed(2)}</span>
-                </span>
-              </span>
-          }
-        </h5>
+        <label htmlFor={`itemsOf${id}`}>
+          Quantity:&nbsp;
+          <select id={`itemsOf${id}`} onChange={() => editAmount(id, price)}>
+            {options}
+          </select>
+        </label>
       </div>
+      <h5>
+        <span>Total price:</span>
+        {
+          !hasDiscount
+          ? <span className="d-flex no-wrap">
+              <span className="align-self-end">{currency}</span>&nbsp;
+              <span className="align-self-end">{(parseFloat(currentTotalPrice * currencyRate)).toFixed(2)}</span>
+            </span>
+          : <span className="d-flex flex-column">
+              <s className="d-flex no-wrap">
+                <span>{currency}</span>&nbsp;
+                <span>{(parseFloat(currentTotalPrice * currencyRate)).toFixed(2)}</span>
+              </s>
+              <span className="d-flex no-wrap text-danger">
+                <span>{currency}</span>&nbsp;
+                <span>{(parseFloat((currentTotalPrice * currencyRate) * discount)).toFixed(2)}</span>
+              </span>
+            </span>
+        }
+      </h5>
       <button
         type="button"
         className="close text-danger d-inline-block"

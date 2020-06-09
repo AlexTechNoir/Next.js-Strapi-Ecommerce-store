@@ -85,11 +85,11 @@ export default function ProductPage({ dataItem }) {
           <ProductInfo dataItem={dataItem} />
           <AddToCart dataItem={dataItem} />
           <ToggleButtons toggleTabs={toggleTabs} isReviewsTabVisible={isReviewsTabVisible} />
-            {
-              isReviewsTabVisible
-              ? <Reviews dataItem={dataItem} />
-              : <Comments />
-            }
+          {
+            isReviewsTabVisible
+            ? <Reviews dataItem={dataItem} />
+            : <Comments />
+          }
         </DivProductPage>
       </Layout>
     </React.Fragment>
