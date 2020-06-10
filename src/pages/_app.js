@@ -98,7 +98,6 @@ class ContextProvider extends App {
   }
 
   refreshRatings() {
-    console.log(2)
     this.setState({
       ratings: JSON.parse(localStorage.ratings)
     })

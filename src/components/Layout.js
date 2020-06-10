@@ -11,12 +11,10 @@ export default function Layout(props) {
 
   const handleVisibility = e => {
     if (e.currentTarget.name === 'logIn') {
-      console.log(0)
       setIsAuthModalVisible(true)
       setIsLogInTabVisible(true)
       document.body.style.overflow = 'hidden'
     } else if (e.currentTarget.name === 'singUp') {
-      console.log(1)
       setIsAuthModalVisible(true)
       setIsLogInTabVisible(false)
       document.body.style.overflow = 'hidden'

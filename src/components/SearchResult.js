@@ -14,9 +14,7 @@ export default function SearchResult({ result }) {
     category,
     price,
     hasDiscount,
-    discount,
-    isInCart,
-    amountInCart
+    discount
   } = result
 
   const { fetchedRates, currency } = useContext(Context)

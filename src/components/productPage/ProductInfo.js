@@ -49,11 +49,9 @@ export default function ProductInfo({ dataItem }) {
     const ratings = JSON.parse(localStorage.ratings)
     const itemRating = ratings.find(i => i.id === id)
     if (itemRating === undefined) {
-      console.log(0)
       ratings.push({ id: id, rating: value })
       localStorage.setItem('ratings', JSON.stringify(ratings))
     } else {
-      console.log(1)
       itemRating.rating = value
       localStorage.setItem('ratings', JSON.stringify(ratings))
     }

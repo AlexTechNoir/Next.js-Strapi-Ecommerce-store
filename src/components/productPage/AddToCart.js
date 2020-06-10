@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import Context from '../../context'
 
 export default function AddToCart({ dataItem }) {
-  const { id, price, hasDiscount, inStock } = dataItem
+  const { id, price, inStock } = dataItem
   const { refreshCart, evaluateTotalPrice } = useContext(Context)
 
   const [ item, setItem ] = useState(dataItem)
