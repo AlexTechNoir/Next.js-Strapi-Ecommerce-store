@@ -16,19 +16,19 @@ export default function Social() {
       <div>
         <div>Our social media:</div>
         <Link href="/#">
-          <a><FontAwesomeIcon icon={faFacebook} width="2em" /></a>
+          <a><FontAwesomeIcon icon={faFacebook} size="2x" /></a>
         </Link>
         <Link href="/#">
-          <a><FontAwesomeIcon icon={faTwitter} width="2em" /></a>
+          <a><FontAwesomeIcon icon={faTwitter} size="2x" /></a>
         </Link>
         <Link href="/#">
-          <a><FontAwesomeIcon icon={faInstagram} width="2em" /></a>
+          <a><FontAwesomeIcon icon={faInstagram} size="2x" /></a>
         </Link>
         <Link href="/#">
-          <a><FontAwesomeIcon icon={faYoutube} width="2em" /></a>
+          <a><FontAwesomeIcon icon={faYoutube} size="2x" /></a>
         </Link>
         <Link href="/#">
-          <a><FontAwesomeIcon icon={faLinkedin} width="2em" /></a>
+          <a><FontAwesomeIcon icon={faLinkedin} size="2x" /></a>
         </Link>
       </div>
       <div>&#169; 1991 - {new Date().getFullYear()} All rights reserved.</div>

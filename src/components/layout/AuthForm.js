@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { DivAuthWrapper, DivAuthButtons, DivResetPasswordHeader } from '../../styles'
 
-import LogIn from './header/authForm/LogIn'
-import Registration from './header/authForm/Registration'
-import ResetPassword from './header/authForm/ResetPassword'
+import LogIn from './authForm/LogIn'
+import Registration from './authForm/Registration'
+import ResetPassword from './authForm/ResetPassword'
 
 export default function AuthForm({ isLogInTabVisible, closeAuthModal, handleVisibility }) {
   const [ isResetPasswordVisible, setIsResetPasswordVisible ] = useState(false)
@@ -39,7 +39,7 @@ export default function AuthForm({ isLogInTabVisible, closeAuthModal, handleVisi
               <button 
                 type="button" 
                 name="logIn" 
-                className={`btn ${isLogInTabVisible ? "btn-light" : "btn-white"} border-left border-top border-right shadow-none`} 
+                className={`btn ${isLogInTabVisible ? "btn-light" : "btn-secondary"} border-left border-top border-right shadow-none`} 
                 onClick={e => handleVisibility(e)}
               >
                 Sing In
@@ -47,7 +47,7 @@ export default function AuthForm({ isLogInTabVisible, closeAuthModal, handleVisi
               <button 
                 type="button" 
                 name="singUp" 
-                className={`btn ${isLogInTabVisible ? "btn-white" : "btn-light"} border-left border-top border-right shadow-none`} 
+                className={`btn ${isLogInTabVisible ? "btn-secondary" : "btn-light"} border-left border-top border-right shadow-none`} 
                 onClick={e => handleVisibility(e)}
               >
                 Registration

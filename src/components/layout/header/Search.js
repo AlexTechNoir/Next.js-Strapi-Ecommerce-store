@@ -11,12 +11,10 @@ export default function Search() {
   useEffect(() => {
     if (location.pathname.includes('search')) {
       inputRef.current.value = location.pathname.substr(location.pathname.lastIndexOf('/') + 1)
+    } else {
+      inputRef.current.value = ''
     }
   }, [])
-
-  const setInputValue = e => {
-    setSearchValue(String(e.target.value))
-  }
 
   const search = e => {
     e.preventDefault()
@@ -27,7 +25,7 @@ export default function Search() {
 
   return (
     <form id="formSearchBar" onSubmit={search}>
-      <input type="search" name="search" ref={inputRef} onChange={setInputValue} />
+      <input type="search" name="search" ref={inputRef} onChange={e => setSearchValue(String(e.target.value))} />
       <button type="submit" value="submit" form="formSearchBar">
         <FontAwesomeIcon icon={faSearch} width="1em" />
       </button>

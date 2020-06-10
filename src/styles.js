@@ -139,6 +139,22 @@ export const StyledNav = styled.nav`
   }  
 `
 
+//header/CartButton.js
+export const DivIconAmountInCart = styled.div`
+  position: absolute;
+  border-radius: 50%;
+  font-weight: bold;
+  background: #dc3545;
+  color: #f8f9fa;
+  width: 21px;
+  height: 21px;
+  font-size: 0.8em;
+  text-align: center;
+  vertical-align: middle;
+  top: 27px;
+  right: 110px;
+`
+
 //AuthForm.js
 export const DivAuthWrapper = styled.div`
   grid-area: 1 / 1 / 4 / 4;
@@ -363,7 +379,7 @@ export const DivSales = styled.div`
 
 //ProductListItem.js
 export const DivProductListItem = styled.div`
-  height: 400px;
+  height: 427px;
   width: 290px;
   background: #f8f9fa;
   border-radius: 10px;
@@ -392,6 +408,7 @@ export const DivProductListItem = styled.div`
       display: flex;
       justify-content: space-between;
       > div {
+        align-self: flex-start;
         background: #dc3545;
         color: white;
         margin: 0 1.5em 0 1.5em;
