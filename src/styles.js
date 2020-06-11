@@ -63,7 +63,7 @@ export const StyledHeader = styled.header`
     justify-self: stretch;
     margin: 1em;
     display: flex;
-    > :first-child {
+    > input {
       border: 1px solid black;
       border-right: 0;
       border-top-left-radius: 5px;

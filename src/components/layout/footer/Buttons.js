@@ -19,7 +19,7 @@ export default function I18nButtons() {
     <div>
       <div>
         Currency:
-        <select id="rates" onChange={e => changeCurrency(e)}>
+        <select id="rates" aria-label="Currency selection" onChange={e => changeCurrency(e)}>
           <option id="€" value="€">€ (EUR) Euro</option>
           <option id="$" value="$">$ (USD) U.S. Dollar</option>
           <option id="₽" value="₽">₽ (RUB) Russian Ruble</option>
@@ -31,7 +31,7 @@ export default function I18nButtons() {
       </div>
       <div>
         Country:
-        <select>
+        <select aria-label="Country selection">
           <option value="UK">United Kingdom</option>
           <option value="USA">United States</option>
           <option value="Germany">Germany</option>

@@ -10,7 +10,7 @@ export default function CartButton() {
 
   return (
     <Link href="/cart">
-      <a>
+      <a aria-label="Shopping cart link">
         <FontAwesomeIcon icon={faShoppingCart} size="lg" />
         {
           cartList.length > 0
