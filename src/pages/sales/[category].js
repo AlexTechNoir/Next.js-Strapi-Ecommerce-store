@@ -28,6 +28,7 @@ export default function MobilePhonesDiscount({ params, data }) {
     <React.Fragment>
       <Head>
         <title>{params.category} Sale! - Alimazon</title>
+        <meta name="description" content={`SALE on ${params.category} right now!!!`} />
       </Head>
 
       <Layout>

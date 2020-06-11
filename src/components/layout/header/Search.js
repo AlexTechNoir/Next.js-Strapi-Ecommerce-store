@@ -27,7 +27,7 @@ export default function Search() {
     <form id="formSearchBar" onSubmit={search}>
       <input type="search" name="search" ref={inputRef} onChange={e => setSearchValue(String(e.target.value))} />
       <button type="submit" value="submit" form="formSearchBar">
-        <FontAwesomeIcon icon={faSearch} width="1em" />
+        <FontAwesomeIcon icon={faSearch} />
       </button>
     </form>
   )

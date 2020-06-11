@@ -9,6 +9,7 @@ export default function About() {
     <React.Fragment>
       <Head>
         <title>About Page</title>
+        <meta name="description" content="Read about Alimazon Company and its CEO!" />
       </Head>
 
       <Layout>

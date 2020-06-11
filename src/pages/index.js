@@ -28,6 +28,7 @@ export default function Index(props) {
     <React.Fragment>
       <Head>
         <title>Alimazon - Home Page</title>
+        <meta name="description" content="Alimazon - the BEST online store in the entire world!!!" />
       </Head>
 
       <Layout>

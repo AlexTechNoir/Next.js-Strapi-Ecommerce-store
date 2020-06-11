@@ -40,9 +40,8 @@ export default function mobilePhones(props) {
   return (
     <React.Fragment>
       <Head>
-        <title>
-          Laptops - Alimazon
-        </title>
+        <title>Laptops - Alimazon</title>
+        <meta name="description" content={`The BEST laptops in the world!!!`} />
       </Head>
 
       <Layout>

@@ -11,7 +11,7 @@ export default function CartButton() {
   return (
     <Link href="/cart">
       <a>
-        <FontAwesomeIcon icon={faShoppingCart} width="1em" />
+        <FontAwesomeIcon icon={faShoppingCart} size="lg" />
         {
           cartList.length > 0
           ? <DivIconAmountInCart>

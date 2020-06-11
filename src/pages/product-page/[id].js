@@ -67,9 +67,8 @@ export default function ProductPage({ dataItem }) {
   return (
     <React.Fragment>
       <Head>
-        <title>
-          Buy {title} - Alimazon
-        </title>
+        <title>Buy {title} - Alimazon</title>
+        <meta name="description" content={`${title} - the LOWEST price, the BEST quality!!!`} />
       </Head>
 
       <Layout>

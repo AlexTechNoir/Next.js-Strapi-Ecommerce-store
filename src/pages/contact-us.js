@@ -9,6 +9,7 @@ export default function ContactUs() {
     <React.Fragment>
       <Head>
         <title>Contact Us! - Alimazon</title>
+        <meta name="description" content="Write to us! Not sure whether we'll read tho." />
       </Head>
 
       <Layout>
