@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import Link from 'next/link'
 import Context from '../context'
-import { DivSearchResult } from '../Styles'
+import { DivSearchResult } from '../styles'
 import Rating from 'react-rating'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-regular-svg-icons'

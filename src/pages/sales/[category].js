@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-import { DivSales } from '../../Styles'
+import { DivSales } from '../../styles'
 
 import Layout from '../../components/Layout'
 import Timer from '../../components/Timer'

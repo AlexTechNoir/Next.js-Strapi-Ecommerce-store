@@ -14,7 +14,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/react-fontawesome": "^0.1.10",
     "@zeit/next-css": "^1.0.1",
-    "draft-js": "^0.11.5",
+    "draft-js": "^0.11.6",
     "draftjs-to-html": "^0.9.1",
     "formik": "^2.1.4",
     "html-to-draftjs": "^1.4.0",
@@ -27,7 +27,7 @@
     "react-rating": "^2.0.5",
     "react-responsive-carousel": "^3.2.7",
     "styled-components": "^5.1.1",
-    "swr": "^0.2.2"
+    "swr": "^0.2.3"
   },
   "devDependencies": {
     "babel-plugin-styled-components": "^1.10.7"
