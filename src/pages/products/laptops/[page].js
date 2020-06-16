@@ -20,7 +20,7 @@ export async function getServerSideProps({ params }) {
   return { props: { data, params }}
 }
 
-export default function mobilePhones(props) {
+export default function Laptops(props) {
   const router = useRouter()
   const { page } = router.query
 

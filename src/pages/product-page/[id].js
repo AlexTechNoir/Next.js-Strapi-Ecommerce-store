@@ -11,22 +11,14 @@ import Reviews from '../../components/productPage/Reviews'
 import ProductSlider from '../../components/productPage/ProductSlider'
 import Comments from '../../components/productPage/Comments'
 
-export async function getStaticPaths() {
+export async function getServerSideProps(context) {
   const res = await fetch('http://localhost:3000/api/data')
   const data = await res.json()
-  const paths = data.map(dataItem => ({
-    params: { id: dataItem.id.toString() }
-  }))
+  const dataItem = data[Number(context.params.id)]
 
-  return { paths, fallback: false }
-}
-
-export async function getStaticProps({ params }) {
-  const res = await fetch('http://localhost:3000/api/data')
-  const data = await res.json()
-  const dataItem = data[Number(params.id)]
-
-  return { props: { dataItem }}
+  return {
+    props: { dataItem }
+  }
 }
 
 export default function ProductPage({ dataItem }) {

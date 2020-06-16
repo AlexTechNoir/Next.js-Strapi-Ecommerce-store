@@ -23,7 +23,7 @@ export async function getStaticProps({ params }) {
   return { props: { params, data } }
 }
 
-export default function MobilePhonesDiscount({ params, data }) {
+export default function Sale({ params, data }) {
   return (
     <React.Fragment>
       <Head>
