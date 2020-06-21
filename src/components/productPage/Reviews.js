@@ -47,7 +47,12 @@ export default function Reviews({ dataItem }) {
 
       const plainTextMarkup = draftToHtml(convertToRaw(editorState.getCurrentContent()))
 
-      fetch(`http://localhost:3000/api/data?id=${id}`, {
+      fetch(
+        `${
+          process.env.NODE_ENV === "development"
+            ? process.env.NEXT_PUBLIC_DEV_HOST
+            : process.env.NEXT_PUBLIC_PROD_HOST
+        }/api/data?id=${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json;charset=utf-8'

@@ -16,13 +16,27 @@ const fetcher = url => {
 }
 
 export async function getServerSideProps() {
-  const data = await fetcher('http://localhost:3000/api/data?category=best_offers')
+  const data = await fetcher(
+    `${
+      process.env.NODE_ENV === "development"
+        ? process.env.NEXT_PUBLIC_DEV_HOST
+        : process.env.NEXT_PUBLIC_PROD_HOST
+    }/api/data?category=best_offers`
+  )
   return { props: { data } }
 }
 
 export default function Index(props) {
   const initialData = props.data
-  const { data } = useSWR('http://localhost:3000/api/data?category=best_offers', fetcher, { initialData })
+  const { data } = useSWR(
+    `${
+      process.env.NODE_ENV === "development"
+        ? process.env.NEXT_PUBLIC_DEV_HOST
+        : process.env.NEXT_PUBLIC_PROD_HOST
+    }/api/data?category=best_offers`,
+    fetcher,
+    { initialData }
+  )
 
   return (
     <React.Fragment>
