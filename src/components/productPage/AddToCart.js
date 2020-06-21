@@ -22,13 +22,7 @@ export default function AddToCart({ dataItem }) {
   }
 
   const fetcher = () => {
-    fetch(
-      `${
-        process.env.NODE_ENV === "development"
-          ? process.env.NEXT_PUBLIC_DEV_HOST
-          : process.env.NEXT_PUBLIC_PROD_HOST
-      }/api/data?category=object&id=${id}`
-    )      
+    fetch(`http://localhost:3000/api/data?category=object&id=${id}`)      
       .then(r => {
         if (r.status >= 400) {
           return r.then(errResData => {
@@ -64,12 +58,7 @@ export default function AddToCart({ dataItem }) {
   }, [])
 
   const addToCart = (id, selectedAmount, updTotalPrice) => {
-    fetch(
-      `${
-        process.env.NODE_ENV === "development"
-          ? process.env.NEXT_PUBLIC_DEV_HOST
-          : process.env.NEXT_PUBLIC_PROD_HOST
-      }/api/cart/${id}`, {
+    fetch(`http://localhost:3000/api/cart/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
@@ -103,12 +92,7 @@ export default function AddToCart({ dataItem }) {
   }
 
   const cancelAdding = (id, amountInCart) => {
-    fetch(
-      `${
-        process.env.NODE_ENV === "development"
-          ? process.env.NEXT_PUBLIC_DEV_HOST
-          : process.env.NEXT_PUBLIC_PROD_HOST
-      }/api/cart/${id}?type=cancel`, {
+    fetch(`http://localhost:3000/api/cart/${id}?type=cancel`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'

@@ -51,12 +51,7 @@ export default function CartListItem({ cartListItem }) {
     const selectedAmount = document.getElementById(`itemsOf${id}`).value
     const updTotalPrice = price * selectedAmount
 
-    fetch(
-      `${
-        process.env.NODE_ENV === "development"
-          ? process.env.NEXT_PUBLIC_DEV_HOST
-          : process.env.NEXT_PUBLIC_PROD_HOST
-      }/api/cart/${id}?type=editInCart`, {
+    fetch(`http://localhost:3000/api/cart/${id}?type=editInCart`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
@@ -86,12 +81,7 @@ export default function CartListItem({ cartListItem }) {
   }
 
   const deleteItem = id => {
-    fetch(
-      `${
-        process.env.NODE_ENV === "development"
-          ? process.env.NEXT_PUBLIC_DEV_HOST
-          : process.env.NEXT_PUBLIC_PROD_HOST
-      }/api/cart/${id}?type=delete`, {
+    fetch(`http://localhost:3000/api/cart/${id}?type=delete`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'

@@ -12,13 +12,7 @@ import ProductSlider from '../../components/productPage/ProductSlider'
 import Comments from '../../components/productPage/Comments'
 
 export async function getServerSideProps(context) {
-  const res = await fetch(    
-    `${
-      process.env.NODE_ENV === "development"
-        ? process.env.NEXT_PUBLIC_DEV_HOST
-        : process.env.NEXT_PUBLIC_PROD_HOST
-    }/api/data`
-  )
+  const res = await fetch('http://localhost:3000/api/data')
   const data = await res.json()
   const dataItem = data[Number(context.params.id)]
 

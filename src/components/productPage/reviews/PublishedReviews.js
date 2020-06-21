@@ -34,12 +34,7 @@ export default function PublishedReviews(props) {
       const plainTextMarkup = draftToHtml(convertToRaw(editorState.getCurrentContent()))
 
       if (userReview.review !== plainTextMarkup) {
-        fetch(
-          `${
-            process.env.NODE_ENV === "development"
-              ? process.env.NEXT_PUBLIC_DEV_HOST
-              : process.env.NEXT_PUBLIC_PROD_HOST
-          }/api/data?&id=${id}`, {
+        fetch(`http://localhost:3000/api/data?&id=${id}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json;charset=utf-8'
@@ -84,12 +79,7 @@ export default function PublishedReviews(props) {
   }
 
   const deleteReview = () => {
-    fetch(
-      `${
-        process.env.NODE_ENV === "development"
-          ? process.env.NEXT_PUBLIC_DEV_HOST
-          : process.env.NEXT_PUBLIC_PROD_HOST
-      }/api/data?id=${id}&user=UserName`, {
+    fetch(`http://localhost:3000/api/data?id=${id}&user=UserName`, {
       method: 'DELETE'
     }).then(() => {
       let items = JSON.parse(localStorage.reviewedItems)

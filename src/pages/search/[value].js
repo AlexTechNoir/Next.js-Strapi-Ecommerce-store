@@ -15,14 +15,7 @@ export default function SearchResults() {
   const router = useRouter()
   const { value } = router.query
 
-  const { data, error, loading } = useSWR(`
-    ${
-      process.env.NODE_ENV === "development"
-        ? process.env.NEXT_PUBLIC_DEV_HOST
-        : process.env.NEXT_PUBLIC_PROD_HOST
-    }/api/data?category=search&value=${value}`, 
-    fetcher
-  )
+  const { data, error, loading } = useSWR(`http://localhost:3000/api/data?category=search&value=${value}`, fetcher)
 
   return (
     <React.Fragment>
