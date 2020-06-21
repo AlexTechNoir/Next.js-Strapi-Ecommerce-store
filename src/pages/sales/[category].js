@@ -20,10 +20,14 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const res = await fetch('http://localhost:3000/api/data')
   const data = await res.json()
-  return { props: { params, data } }
+  const filteredData = data.filter(dataItem => 
+    dataItem.category === params.category && dataItem.hasDiscount === true
+  )
+
+  return { props: { params, filteredData } }
 }
 
-export default function Sale({ params, data }) {
+export default function Sale({ params, filteredData }) {
   return (
     <React.Fragment>
       <Head>
@@ -40,11 +44,9 @@ export default function Sale({ params, data }) {
           </div>
           <div>
             {
-              data
-                .filter(dataItem => dataItem.category === params.category && dataItem.hasDiscount === true)
-                .map(dataItem => {
-                  return <ProductListItem key={dataItem.id} dataItem={dataItem} />
-                })
+              data.map(dataItem => {
+                return <ProductListItem key={dataItem.id} dataItem={dataItem} />
+              })
             }
           </div>
         </DivSales>
