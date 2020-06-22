@@ -1,6 +1,6 @@
 import React from 'react'
 import { Formik, Form, Field } from 'formik'
-import { DivRegistration } from '../../../styles'
+import styled from 'styled-components'
 
 export default function Registration() {
   return (
@@ -58,3 +58,24 @@ export default function Registration() {
   )
 }
 
+const DivRegistration = styled.div`
+  padding: 1em;
+  > form {
+    display: flex;
+    flex-direction: column;
+    > label {
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+      > input {
+        padding: 0 .2em 0 .2em;
+      }
+      > :nth-child(2) {
+        color: red;
+      }
+    }
+    > :nth-child(5) {
+      margin-top: .5em;
+    }
+  }
+`

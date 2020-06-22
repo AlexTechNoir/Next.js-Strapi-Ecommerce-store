@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
 import ReactPaginate from 'react-paginate'
-import { DivProducts } from '../../../styles'
+import styled from 'styled-components'
 import Context from '../../../context'
 import { mobile_phones } from '../../../data'
 
@@ -76,3 +76,49 @@ export default function MobilePhones(props) {
     </React.Fragment>
   )
 }
+
+const DivProducts = styled.div`
+  grid-area: 2 / 2 / 3 / 3;
+  display: flex;
+  flex-direction: column;
+  > :nth-child(2) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 290px);
+    grid-row-gap: .5rem;
+    grid-column-gap: .5rem;
+    justify-content: center;	
+  }
+  > :last-child {
+    align-self: center;    
+    display: flex;
+    list-style: none;
+    height: 2.5em;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: fit-content;
+    align-items: center;
+    padding: 0;
+    margin-top: 2.5em;
+    > li > a {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      padding: 0 10px;
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    > .active > a {
+      font-weight: bold;
+      text-decoration: underline;
+      pointer-events: none;
+    }
+    > .disabled > a {
+      text-decoration: none;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+`

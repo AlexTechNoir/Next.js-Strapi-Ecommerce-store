@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-import { DivAbout } from '../styles'
+import styled from 'styled-components'
 
 import Layout from '../components/Layout'
 
@@ -33,3 +33,26 @@ export default function About() {
     </React.Fragment>
   )
 }
+
+const DivAbout = styled.div`
+  grid-area: 2 / 2 / 3 / 3;
+  background: #f8f9fa;
+  border-radius: 5px;
+  padding: 2.5em;
+  > p {
+    text-align: justify;
+    text-justify: inter-word;
+    > img {
+      display: block;
+      margin: 0 auto 1em auto;
+      float: none;
+    }
+  }
+
+  @media only screen and (min-width: 600px) {
+    > p > img {
+      margin: 2rem;
+      float: left;
+    }
+  }
+`

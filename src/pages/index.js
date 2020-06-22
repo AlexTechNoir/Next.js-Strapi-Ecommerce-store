@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
 import useSWR from 'swr'
-import { DivIndex } from '../styles'
+import styled from 'styled-components'
 
 import Layout from '../components/Layout'
 import FeaturedProducts from '../components/index/FeaturedProducts'
@@ -40,3 +40,31 @@ export default function Index(props) {
     </React.Fragment>
   )
 }
+
+const DivIndex = styled.div`
+  grid-area: 2 / 2 / 3 / 3;
+  display: flex;
+  flex-direction: column;
+  > .carousel-root {
+    align-self: center;
+    margin-bottom: 2em;  
+    max-width: 960px;  
+    max-height: 500px;
+    &:hover {
+      cursor: pointer;
+    }
+    &:active {
+      cursor: grabbing;
+    }
+  }
+  > :nth-child(2) {
+    margin-left: 1rem;
+  }
+  > :last-child {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 290px);
+    grid-row-gap: .5rem;
+    grid-column-gap: .5rem;
+    justify-content: center;	
+  }
+`

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Formik, Form, Field } from 'formik'
-import { DivLogIn } from '../../../styles'
+import styled from 'styled-components'
 
 export default function LogIn({ showResetPassword }) {
   return (
@@ -59,3 +59,31 @@ export default function LogIn({ showResetPassword }) {
     </DivLogIn>
   )
 }
+
+const DivLogIn = styled.div`
+  padding: 1em;
+  > form {
+    display: flex;
+    flex-direction: column;
+    > label {
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+      > input {
+        padding: 0 .2em 0 .2em;
+      }
+      > :nth-child(2) {
+        color: red;
+      }
+    }
+    > :nth-child(3) {
+      margin-bottom: 1em;
+      > label {
+        user-select: none;
+      }
+    }
+    > :nth-child(4) {
+      margin-top: .5em;
+    }
+  }
+`

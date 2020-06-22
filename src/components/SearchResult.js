@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import Link from 'next/link'
 import Context from '../context'
-import { DivSearchResult } from '../styles'
+import styled from 'styled-components'
 import Rating from 'react-rating'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-regular-svg-icons'
@@ -133,3 +133,74 @@ export default function SearchResult({ result }) {
     </DivSearchResult>
   )
 }
+
+const DivSearchResult = styled.div`
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: auto auto;
+  border: 1px solid #dc3545;
+  border-radius: 5px;
+  background: #f8f9fa;
+  margin: .5em;
+  padding: 1em;
+  > :first-child {
+    grid-area: 1 / 1 / 2 / 2;
+    margin-right: 1rem;
+  }
+  > :nth-child(2) {
+    grid-area: 1 / 2 / 2 / 3;
+    align-self: start;
+    justify-self: start;
+    display: flex;
+    flex-direction: column;
+    > a, a:hover, a:focus {
+      color: #343a40;
+      text-decoration: none;
+    }
+    > a:hover, a:focus {
+      text-shadow: 2px 2px 20px;
+    }
+    > h6 {
+      color: #007bff;
+    }
+    > span > span > :last-child {
+      color: yellow;
+      stroke: black;
+      stroke-width: 25;
+    }
+  }
+  > :nth-child(3) {
+    grid-area: 2 / 2 / 3 / 3; 
+    display: flex;
+    justify-self: start;
+    align-self: start; 
+  }
+  > :last-child {
+    grid-area: 2 / 1 / 3 / 3;    
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 1em;
+    > h3 {
+      margin-bottom: 0;
+    }
+  }
+
+  @media only screen and (min-width: 600px) {
+    grid-template-rows: auto;
+    grid-template-columns: auto 1fr 1fr 1fr;
+    > :nth-child(2) {
+      justify-self: start;
+    }
+    > :nth-child(3) {
+      grid-area: 1 / 3 / 2 / 4; 
+      justify-self: center;
+    }
+    > :last-child {
+      grid-area: 1 / 4 / 2 / 5; 
+      justify-self: end;
+      align-self: start;
+      margin-top: 0;
+    }
+  }
+`

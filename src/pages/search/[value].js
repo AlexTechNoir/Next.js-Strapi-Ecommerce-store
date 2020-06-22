@@ -2,7 +2,7 @@ import React from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
-import { DivSearchResults } from '../../styles'
+import styled from 'styled-components'
 
 import Layout from '../../components/Layout'
 import SearchResult from '../../components/SearchResult'
@@ -38,3 +38,9 @@ export default function SearchResults() {
     </React.Fragment>
   )
 }
+
+const DivSearchResults = styled.div`
+  grid-area: 2 / 2 / 3 / 3;
+  display: flex;
+  flex-direction: column;
+`

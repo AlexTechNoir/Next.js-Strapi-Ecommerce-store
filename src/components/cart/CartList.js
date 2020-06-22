@@ -1,5 +1,5 @@
 import React from 'react'
-import { DivCartList } from '../../styles'
+import styled from 'styled-components'
 
 import CartListItem from './cartList/CartListItem'
 import PayPalCheckoutButton from './cartList/PayPalCheckoutButton'
@@ -59,3 +59,35 @@ export default function CartList({ cartList, clearCart, cartSubTotalPrice, fetch
     </DivCartList>
   )
 }
+
+const DivCartList = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  > :first-child {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 1.5em;
+  }
+  > :nth-child(2) {
+    align-self: flex-start;
+    margin-bottom: 2.5em;
+  }
+  > :nth-child(3) {
+    display: flex;
+    flex-direction: column;
+    > h1, h2 {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+  > :nth-child(4) {
+    align-self: flex-start;
+    width: 100%;
+
+    @media only screen and (min-width: 426px) {
+      width: 290px;
+    }
+  }
+`

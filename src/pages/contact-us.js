@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-import { DivContactForm } from '../styles'
+import styled from 'styled-components'
 
 import Layout from '../components/Layout'
 
@@ -31,3 +31,12 @@ export default function ContactUs() {
     </React.Fragment>
   )
 }
+
+const DivContactForm = styled.div`
+  grid-area: 2 / 2 / 3 / 3;
+  display: flex;
+  flex-direction: column;
+  background: #f8f9fa;
+  border-radius: 5px;
+  padding: 2.5em;
+`

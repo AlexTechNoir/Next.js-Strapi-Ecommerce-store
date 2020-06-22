@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import Link from 'next/link'
 import Rating from 'react-rating'
 import Context from '../context'
-import { DivProductListItem } from '../styles'
+import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-regular-svg-icons'
 import { faStar as faStarFull } from '@fortawesome/free-solid-svg-icons'
@@ -106,3 +106,44 @@ export default function ProductListItem({ dataItem }) {
     </DivProductListItem>
   )
 }
+
+const DivProductListItem = styled.div`
+  height: 427px;
+  width: 290px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  &:hover {
+    box-shadow: .1rem .1rem 1rem .1rem rgba(0,0,0,.3);
+    text-decoration: none;
+  }
+  > a {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5em;
+    color: #343a40;
+    &:hover {
+      text-decoration: none;
+    }
+    > img {
+      align-self: center;
+    }
+    > span > span > :last-child {
+      color: yellow;
+      stroke: black;
+      stroke-width: 30;
+    }
+    > :last-child {
+      display: flex;
+      justify-content: space-between;
+      > div {
+        align-self: flex-start;
+        background: #dc3545;
+        color: white;
+        margin: 0 1.5em 0 1.5em;
+        padding: .3em .5em .2em .5em;
+        border-radius: 5px;
+      }
+    }
+  }
+`

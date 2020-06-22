@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import Link from 'next/link'
-import { DivCartListItem } from '../../../styles'
+import styled from 'styled-components'
 import Context from '../../../context'
 
 export default function CartListItem({ cartListItem }) {
@@ -162,3 +162,69 @@ export default function CartListItem({ cartListItem }) {
     </DivCartListItem>
   )
 }
+
+const DivCartListItem = styled.div`
+  display: grid;
+  grid-template-columns: auto 1fr 2fr 1fr auto;
+  grid-template-rows: auto auto auto;
+  grid-row-gap: 1rem;
+  grid-column-gap: 1rem;
+  border-radius: 5px;
+  background: #f8f9fa;
+  margin-bottom: 1em;
+  padding: 1em;
+  border: 1px solid #dc3545;
+  > :first-child {
+    grid-area: 1 / 1 / 2 / 2;
+  }
+  > :nth-child(2) {
+    grid-area: 1 / 2 / 2 / 5;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    > a, a:hover, a:focus {
+      text-decoration: none;
+      width: 100%;
+      > h5 {
+        color: #343a40;
+      }
+    }
+    > a:hover, a:focus {
+      text-shadow: 2px 2px 20px;
+    }
+  }
+  > :nth-child(3) {
+    grid-area: 2 / 1 / 3 / 5;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0;
+  }
+  > :nth-child(4) {
+    grid-area: 3 / 1 / 4 / 5;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    > :nth-child(2) {
+      margin-left: .2em;
+    }
+  }
+  > :last-child {
+    grid-area: 1 / 5 / 2 / 6;
+    justify-self: end;
+  }
+
+  @media only screen and (min-width: 500px) {
+    grid-template-columns: auto 1fr 1fr 1fr auto;
+    grid-template-rows: auto;
+    > :nth-child(2) {
+      grid-area: 1 / 2 / 2 / 3;
+    }
+    > :nth-child(3) {
+      grid-area: 1 / 3 / 2 / 4;
+    }
+    > :nth-child(4) {
+      grid-area: 1 / 4 / 2 / 5;
+      justify-self: end;
+    }
+  }
+`

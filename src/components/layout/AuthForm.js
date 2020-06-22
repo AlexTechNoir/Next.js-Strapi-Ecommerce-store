@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { DivAuthWrapper, DivAuthButtons, DivResetPasswordHeader } from '../../styles'
+import styled from 'styled-components'
 
 import LogIn from './authForm/LogIn'
 import Registration from './authForm/Registration'
@@ -55,3 +55,39 @@ export default function AuthForm({ isLogInTabVisible, closeAuthModal, handleVisi
     </DivAuthWrapper>
   )
 }
+
+const DivAuthWrapper = styled.div`
+  grid-area: 1 / 1 / 4 / 4;
+  position: absolute;
+  overflow: auto;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.6);
+  z-index: 16;
+  > div {
+    position: absolute;
+    margin-top: 2.5em;
+    background: #f8f9fa;
+    width: auto;
+    padding: 2rem;
+    min-width: 300px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+`
+
+const DivAuthButtons = styled.div`
+  width: 100%;
+  > button {
+    width: 50%;
+    display: inline-block;
+    border-radius: 0;
+    padding: 0 .5em 0 .5em;
+  }
+`
+
+const DivResetPasswordHeader = styled.div`
+  display: flex;
+  justify-content: center;
+  padding-top: 1em;
+`

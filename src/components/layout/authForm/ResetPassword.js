@@ -1,5 +1,5 @@
 import React from 'react'
-import { DivResetPassword } from '../../../styles'
+import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
@@ -19,5 +19,26 @@ export default function ResetPassword({ hideResetPassword }) {
         </button>
       </form>
     </DivResetPassword>
-  );
+  )
 }
+
+const DivResetPassword = styled.div`
+  padding: 1em;
+  > button {
+    margin-bottom: 1em;
+  }
+  > form {
+    display: flex;
+    flex-direction: column;
+    > label {
+      display: flex;
+      flex-direction: column;
+      > input {
+        padding: 0 .2em 0 .2em;
+      }
+    }
+    > button {
+      margin-top: .5em;
+    }
+  }
+`

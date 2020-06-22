@@ -2,8 +2,8 @@ import React, { useContext } from 'react'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
-import { DivIconAmountInCart } from '../../../styles'
 import Context from '../../../context'
+import styled from 'styled-components'
 
 export default function CartButton() {
   const { cartList } = useContext(Context)
@@ -23,3 +23,18 @@ export default function CartButton() {
     </Link>
   )
 }
+
+const DivIconAmountInCart = styled.div`
+  position: absolute;
+  border-radius: 50%;
+  font-weight: bold;
+  background: #dc3545;
+  color: #f8f9fa;
+  width: 21px;
+  height: 21px;
+  font-size: 0.8em;
+  text-align: center;
+  vertical-align: middle;
+  top: 27px;
+  right: 110px;
+`

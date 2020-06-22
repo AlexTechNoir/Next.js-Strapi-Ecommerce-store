@@ -1,7 +1,7 @@
 
 import React, { useEffect, useContext } from 'react'
 import Head from 'next/head'
-import { DivCart } from '../styles'
+import styled from 'styled-components'
 import Context from '../context'
 
 import Layout from '../components/Layout'
@@ -38,3 +38,14 @@ export default function Cart() {
     </React.Fragment>
   )
 }
+
+const DivCart = styled.div`
+  grid-area: 2 / 2 / 3 / 3;
+  width: 100%;
+  padding-left: 1em;
+  padding-right: 1em;
+  > h2 {
+    display: flex;
+    justify-content: center;
+  }
+`

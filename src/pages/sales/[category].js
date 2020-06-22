@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-import { DivSales } from '../../styles'
+import styled from 'styled-components'
 
 import Layout from '../../components/Layout'
 import Timer from '../../components/Timer'
@@ -54,3 +54,39 @@ export default function Sale({ params, filteredData }) {
     </React.Fragment>
   )
 }
+
+const DivSales = styled.div`
+  grid-area: 2 / 2 / 3 / 3;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;    
+  width: 100%;
+  max-width: 1200px;
+  > :first-child {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    width: 100%;
+    max-width: 960px;
+    > img {
+      width: 100%;
+      height: 100%;
+    }
+    > :last-child {
+      margin: auto;
+      > :first-child {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  }
+  > :last-child {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 290px);
+    grid-row-gap: .5rem;
+    grid-column-gap: .5rem;
+    justify-content: center;	
+    margin-top: 1em;
+  }
+`
