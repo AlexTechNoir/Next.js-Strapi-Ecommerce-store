@@ -3,6 +3,14 @@ import App from 'next/app'
 import { withRouter } from 'next/router'
 import Context from '../context'
 
+import 'react-responsive-carousel/lib/styles/carousel.min.css'
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+import { config } from '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/fontawesome-svg-core/styles.css'
+config.autoAddCss = false
+
+
+
 class ContextProvider extends App {
   constructor() {
     super()

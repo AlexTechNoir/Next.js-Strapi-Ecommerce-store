@@ -87,7 +87,7 @@ export default function ProductInfo({ dataItem }) {
                 </s>
                 <span className="d-flex no-wrap text-danger">
                   <span>{currency}</span>&nbsp;
-                  <span>{parseFloat(((price * currencyRate) * discount).toFixed(2))}</span>
+                  <span>{(parseFloat((price * currencyRate) * discount)).toFixed(2)}</span>
                 </span>
               </span>
           }
