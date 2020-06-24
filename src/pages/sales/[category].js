@@ -1,6 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
+import { data } from '../../data'
 
 import Layout from '../../components/Layout'
 import Timer from '../../components/Timer'
@@ -18,9 +19,6 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const res = await fetch('http://localhost:3000/api/data')
-  const data = await res.json()
-
   return { props: { params, data } }
 }
 
@@ -48,22 +46,18 @@ export default function Sale({ params, data }) {
           <div>
             {
               data
-                .filter(
-                  dataItem =>
-                    dataItem.category === params.category &&
-                    dataItem.hasDiscount === true
+                .filter(dataItem =>
+                  dataItem.category === params.category && dataItem.hasDiscount === true
                 )
                 .map(dataItem => {
-                  return (
-                    <ProductListItem key={dataItem.id} dataItem={dataItem} />
-                  )
+                  return <ProductListItem key={dataItem.id} dataItem={dataItem} />                  
                 })
             }
           </div>
         </DivSales>
       </Layout>
     </React.Fragment>
-  );
+  )
 }
 
 const DivSales = styled.div`
