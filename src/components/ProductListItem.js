@@ -6,6 +6,8 @@ import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-regular-svg-icons'
 import { faStar as faStarFull } from '@fortawesome/free-solid-svg-icons'
+import 'lazysizes'
+import 'lazysizes/plugins/parent-fit/ls.parent-fit'
 
 export default function ProductListItem({ dataItem }) {
   const {
@@ -63,7 +65,8 @@ export default function ProductListItem({ dataItem }) {
             alt="Product"
             width={imageWidth}
             heigth={imageHeight}
-            src={`/img/products/${id}/01.webp`}
+            data-src={`/img/products/${id}/01.webp`}
+            className="lazyload"
           />
           <br />
           <h4>{title}</h4>

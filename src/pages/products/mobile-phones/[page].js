@@ -48,7 +48,7 @@ export default function MobilePhones(props) {
   }
 
   return (
-    <React.Fragment>
+    <>
       <Head>
         <title>Mobile Phones - Alimazon</title>
         <meta name="description" content={`The BEST mobile phones in the world!!!`} />
@@ -83,7 +83,7 @@ export default function MobilePhones(props) {
           />
         </DivProducts>
       </Layout>
-    </React.Fragment>
+    </>
   )
 }
 

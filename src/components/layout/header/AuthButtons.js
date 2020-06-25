@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function AuthButtons({ handleVisibility }) {
   return (
-    <React.Fragment>
+    <>
       <button 
         className="btn btn-link" 
         type="button" 
@@ -19,6 +19,6 @@ export default function AuthButtons({ handleVisibility }) {
       > 
         Sign Up 
       </button>
-    </React.Fragment>
+    </>
   )
 }

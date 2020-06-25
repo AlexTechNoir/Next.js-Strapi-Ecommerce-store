@@ -1,21 +1,53 @@
 import React from 'react'
 import { Carousel } from 'react-responsive-carousel'
 import { SideBySideMagnifier } from 'react-image-magnifiers'
+import 'lazysizes'
+import 'lazysizes/plugins/parent-fit/ls.parent-fit'
 
 export default function ProductSlider({ dataItem }) {
   const { id, category } = dataItem
 
   const renderCustomThumbs = () => {
-    if (category === 'Mobile Phones') {
+    if (category === "Mobile Phones") {
       return [
-        <img key="01" src={`/img/products/${id}/01.webp`} alt="First Thumbnail" height="70" />,
-        <img key="02" src={`/img/products/${id}/02.webp`} alt="Second Thumbnail" height="70" />,
-        <img key="03" src={`/img/products/${id}/03.webp`} alt="Third Thumbnail" height="70" />
+        <img
+          key="01"
+          data-src={`/img/products/${id}/01.webp`}
+          alt="First Thumbnail"
+          height="70"
+          className="lazyload"
+        />,
+        <img
+          key="02"
+          data-src={`/img/products/${id}/02.webp`}
+          alt="Second Thumbnail"
+          height="70"
+          className="lazyload"
+        />,
+        <img
+          key="03"
+          data-src={`/img/products/${id}/03.webp`}
+          alt="Third Thumbnail"
+          height="70"
+          className="lazyload"
+        />
       ]
     } else {
       return [
-        <img key="01" src={`/img/products/${id}/01.webp`} alt="First Thumbnail" height="70" />,
-        <img key="02" src={`/img/products/${id}/02.webp`} alt="Second Thumbnail" height="70" />
+        <img
+          key="01"
+          data-src={`/img/products/${id}/01.webp`}
+          alt="First Thumbnail"
+          height="70"
+          className="lazyload"
+        />,
+        <img
+          key="02"
+          data-src={`/img/products/${id}/02.webp`}
+          alt="Second Thumbnail"
+          height="70"
+          className="lazyload"
+        />
       ]
     }
   }

@@ -6,6 +6,8 @@ import Rating from 'react-rating'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-regular-svg-icons'
 import { faStar as faStarFull } from '@fortawesome/free-solid-svg-icons'
+import 'lazysizes'
+import 'lazysizes/plugins/parent-fit/ls.parent-fit'
 
 export default function SearchResult({ result }) {
   const {
@@ -79,10 +81,11 @@ export default function SearchResult({ result }) {
   return (
     <DivSearchResult>
       <img
-        src={`/img/products/${id}/01.webp`}
+        data-src={`/img/products/${id}/01.webp`}
         alt="SearchItem"
         width="121"
         heigth="121"
+        className="lazyload"
       />
       <div>
         <Link href="/product-page/[id].js" as={`/product-page/${id}`}>

@@ -48,7 +48,7 @@ export default function Laptops(props) {
   }
 
   return (
-    <React.Fragment>
+    <>
       <Head>
         <title>Laptops - Alimazon</title>
         <meta name="description" content={`The BEST laptops in the world!!!`} />
@@ -83,7 +83,7 @@ export default function Laptops(props) {
           />
         </DivProducts>
       </Layout>
-    </React.Fragment>
+    </>
   )
 }
 

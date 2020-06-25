@@ -15,7 +15,7 @@ export default function Cart() {
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <Head>
         <meta name="robots" content="noindex" />
       </Head>
@@ -35,7 +35,7 @@ export default function Cart() {
           }
         </DivCart>
       </Layout>
-    </React.Fragment>
+    </>
   )
 }
 

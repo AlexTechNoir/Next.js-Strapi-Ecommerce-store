@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function Lists() {
   return (
-    <React.Fragment>
+    <>
       <ul className="list-group">
         <li className="list-group-item">
           <Link href="/about"><a className="nav-link">About Us</a></Link>
@@ -38,6 +38,6 @@ export default function Lists() {
           <a href="/#" className="nav-link">Lorem ipsum sin amet</a>
         </li>
       </ul>
-    </React.Fragment>
+    </>
   )
 }

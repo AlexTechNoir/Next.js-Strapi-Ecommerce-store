@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from 'react'
 import Link from 'next/link'
 import styled from 'styled-components'
 import Context from '../../../context'
+import 'lazysizes'
+import 'lazysizes/plugins/parent-fit/ls.parent-fit'
 
 export default function CartListItem({ cartListItem }) {
   const {
@@ -130,10 +132,11 @@ export default function CartListItem({ cartListItem }) {
   return (
     <DivCartListItem>
       <img
-        src={`/img/products/${id}/01.webp`}
+        data-src={`/img/products/${id}/01.webp`}
         alt={title}
         height="100"
         width="100"
+        className="lazyload"
       />
       <div>
         <Link href="/product-page/[id].js" as={`/product-page/${id}`}>

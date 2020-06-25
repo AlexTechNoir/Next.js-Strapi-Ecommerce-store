@@ -48,7 +48,7 @@ export default function Tablets(props) {
   }
 
   return (
-    <React.Fragment>
+    <>
       <Head>
         <title>Tablets - Alimazon</title>
         <meta name="description" content={`The BEST tablets in the world!!!`} />
@@ -83,7 +83,7 @@ export default function Tablets(props) {
           />
         </DivProducts>
       </Layout>
-    </React.Fragment>
+    </>
   )
 }
 

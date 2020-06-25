@@ -3,7 +3,7 @@ import ProductListItem from '../ProductListItem'
 
 export default function FeaturedProducts({ data }) {
   return (
-    <React.Fragment>
+    <>
       <h1>Best Offers</h1>
       <div>
         {
@@ -12,6 +12,6 @@ export default function FeaturedProducts({ data }) {
           })
         }
       </div>
-    </React.Fragment>
+    </>
   )
 }

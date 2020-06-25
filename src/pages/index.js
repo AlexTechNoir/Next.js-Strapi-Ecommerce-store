@@ -39,7 +39,7 @@ export default function Index(props) {
   )
 
   return (
-    <React.Fragment>
+    <>
       <Head>
         <title>Alimazon - Home Page</title>
         <meta name="description" content="Alimazon - the BEST online store in the entire world!!!" />
@@ -51,7 +51,7 @@ export default function Index(props) {
           <FeaturedProducts data={data} />
         </DivIndex>
       </Layout>
-    </React.Fragment>
+    </>
   )
 }
 

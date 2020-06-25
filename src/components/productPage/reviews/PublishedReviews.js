@@ -150,7 +150,7 @@ export default function PublishedReviews(props) {
               {
                 isPublishedEditorReadOnly
                 ? (
-                  <React.Fragment>
+                  <>
                     <button 
                       id="like"
                       type="button"
@@ -171,7 +171,7 @@ export default function PublishedReviews(props) {
                     >
                       Disagree <FontAwesomeIcon icon={faThumbsDown} width="1em" />
                     </button>
-                  </React.Fragment>
+                  </>
                 ) : (
                   <button className="btn btn-primary mt-2" onClick={() => saveChanges()}>
                     Save Changes

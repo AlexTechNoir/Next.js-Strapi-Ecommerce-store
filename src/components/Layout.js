@@ -29,7 +29,7 @@ export default function Layout(props) {
   }
 
   return (
-    <React.Fragment>
+    <>
       <GlobalStyle />
       <DivGrid>
         <Header handleVisibility={handleVisibility} />
@@ -45,7 +45,7 @@ export default function Layout(props) {
         {props.children}
         <Footer />
       </DivGrid>
-    </React.Fragment>
+    </>
   )
 }
 

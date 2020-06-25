@@ -1,12 +1,14 @@
 import React from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
+import 'lazysizes'
+import 'lazysizes/plugins/parent-fit/ls.parent-fit'
 
 import Layout from '../components/Layout'
 
 export default function About() {
   return (
-    <React.Fragment>
+    <>
       <Head>
         <title>About Page</title>
         <meta name="description" content="Read about Alimazon Company and its CEO!" />
@@ -15,14 +17,14 @@ export default function About() {
       <Layout>
         <DivAbout>
           <p>
-            <img src="/img/logo.webp" alt="logo" className="img-tumbnail" />
+            <img data-src="/img/logo.webp" alt="logo" className="lazyload img-tumbnail" />
             Alimazon company is the largest company in the world! After we've bought Google, Facebook, Apple and Microsoft there are no rivals left for us :) Ah, this sweet sweet taste of monopoly... we can do whatever we want and people will still give us their money! :)
             <br /> 
             <br />
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere tempore rerum optio aliquam dolorem pariatur inventore nobis, maiores, nulla tenetur libero dolorum quisquam iste voluptate obcaecati possimus quod praesentium? Harum! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore natus dignissimos sunt provident? Impedit repellat vitae unde magni dolorum, beatae, quae veniam cupiditate sunt tempora odio iusto autem modi necessitatibus?
           </p>
           <p>
-            <img src="/img/owner.webp" alt="owner" className="img-tumbnail" />
+            <img data-src="/img/owner.webp" alt="owner" className="lazyload img-tumbnail" />
             The CEO of Alimazon is Mr. John Doe - he is the richest man in the world! He is also the most successful businessman alive! Nobody knows whether he pays his taxes, but you gotta admit - he looks damn good in that suit. ;)
             <br /> 
             <br />
@@ -30,7 +32,7 @@ export default function About() {
           </p>
         </DivAbout>
       </Layout>
-    </React.Fragment>
+    </>
   )
 }
 

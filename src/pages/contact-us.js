@@ -6,7 +6,7 @@ import Layout from '../components/Layout'
 
 export default function ContactUs() {
   return (
-    <React.Fragment>
+    <>
       <Head>
         <title>Contact Us! - Alimazon</title>
         <meta name="description" content="Write to us! Not sure whether we'll read tho." />
@@ -28,7 +28,7 @@ export default function ContactUs() {
           </form>
         </DivContactForm>
       </Layout>
-    </React.Fragment>
+    </>
   )
 }
 

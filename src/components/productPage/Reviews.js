@@ -99,7 +99,7 @@ export default function Reviews({ dataItem }) {
   }
 
   return (    
-    <React.Fragment>
+    <>
       {
         reviews === undefined || reviews.length < 1
         ? (
@@ -140,6 +140,6 @@ export default function Reviews({ dataItem }) {
           />
         )          
       }
-    </React.Fragment>    
+    </>    
   )
 }

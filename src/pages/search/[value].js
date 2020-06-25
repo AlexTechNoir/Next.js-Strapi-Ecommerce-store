@@ -25,7 +25,7 @@ export default function SearchResults() {
   )
 
   return (
-    <React.Fragment>
+    <>
       <Head>
         <meta name="robots" content="noindex" />
       </Head>
@@ -42,7 +42,7 @@ export default function SearchResults() {
           }
         </DivSearchResults>
       </Layout>
-    </React.Fragment>
+    </>
   )
 }
 

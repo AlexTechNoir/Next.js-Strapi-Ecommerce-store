@@ -18,6 +18,7 @@
     "draftjs-to-html": "^0.9.1",
     "formik": "^2.1.4",
     "html-to-draftjs": "^1.4.0",
+    "lazysizes": "^5.2.2",
     "next": "^9.4.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

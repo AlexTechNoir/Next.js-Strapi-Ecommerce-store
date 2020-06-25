@@ -24,7 +24,7 @@ export async function getStaticProps({ params }) {
 
 export default function Sale({ params, data }) {
   return (
-    <React.Fragment>
+    <>
       <Head>
         <title>{params.category} Sale! - Alimazon</title>
         <meta
@@ -56,7 +56,7 @@ export default function Sale({ params, data }) {
           </div>
         </DivSales>
       </Layout>
-    </React.Fragment>
+    </>
   )
 }
 
