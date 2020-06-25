@@ -30,32 +30,43 @@ export default function PublishedReviews(props) {
 
       const items = JSON.parse(localStorage.reviewedItems)
       const item = items.find(i => i.id === id)
-      const userReview = item.reviews.find(i => i.user === 'UserName')
-      const plainTextMarkup = draftToHtml(convertToRaw(editorState.getCurrentContent()))
+      const userReview = item.reviews.find(i => i.user === "UserName")
+      const plainTextMarkup = draftToHtml(
+        convertToRaw(editorState.getCurrentContent())
+      )
 
       if (userReview.review !== plainTextMarkup) {
-        fetch(`http://localhost:3000/api/data?&id=${id}`, {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-          },
-          body: JSON.stringify({
-            user: 'UserName',
-            review: plainTextMarkup
-          })
-        }).then(r => {
-          if (r.status >= 400) {
-            return r.then(errResData => {
-              const err = new Error('Error.')
-              err.data = errResData
-              throw err
+        fetch(
+          `${
+            process.env.NODE_ENV === "production"
+              ? process.env.NEXT_PUBLIC_PROD_HOST
+              : process.env.NEXT_PUBLIC_DEV_HOST
+          }/api/data?&id=${id}`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json;charset=utf-8"
+            },
+            body: JSON.stringify({
+              user: "UserName",
+              review: plainTextMarkup
             })
           }
-        }).then(() => {
-          userReview.review = plainTextMarkup
-          localStorage.setItem('reviewedItems', JSON.stringify(items))
-          setReviewedItems(JSON.parse(localStorage.reviewedItems))        
-        })
+        )
+          .then(r => {
+            if (r.status >= 400) {
+              return r.then(errResData => {
+                const err = new Error("Error.")
+                err.data = errResData
+                throw err
+              })
+            }
+          })
+          .then(() => {
+            userReview.review = plainTextMarkup
+            localStorage.setItem("reviewedItems", JSON.stringify(items))
+            setReviewedItems(JSON.parse(localStorage.reviewedItems))
+          })
       }
     }
   }
@@ -79,20 +90,27 @@ export default function PublishedReviews(props) {
   }
 
   const deleteReview = () => {
-    fetch(`http://localhost:3000/api/data?id=${id}&user=UserName`, {
-      method: 'DELETE'
-    }).then(() => {
+    fetch(
+      `${
+        process.env.NODE_ENV === "production"
+          ? process.env.NEXT_PUBLIC_PROD_HOST
+          : process.env.NEXT_PUBLIC_DEV_HOST
+      }/api/data?id=${id}&user=UserName`,
+      {
+        method: "DELETE"
+      }
+    ).then(() => {
       let items = JSON.parse(localStorage.reviewedItems)
       const item = items.find(i => i.id === id)
-      const filteredReviews = item.reviews.filter(i => i.user !== 'UserName')
+      const filteredReviews = item.reviews.filter(i => i.user !== "UserName")
       item.reviews = filteredReviews
 
       if (item.reviews.length < 1) {
         const filteredItems = items.filter(i => i.id !== id)
         items = filteredItems
       }
-      
-      localStorage.setItem('reviewedItems', JSON.stringify(items))
+
+      localStorage.setItem("reviewedItems", JSON.stringify(items))
       setReviewedItems(JSON.parse(localStorage.reviewedItems))
     })
   }

@@ -51,58 +51,80 @@ export default function CartListItem({ cartListItem }) {
     const selectedAmount = document.getElementById(`itemsOf${id}`).value
     const updTotalPrice = price * selectedAmount
 
-    fetch(`http://localhost:3000/api/cart/${id}?type=editInCart`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify({
-        amountInCart: selectedAmount,
-        totalPrice: updTotalPrice
-      })
-    }).then(r => {
-      if (r.status >= 400) {
-        return r.json().then(errResData => {
-          const err = new Error('Error.')
-          err.data = errResData
-          throw err
+    fetch(
+      `${
+        process.env.NODE_ENV === "production"
+          ? process.env.NEXT_PUBLIC_PROD_HOST
+          : process.env.NEXT_PUBLIC_DEV_HOST
+      }/api/cart/${id}?type=editInCart`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8"
+        },
+        body: JSON.stringify({
+          amountInCart: selectedAmount,
+          totalPrice: updTotalPrice
         })
       }
-      return r.json()
-    }).then(r => {
-      const storageCartList = JSON.parse(localStorage.cartList)
-      const changedCartList = storageCartList.map(obj => r.find(o => o.id === obj.id) || obj)
-      setCurrentTotalPrice(r[0].totalPrice)
-      localStorage.setItem('cartList', JSON.stringify(changedCartList))
+    )
+      .then(r => {
+        if (r.status >= 400) {
+          return r.json().then(errResData => {
+            const err = new Error("Error.")
+            err.data = errResData
+            throw err
+          })
+        }
+        return r.json()
+      })
+      .then(r => {
+        const storageCartList = JSON.parse(localStorage.cartList)
+        const changedCartList = storageCartList.map(
+          obj => r.find(o => o.id === obj.id) || obj
+        )
+        setCurrentTotalPrice(r[0].totalPrice)
+        localStorage.setItem("cartList", JSON.stringify(changedCartList))
 
-      refreshCart()
-      evaluateTotalPrice()
-    })
+        refreshCart()
+        evaluateTotalPrice()
+      })
   }
 
   const deleteItem = id => {
-    fetch(`http://localhost:3000/api/cart/${id}?type=delete`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
+    fetch(
+      `${
+        process.env.NODE_ENV === "production"
+          ? process.env.NEXT_PUBLIC_PROD_HOST
+          : process.env.NEXT_PUBLIC_DEV_HOST
+      }/api/cart/${id}?type=delete`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8"
+        }
       }
-    }).then(r => {
-      if (r.status >= 400) {
-        return r.json().then(errResData => {
-          const err = new Error('Error.')
-          err.data = errResData
-          throw err
-        })
-      }
-      return r.json()
-    }).then(r => {
-      const storageCartList = JSON.parse(localStorage.cartList)
-      const changedCartList = storageCartList.filter(obj => obj.id !== r[0].id)
-      localStorage.setItem('cartList', JSON.stringify(changedCartList))
-      refreshCart()
+    )
+      .then(r => {
+        if (r.status >= 400) {
+          return r.json().then(errResData => {
+            const err = new Error("Error.")
+            err.data = errResData
+            throw err
+          })
+        }
+        return r.json()
+      })
+      .then(r => {
+        const storageCartList = JSON.parse(localStorage.cartList)
+        const changedCartList = storageCartList.filter(
+          obj => obj.id !== r[0].id
+        )
+        localStorage.setItem("cartList", JSON.stringify(changedCartList))
+        refreshCart()
 
-      evaluateTotalPrice()
-    })
+        evaluateTotalPrice()
+      })
   }
 
   return (

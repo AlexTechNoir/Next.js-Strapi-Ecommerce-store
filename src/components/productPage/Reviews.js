@@ -44,44 +44,55 @@ export default function Reviews({ dataItem }) {
     if (editorState.getCurrentContent().hasText()) {
       setIsEditorwReadOnly(true)
 
-      const plainTextMarkup = draftToHtml(convertToRaw(editorState.getCurrentContent()))
+      const plainTextMarkup = draftToHtml(
+        convertToRaw(editorState.getCurrentContent())
+      )
 
-      fetch(`http://localhost:3000/api/data?id=${id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: JSON.stringify({
-          user: 'UserName',
-          review: plainTextMarkup
+      fetch(
+        `${
+          process.env.NODE_ENV === "production"
+            ? process.env.NEXT_PUBLIC_PROD_HOST
+            : process.env.NEXT_PUBLIC_DEV_HOST
+        }/api/data?id=${id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json;charset=utf-8"
+          },
+          body: JSON.stringify({
+            user: "UserName",
+            review: plainTextMarkup
+          })
+        }
+      )
+        .then(r => {
+          if (r.status >= 400) {
+            return r.then(errResData => {
+              const err = new Error("Error.")
+              err.data = errResData
+              throw err
+            })
+          }
+          return r.json()
         })
-      }).then(r => {
-        if (r.status >= 400) {
-          return r.then(errResData => {
-            const err = new Error('Error.')
-            err.data = errResData
-            throw err
-          })
-        }
-        return r.json()
-      }).then(r => {
-        const items = JSON.parse(localStorage.reviewedItems)
-        const item = items.find(i => i.id === id)
-        if (item === undefined) {
-          items.push({
-            id: id,
-            reviews: []
-          })
-          const newItem = items.find(i => i.id === id)
-          newItem.reviews.push(r)
-          localStorage.setItem('reviewedItems', JSON.stringify(items))
-          setReviewedItems(JSON.parse(localStorage.reviewedItems))
-        } else {
-          item.reviews.push(r)
-          localStorage.setItem('reviewedItems', JSON.stringify(items))
-          setReviewedItems(JSON.parse(localStorage.reviewedItems))
-        }
-      })
+        .then(r => {
+          const items = JSON.parse(localStorage.reviewedItems)
+          const item = items.find(i => i.id === id)
+          if (item === undefined) {
+            items.push({
+              id: id,
+              reviews: []
+            })
+            const newItem = items.find(i => i.id === id)
+            newItem.reviews.push(r)
+            localStorage.setItem("reviewedItems", JSON.stringify(items))
+            setReviewedItems(JSON.parse(localStorage.reviewedItems))
+          } else {
+            item.reviews.push(r)
+            localStorage.setItem("reviewedItems", JSON.stringify(items))
+            setReviewedItems(JSON.parse(localStorage.reviewedItems))
+          }
+        })
 
       setIsEditorwReadOnly(false)
     }

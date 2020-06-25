@@ -22,11 +22,17 @@ export default function AddToCart({ dataItem }) {
   }
 
   const fetcher = () => {
-    fetch(`http://localhost:3000/api/data?category=object&id=${id}`)      
+    fetch(
+      `${
+        process.env.NODE_ENV === "production"
+          ? process.env.NEXT_PUBLIC_PROD_HOST
+          : process.env.NEXT_PUBLIC_DEV_HOST
+      }/api/data?category=object&id=${id}`
+    )
       .then(r => {
         if (r.status >= 400) {
           return r.then(errResData => {
-            const err = new Error('Error.')
+            const err = new Error("Error.")
             err.data = errResData
             throw err
           })
@@ -58,66 +64,87 @@ export default function AddToCart({ dataItem }) {
   }, [])
 
   const addToCart = (id, selectedAmount, updTotalPrice) => {
-    fetch(`http://localhost:3000/api/cart/${id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify({
-        amountInCart: selectedAmount,
-        totalPrice: updTotalPrice
-      })
-    }).then(r => {
-      if (r.status >= 400) {
-        return r.json().then(errResData => {
-          const err = new Error('Error.')
-          err.data = errResData
-          throw err
+    fetch(
+      `${
+        process.env.NODE_ENV === "production"
+          ? process.env.NEXT_PUBLIC_PROD_HOST
+          : process.env.NEXT_PUBLIC_DEV_HOST
+      }/api/cart/${id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8"
+        },
+        body: JSON.stringify({
+          amountInCart: selectedAmount,
+          totalPrice: updTotalPrice
         })
       }
-      return r.json()
-    }).then(r => {
+    )
+      .then(r => {
+        if (r.status >= 400) {
+          return r.json().then(errResData => {
+            const err = new Error("Error.")
+            err.data = errResData
+            throw err
+          })
+        }
+        return r.json()
+      })
+      .then(r => {
         const item = r[0]
         const cartList = JSON.parse(localStorage.cartList)
         cartList.push(item)
-        localStorage.setItem('cartList', JSON.stringify(cartList))
+        localStorage.setItem("cartList", JSON.stringify(cartList))
         refreshCart()
-        const cartListItem = cartList.find(cartListItem => cartListItem.id === id)
+        const cartListItem = cartList.find(
+          (cartListItem) => cartListItem.id === id
+        )
         setItem(cartListItem)
         setIsInCart(cartListItem.isInCart)
 
         evaluateTotalPrice()
-      }
-    )
+      })
   }
 
   const cancelAdding = (id, amountInCart) => {
-    fetch(`http://localhost:3000/api/cart/${id}?type=cancel`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify({
-        amountInCart: amountInCart
-      })
-    }).then(r => {
-      if (r.status >= 400) {
-        return r.json().then(errResData => {
-          const err = new Error('Error.')
-          err.data = errResData
-          throw err
+    fetch(
+      `${
+        process.env.NODE_ENV === "production"
+          ? process.env.NEXT_PUBLIC_PROD_HOST
+          : process.env.NEXT_PUBLIC_DEV_HOST
+      }/api/cart/${id}?type=cancel`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8"
+        },
+        body: JSON.stringify({
+          amountInCart: amountInCart
         })
       }
-      return r.json()
-    }).then(r => {
-      const item = r[0]
-      const cartList = JSON.parse(localStorage.cartList)
-      const filteredCartList = cartList.filter(cartListItem => cartListItem.id !== parseInt(item.id))
-      localStorage.setItem('cartList', JSON.stringify(filteredCartList))
-      refreshCart()
-      setItem(item)
-      setIsInCart(item.isInCart)
-    })
+    )
+      .then(r => {
+        if (r.status >= 400) {
+          return r.json().then(errResData => {
+            const err = new Error("Error.")
+            err.data = errResData
+            throw err
+          })
+        }
+        return r.json()
+      })
+      .then(r => {
+        const item = r[0]
+        const cartList = JSON.parse(localStorage.cartList)
+        const filteredCartList = cartList.filter(
+          (cartListItem) => cartListItem.id !== parseInt(item.id)
+        )
+        localStorage.setItem("cartList", JSON.stringify(filteredCartList))
+        refreshCart()
+        setItem(item)
+        setIsInCart(item.isInCart)
+      })
   }
 
   return (

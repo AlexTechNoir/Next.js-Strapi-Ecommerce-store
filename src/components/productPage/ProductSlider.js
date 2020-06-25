@@ -8,14 +8,14 @@ export default function ProductSlider({ dataItem }) {
   const renderCustomThumbs = () => {
     if (category === 'Mobile Phones') {
       return [
-        <img src={`/img/products/${id}/01.webp`} alt="First Thumbnail" height="70" />,
-        <img src={`/img/products/${id}/02.webp`} alt="Second Thumbnail" height="70" />,
-        <img src={`/img/products/${id}/03.webp`} alt="Third Thumbnail" height="70" />
+        <img key="01" src={`/img/products/${id}/01.webp`} alt="First Thumbnail" height="70" />,
+        <img key="02" src={`/img/products/${id}/02.webp`} alt="Second Thumbnail" height="70" />,
+        <img key="03" src={`/img/products/${id}/03.webp`} alt="Third Thumbnail" height="70" />
       ]
     } else {
       return [
-        <img src={`/img/products/${id}/01.webp`} alt="First Thumbnail" height="70" />,
-        <img src={`/img/products/${id}/02.webp`} alt="Second Thumbnail" height="70" />
+        <img key="01" src={`/img/products/${id}/01.webp`} alt="First Thumbnail" height="70" />,
+        <img key="02" src={`/img/products/${id}/02.webp`} alt="Second Thumbnail" height="70" />
       ]
     }
   }

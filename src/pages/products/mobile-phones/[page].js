@@ -16,7 +16,13 @@ const fetcher = url => {
 }
 
 export async function getServerSideProps({ params }) {
-  const data = await fetcher(`http://localhost:3000/api/data?category=mobile_phones&page=${params.page}&limit=8`)
+  const data = await fetcher(
+    `${
+      process.env.NODE_ENV === "production"
+        ? process.env.NEXT_PUBLIC_PROD_HOST
+        : process.env.NEXT_PUBLIC_DEV_HOST
+    }/api/data?category=mobile_phones&page=${params.page}&limit=8`
+  )
   return { props: { data, params } }
 }
 
@@ -28,7 +34,11 @@ export default function MobilePhones(props) {
 
   const initialData = props.data
   const { data } = useSWR(
-    `http://localhost:3000/api/data?category=mobile_phones&page=${props.params.page}&limit=8`,
+    `${
+      process.env.NODE_ENV === "production"
+        ? process.env.NEXT_PUBLIC_PROD_HOST
+        : process.env.NEXT_PUBLIC_DEV_HOST
+    }/api/data?category=mobile_phones&page=${props.params.page}&limit=8`,
     fetcher,
     { initialData }
   )
