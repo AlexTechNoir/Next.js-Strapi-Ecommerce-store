@@ -63,6 +63,7 @@ const StyledHeader = styled.header`
       border: 1px solid #ffc107;
       background: #ffc107;
       color: #dc3545;
+      cursor: pointer;
     }
   }
   > :last-child {
