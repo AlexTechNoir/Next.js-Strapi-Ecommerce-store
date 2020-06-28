@@ -61,13 +61,16 @@ export default function ProductListItem({ dataItem }) {
     <DivProductListItem>
       <Link href="/product-page/[id].js" as={`/product-page/${id}`}>
         <a>
-          <img 
-            alt="Product"
-            width={imageWidth}
-            heigth={imageHeight}
-            data-src={`/img/products/${id}/01.webp`}
-            className="lazyload"
-          />
+          <picture>
+            <source data-srcSet={`/img/products/${id}/01.webp`} type="image/webp" />
+            <img 
+              alt="Product"
+              width={imageWidth}
+              heigth={imageHeight}
+              data-src={`/img/products/${id}/01.jpg`}
+              className="lazyload"
+            />
+          </picture>
           <br />
           <h4>{title}</h4>
           <Rating 
@@ -128,7 +131,7 @@ const DivProductListItem = styled.div`
     &:hover {
       text-decoration: none;
     }
-    > img {
+    > picture {
       align-self: center;
     }
     > span > span > :last-child {

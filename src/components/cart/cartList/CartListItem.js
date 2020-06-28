@@ -131,13 +131,16 @@ export default function CartListItem({ cartListItem }) {
 
   return (
     <DivCartListItem>
-      <img
-        data-src={`/img/products/${id}/01.webp`}
-        alt={title}
-        height="100"
-        width="100"
-        className="lazyload"
-      />
+      <picture>
+        <source data-srcSet={`/img/products/${id}/01.webp`} type="image/webp" />
+        <img
+          data-src={`/img/products/${id}/01.jpg`}
+          alt={title}
+          height="100"
+          width="100"
+          className="lazyload"
+        />
+      </picture>
       <div>
         <Link href="/product-page/[id].js" as={`/product-page/${id}`}>
           <a>

@@ -80,13 +80,16 @@ export default function SearchResult({ result }) {
 
   return (
     <DivSearchResult>
-      <img
-        data-src={`/img/products/${id}/01.webp`}
-        alt="SearchItem"
-        width="121"
-        heigth="121"
-        className="lazyload"
-      />
+      <picture>
+        <source data-srcSet={`/img/products/${id}/01.webp`} type="image/webp" />
+        <img
+          data-src={`/img/products/${id}/01.jpg`}
+          alt="SearchItem"
+          width="121"
+          heigth="121"
+          className="lazyload"
+        />
+      </picture>
       <div>
         <Link href="/product-page/[id].js" as={`/product-page/${id}`}>
           <a>

@@ -19,17 +19,26 @@ export default function FeaturedCarousel() {
     >
       <Link href="/sales/[category]" as="/sales/Mobile Phones">
         <div>
-          <img src="/img/carousel/Mobile Phones/01.webp" alt="First slide" />
+          <picture>
+            <source data-srcSet="/img/carousel/Mobile Phones/01.webp" type="image/webp" />
+            <img src="/img/carousel/Mobile Phones/01.jpg" alt="First slide" />
+          </picture>
         </div>
       </Link>
       <Link href="/sales/[category]" as="/sales/Laptops">
         <div>
-          <img src="/img/carousel/Laptops/01.webp" alt="Second slide" />
+          <picture>
+            <source data-srcSet="/img/carousel/Laptops/01.webp" type="image/webp" />
+            <img src="/img/carousel/Laptops/01.jpg" alt="Second slide" />
+          </picture>
         </div>
       </Link>
       <Link href="/sales/[category]" as="/sales/Tablets">
         <div>
-          <img src="/img/carousel/Tablets/01.webp" alt="Third slide" />
+          <picture>
+            <source data-srcSet="/img/carousel/Tablets/01.webp" type="image/webp" />
+            <img src="/img/carousel/Tablets/01.jpg" alt="Third slide" />
+          </picture>
         </div>
       </Link>
     </Carousel>
