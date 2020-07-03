@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import styled from 'styled-components'
+import dynamic from 'next/dynamic'
 
 import Layout from '../../components/Layout'
 import ProductInfo from '../../components/productPage/ProductInfo'
@@ -9,7 +10,7 @@ import AddToCart from '../../components/productPage/AddToCart'
 import ToggleButtons from '../../components/productPage/ToggleButtons'
 import Reviews from '../../components/productPage/Reviews'
 import ProductSlider from '../../components/productPage/ProductSlider'
-import Comments from '../../components/productPage/Comments'
+const Comments = dynamic(() => import('../../components/productPage/Comments'))
 
 export async function getServerSideProps(context) {
   const res = await fetch(

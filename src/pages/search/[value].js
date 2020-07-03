@@ -3,9 +3,10 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
 import styled from 'styled-components'
+import dynamic from 'next/dynamic'
 
 import Layout from '../../components/Layout'
-import SearchResult from '../../components/SearchResult'
+const SearchResult = dynamic(() => import('../../components/SearchResult'))
 
 const fetcher = url => {
   return fetch(url).then(res => res.json())

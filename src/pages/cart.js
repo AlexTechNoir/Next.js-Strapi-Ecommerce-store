@@ -3,9 +3,10 @@ import React, { useEffect, useContext } from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
 import Context from '../context'
+import dynamic from 'next/dynamic'
 
 import Layout from '../components/Layout'
-import CartList from '../components/cart/CartList'
+const CartList = dynamic(() => import('../components/cart/CartList'))
 
 export default function Cart() {
   const { cartList, clearCart, cartSubTotalPrice, fetchedRates, currency, evaluateTotalPrice } = useContext(Context)

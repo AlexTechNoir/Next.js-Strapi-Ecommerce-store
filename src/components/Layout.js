@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
+import dynamic from 'next/dynamic'
 
 import Header from './layout/Header'
-import AuthForm from './layout/AuthForm'
+const AuthForm = dynamic(() => import('./layout/AuthForm'))
 import Footer from './layout/Footer'
 
 export default function Layout(props) {

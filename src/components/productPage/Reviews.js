@@ -8,7 +8,7 @@ const Editor = dynamic(
 import draftToHtml from 'draftjs-to-html'
 import htmlToDraft from 'html-to-draftjs'
 
-import PublishedReviews from './reviews/PublishedReviews'
+const PublishedReviews = dynamic(() => import('./reviews/PublishedReviews'))
 
 export default function Reviews({ dataItem }) {
   const { id } = dataItem

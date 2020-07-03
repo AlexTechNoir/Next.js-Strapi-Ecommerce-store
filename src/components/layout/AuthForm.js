@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import dynamic from 'next/dynamic'
 
 import LogIn from './authForm/LogIn'
 import Registration from './authForm/Registration'
-import ResetPassword from './authForm/ResetPassword'
+const ResetPassword = dynamic(() => import('./authForm/ResetPassword'))
 
 export default function AuthForm({ isLogInTabVisible, closeAuthModal, handleVisibility }) {
   const [ isResetPasswordVisible, setIsResetPasswordVisible ] = useState(false)
