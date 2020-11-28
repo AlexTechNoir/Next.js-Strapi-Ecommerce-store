@@ -61,7 +61,7 @@ const DivIndex = styled.div`
   flex-direction: column;
   > .carousel-root {
     align-self: center;
-    margin-bottom: 2em;  
+    margin-bottom: 2em; 
     max-width: 960px;  
     max-height: 500px;
     &:hover {

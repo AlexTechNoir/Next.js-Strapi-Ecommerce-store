@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import { useEffect, useContext } from 'react'
 import Context from '../../../context'
 
 export default function I18nButtons() {

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Carousel } from 'react-responsive-carousel'
 import { SideBySideMagnifier } from 'react-image-magnifiers'
 

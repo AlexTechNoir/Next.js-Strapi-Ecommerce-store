@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import Link from 'next/link'
 import Context from '../context'
 import styled from 'styled-components'

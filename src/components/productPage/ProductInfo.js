@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import Context from '../../context'
 import Rating from 'react-rating'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

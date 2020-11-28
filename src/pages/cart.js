@@ -1,5 +1,4 @@
-
-import React, { useEffect, useContext } from 'react'
+import { useEffect, useContext } from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
 import Context from '../context'

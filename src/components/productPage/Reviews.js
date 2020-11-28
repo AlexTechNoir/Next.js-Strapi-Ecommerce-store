@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import { EditorState, ContentState, convertToRaw } from 'draft-js'
 const Editor = dynamic(

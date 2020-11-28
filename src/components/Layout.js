@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 import dynamic from 'next/dynamic'
 
@@ -70,19 +70,6 @@ const GlobalStyle = createGlobalStyle`
 
   #__next {
     height: 100%;
-  }
-
-  @font-face {
-    font-family: 'Roboto Condensed';
-    font-style: normal;
-    font-weight: 400;
-    src: url('/fonts/roboto-condensed-v18-latin-regular.eot'); /* IE9 Compat Modes */
-    src: local('Roboto Condensed'), local('RobotoCondensed-Regular'),
-      url('/fonts/roboto-condensed-v18-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-      url('/fonts/roboto-condensed-v18-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
-      url('/fonts/roboto-condensed-v18-latin-regular.woff') format('woff'), /* Modern Browsers */
-      url('/fonts/roboto-condensed-v18-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
-      url('/fonts/roboto-condensed-v18-latin-regular.svg#RobotoCondensed') format('svg'); /* Legacy iOS */
   }
 `
 
