@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import Link from 'next/link'
 import Rating from 'react-rating'
 import Context from '../context'
@@ -6,8 +6,7 @@ import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-regular-svg-icons'
 import { faStar as faStarFull } from '@fortawesome/free-solid-svg-icons'
-import 'lazysizes'
-import 'lazysizes/plugins/parent-fit/ls.parent-fit'
+import Image from 'next/image'
 
 export default function ProductListItem({ dataItem }) {
   const {
@@ -61,16 +60,13 @@ export default function ProductListItem({ dataItem }) {
     <DivProductListItem>
       <Link href="/product-page/[id].js" as={`/product-page/${id}`}>
         <a>
-          <picture>
-            <source data-srcSet={`/img/products/${id}/01.webp`} type="image/webp" />
-            <img 
-              alt="Product"
-              width={imageWidth}
-              heigth={imageHeight}
-              data-src={`/img/products/${id}/01.jpg`}
-              className="lazyload"
-            />
-          </picture>
+          <Image 
+            alt={title}
+            src={`/img/products/${id}/01.webp`}
+            width={imageWidth}
+            height={imageHeight}
+            layout="fixed"
+          />
           <br />
           <h4>{title}</h4>
           <Rating 
@@ -131,7 +127,7 @@ const DivProductListItem = styled.div`
     &:hover {
       text-decoration: none;
     }
-    > picture {
+    > :first-child {
       align-self: center;
     }
     > span > span > :last-child {

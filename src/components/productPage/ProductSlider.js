@@ -1,8 +1,6 @@
 import React from 'react'
 import { Carousel } from 'react-responsive-carousel'
 import { SideBySideMagnifier } from 'react-image-magnifiers'
-import 'lazysizes'
-import 'lazysizes/plugins/parent-fit/ls.parent-fit'
 
 export default function ProductSlider({ dataItem }) {
   const { id, category } = dataItem
@@ -14,30 +12,27 @@ export default function ProductSlider({ dataItem }) {
           <source data-srcSet={`/img/products/${id}/01.webp`} type="image/webp" />
           <img
             key="01"
-            data-src={`/img/products/${id}/01.jpg`}
+            src={`/img/products/${id}/01.jpg`}
             alt="First Thumbnail"
             height="70"
-            className="lazyload"
           />
         </picture>,
         <picture>
           <source data-srcSet={`/img/products/${id}/02.webp`} type="image/webp" />
           <img
             key="02"
-            data-src={`/img/products/${id}/02.jpg`}
+            src={`/img/products/${id}/02.jpg`}
             alt="Second Thumbnail"
             height="70"
-            className="lazyload"
           />
         </picture>,
         <picture>
           <source data-srcSet={`/img/products/${id}/03.webp`} type="image/webp" />
           <img
             key="03"
-            data-src={`/img/products/${id}/03.jpg`}
+            src={`/img/products/${id}/03.jpg`}
             alt="Third Thumbnail"
             height="70"
-            className="lazyload"
           />
         </picture>
       ]
@@ -47,20 +42,18 @@ export default function ProductSlider({ dataItem }) {
           <source data-srcSet={`/img/products/${id}/01.webp`} type="image/webp" />
           <img
             key="01"
-            data-src={`/img/products/${id}/01.jpg`}
+            src={`/img/products/${id}/01.jpg`}
             alt="First Thumbnail"
             height="70"
-            className="lazyload"
           />
         </picture>,
         <picture>
           <source data-srcSet={`/img/products/${id}/02.webp`} type="image/webp" />
           <img
             key="02"
-            data-src={`/img/products/${id}/02.jpg`}
+            src={`/img/products/${id}/02.jpg`}
             alt="Second Thumbnail"
             height="70"
-            className="lazyload"
           />
         </picture>
       ]

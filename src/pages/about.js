@@ -1,8 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
-import 'lazysizes'
-import 'lazysizes/plugins/parent-fit/ls.parent-fit'
+import Image from 'next/image'
 
 import Layout from '../components/Layout'
 
@@ -17,20 +16,28 @@ export default function About() {
       <Layout>
         <DivAbout>
           <p>
-            <picture>
-              <source data-srcSet="/img/logo.webp" type="image/webp" />
-              <img data-src="/img/logo.jpg" alt="Alimazon logo" className="lazyload img-tumbnail" />
-            </picture>
+            <Image 
+              alt="Alimazon logo"
+              src="/img/logo.webp"
+              width={200}
+              height={50}
+              layout="fixed"
+            />
+            <br /> 
             Alimazon company is the largest company in the world! After we've bought Google, Facebook, Apple and Microsoft there are no rivals left for us :) Ah, this sweet sweet taste of monopoly... we can do whatever we want and people will still give us their money! :)
             <br /> 
             <br />
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere tempore rerum optio aliquam dolorem pariatur inventore nobis, maiores, nulla tenetur libero dolorum quisquam iste voluptate obcaecati possimus quod praesentium? Harum! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore natus dignissimos sunt provident? Impedit repellat vitae unde magni dolorum, beatae, quae veniam cupiditate sunt tempora odio iusto autem modi necessitatibus?
           </p>
           <p>
-            <picture>
-              <source data-srcSet="/img/owner.webp" type="image/webp" />
-              <img data-src="/img/owner.jpg" alt="owner" className="lazyload img-tumbnail" />
-            </picture>
+            <Image 
+              alt="Alimazon owner"
+              src="/img/owner.webp"
+              width={200}
+              height={233}
+              layout="fixed"
+            />
+            <br /> 
             The CEO of Alimazon is Mr. John Doe - he is the richest man in the world! He is also the most successful businessman alive! Nobody knows whether he pays his taxes, but you gotta admit - he looks damn good in that suit. ;)
             <br /> 
             <br />
@@ -50,15 +57,16 @@ const DivAbout = styled.div`
   > p {
     text-align: justify;
     text-justify: inter-word;
-    > picture > source, img {
-      display: block;
-      margin: 0 auto 1em auto;
+    > div {
+      margin: 0 0 1em 0; 
+      transform: translate(50%, 0%);
       float: none;
     }
   }
 
   @media only screen and (min-width: 600px) {
-    > p > img {
+    > p > div {
+      transform: translate(0%, 0%);
       margin: 2rem;
       float: left;
     }
