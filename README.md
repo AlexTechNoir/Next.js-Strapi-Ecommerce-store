@@ -19,7 +19,7 @@ Fully responsive mobile first demo website. Rewritten from [React CRA app](https
 ## What did I use to make this demo:
 
 - [Create Next App](https://nextjs.org/docs/getting-started#setup)
-- [styled-components](https://github.com/styled-components/styled-components) (examples: [global style](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/src/components/Layout.js#L34), [ususal style](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/src/pages/index.js#L58))
+- [styled-components](https://github.com/styled-components/styled-components) (examples: [global style](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/src/components/Layout.js#L34), [ususal style](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/src/pages/index.js#L72))
 - [Bootstrap 4](https://getbootstrap.com/) - mainly for ready-made buttons and forms
 - [React Font Awesome](https://github.com/FortAwesome/react-fontawesome) ([example](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/src/components/layout/footer/Social.js#L18))
 - [React Context](https://reactjs.org/docs/context.html) (example: [1](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/src/context.js), [2](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/src/pages/_app.js#L11))
