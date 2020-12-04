@@ -9,7 +9,7 @@ import ProductListItem from '../../components/ProductListItem'
 export async function getStaticPaths() {
   return {
     paths: [
-      { params : { category: 'Mobile Phones' } },
+      { params : { category: 'Mobile%20Phones' } },
       { params : { category: 'Laptops' } },
       { params : { category: 'Tablets' } }
     ],
@@ -35,10 +35,10 @@ export default function Sale({ params, data }) {
       <Layout>
         <DivSales>
           <div>
-            <img
-              src={`/img/carousel/${params.category}/01.webp`}
-              alt={`${params.category} Sale`}
-            />
+            <picture>
+              <source data-srcSet={`/img/carousel/${params.category}/01.webp`} type="image/webp" />
+              <img src={`/img/carousel/${params.category}/01.jpg`} alt={`${params.category} Sale`} />
+            </picture>
             <hr />
             <Timer />
           </div>
@@ -72,8 +72,9 @@ const DivSales = styled.div`
     align-self: center;
     width: 100%;
     max-width: 960px;
-    > img {
+    > picture > img {
       width: 100%;
+      max-width: 960px;
       height: 100%;
     }
     > :last-child {

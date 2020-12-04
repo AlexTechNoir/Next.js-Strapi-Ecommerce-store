@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 export default function Timer() {
   const [ currentTime, setCurrentTime ] = useState(new Date().getTime())  
   const [ countdown, setCountdown ] = useState(null)
-  const deadline = new Date(2021, 0, 0).getTime()
+  const deadline = new Date(new Date().getFullYear() + 1, 0, 0).getTime()
 
   let timeDifference = deadline - currentTime
 

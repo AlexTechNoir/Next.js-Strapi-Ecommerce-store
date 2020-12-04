@@ -2,6 +2,7 @@ import Head from 'next/head'
 import dynamic from 'next/dynamic'
 import useSWR from 'swr'
 import styled from 'styled-components'
+import { useState, useEffect } from 'react'
 
 import Layout from '../components/Layout'
 import FeaturedProducts from '../components/index/FeaturedProducts'
@@ -38,6 +39,17 @@ export default function Index(props) {
     { initialData }
   )
 
+  const [ windowWidth, setWindowWidth ] = useState(null)
+
+  const changeWindowWidth = () => setWindowWidth(window.screen.width)
+
+  useEffect(() => {
+    window.addEventListener("resize", changeWindowWidth)
+    changeWindowWidth()
+
+    return () => window.removeEventListener("resize", changeWindowWidth)    
+  }, [])
+
   return (
     <>
       <Head>
@@ -46,8 +58,10 @@ export default function Index(props) {
       </Head>
 
       <Layout>
-        <DivIndex>
-          <FeaturedCarousel />
+        <DivIndex windowWidth={windowWidth <= 960 ? windowWidth : null}>
+          <div>
+            <FeaturedCarousel />
+          </div>
           <FeaturedProducts data={data} />
         </DivIndex>
       </Layout>
@@ -59,16 +73,18 @@ const DivIndex = styled.div`
   grid-area: 2 / 2 / 3 / 3;
   display: flex;
   flex-direction: column;
-  > .carousel-root {
+  > :first-child {
+    max-width: 960px;
+    height: ${props => props.windowWidth !== null ? (props.windowWidth / 1.92) + 'px' : '500px'};
     align-self: center;
     margin-bottom: 2em; 
-    max-width: 960px;  
-    max-height: 500px;
-    &:hover {
-      cursor: pointer;
-    }
-    &:active {
-      cursor: grabbing;
+    > .carousel-root {        
+      &:hover {
+        cursor: pointer;
+      }
+      &:active {
+        cursor: grabbing;
+      }
     }
   }
   > :nth-child(2) {
