@@ -5,12 +5,10 @@ import { faFacebook, faTwitter, faInstagram, faYoutube, faLinkedin } from '@fort
 export default function Social() {
   return (
     <div>
-      <form>
-        Subscribe to the news!
-        <label htmlFor="email">
-          <input type="email" size="20" id="email" />
-          <input type="submit" value="Submit"></input>
-        </label>
+      <form>          
+        <label htmlFor="email">Subscribe to the news!</label>
+        <input type="email" size="20" id="email" />
+        <input type="submit" value="Submit"></input>
       </form>
       <div>
         <div>Our social media:</div>

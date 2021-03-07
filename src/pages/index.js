@@ -59,7 +59,7 @@ export default function Index(props) {
 
       <Layout>
         <DivIndex windowWidth={windowWidth <= 960 ? windowWidth : null}>
-          <div>
+          <div role="banner">
             <FeaturedCarousel />
           </div>
           <FeaturedProducts data={data} />

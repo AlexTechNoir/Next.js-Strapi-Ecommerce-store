@@ -8,7 +8,7 @@ import AuthButtons from './header/AuthButtons'
 
 export default function Header({ handleVisibility }) {
   return (
-    <StyledHeader>
+    <StyledHeader >
       <Logo />
       <Catalogue />
       <Search />

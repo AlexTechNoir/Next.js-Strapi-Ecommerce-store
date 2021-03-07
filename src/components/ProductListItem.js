@@ -57,7 +57,7 @@ export default function ProductListItem({ dataItem }) {
   }
 
   return (
-    <DivProductListItem>
+    <DivProductListItem >
       <Link href="/product-page/[id].js" as={`/product-page/${id}`}>
         <a>
           <Image 
@@ -68,7 +68,7 @@ export default function ProductListItem({ dataItem }) {
             layout="fixed"
           />
           <br />
-          <h4>{title}</h4>
+          <div>{title}</div>
           <Rating 
             fractions={2}
             emptySymbol={<FontAwesomeIcon icon={faStar} width="1em" />}
@@ -78,7 +78,7 @@ export default function ProductListItem({ dataItem }) {
           />
           <br />
           <div>
-            <h4>
+            <div>
               {
                 !hasDiscount
                 ? <span className="d-flex no-wrap">
@@ -96,7 +96,7 @@ export default function ProductListItem({ dataItem }) {
                     </span>
                   </span>
               }
-            </h4>
+            </div>
             {
               isItemInCart
               ? <div>In cart: {quantity}</div>
@@ -130,6 +130,9 @@ const DivProductListItem = styled.div`
     > :first-child {
       align-self: center;
     }
+    > :nth-child(3) {
+      font-size: 1.5rem;
+    }
     > span > span > :last-child {
       color: yellow;
       stroke: black;
@@ -138,7 +141,10 @@ const DivProductListItem = styled.div`
     > :last-child {
       display: flex;
       justify-content: space-between;
-      > div {
+      > :first-child {
+        font-size: 1.5rem;
+      }
+      > :nth-child(2) {
         align-self: flex-start;
         background: #dc3545;
         color: white;
