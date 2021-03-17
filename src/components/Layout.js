@@ -1,14 +1,39 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
+import * as gtag from '../../lib/gtag'
 
 import Header from './layout/Header'
 const AuthForm = dynamic(() => import('./layout/AuthForm'))
+import CookieBanner from './layout/CookieBanner'
 import Footer from './layout/Footer'
 
 export default function Layout(props) {
   const [ isAuthModalVisible, setIsAuthModalVisible ] = useState(false)
   const [ isLogInTabVisible, setIsLogInTabVisible ] = useState(null)
+  const [ areCookiesAccepted, setAreCookiesAccepted ] = useState(false)
+  const [ isCookieBannerVisible, setIsCookieBannerVisible ] = useState(false)
+
+  useEffect(() => {
+    if (localStorage.getItem('areCookiesAccepted') !== null) {
+      if (localStorage.getItem('areCookiesAccepted') === 'false') {
+        setAreCookiesAccepted(false)
+      } else {
+        setAreCookiesAccepted(true)
+      }
+    }
+
+    if (
+      localStorage.getItem('isCookieBannerVisible') !== null ||
+      localStorage.getItem('isCookieBannerVisible') === 'false'
+    ) {
+      setIsCookieBannerVisible(false)
+    } else {
+      setIsCookieBannerVisible(true)
+    }
+
+  }, [])
 
   const handleVisibility = e => {
     if (e.currentTarget.name === 'logIn') {
@@ -29,6 +54,17 @@ export default function Layout(props) {
     }
   }
 
+  const router = useRouter()
+  useEffect(() => {
+    const handleRouteChange = url => {
+      gtag.pageview(url)
+    }
+    router.events.on('routeChangeComplete', handleRouteChange)
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }, [router.events])
+
   return (
     <>
       <GlobalStyle />
@@ -44,7 +80,8 @@ export default function Layout(props) {
           : null
         }
         {props.children}
-        <Footer />
+        <CookieBanner areCookiesAccepted={areCookiesAccepted} />
+        <Footer setIsCookieBannerVisible={setIsCookieBannerVisible} />
       </DivGrid>
     </>
   )
@@ -79,6 +116,9 @@ const DivGrid = styled.div`
   grid-template-columns: auto 100% auto;
   height: 100%;
   position: relative;
+  > :nth-child(3) {
+    
+  }
 
   @media only screen and (min-width: 1220px) {
     grid-template-columns: 1fr 1200px 1fr;
