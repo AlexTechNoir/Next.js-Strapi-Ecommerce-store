@@ -108,6 +108,10 @@ class ContextProvider extends App {
     })
   }
 
+  showCookieConsent() {
+    localStorage.setItem('isCookieBannerVisible', 'true')
+  }
+
   render() {
     const { Component, pageProps } = this.props
 

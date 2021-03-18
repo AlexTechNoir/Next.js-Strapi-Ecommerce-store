@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-export default function Lists() {
+export default function Lists({ showCookieBanner }) {
   return (
     <>
       <ul className="list-group">
@@ -10,8 +10,8 @@ export default function Lists() {
         <li className="list-group-item">
           <Link href="/contact-us"><a className="nav-link">Contact Us</a></Link>
         </li>
-        <li className="list-group-item">
-          <a href="/#" className="nav-link">Lorem ipsum sin amet</a>
+        <li className="list-group-item" onClick={showCookieBanner}>
+          <a href="/#" className="nav-link">Cookie consent</a>
         </li>
         <li className="list-group-item">
           <a href="/#" className="nav-link">Lorem ipsum sin amet</a>

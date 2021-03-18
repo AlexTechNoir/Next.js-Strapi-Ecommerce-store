@@ -23,7 +23,9 @@ export default function Layout(props) {
         setAreCookiesAccepted(true)
       }
     }
+  }, [isCookieBannerVisible])
 
+  useEffect(() => {
     if (
       localStorage.getItem('isCookieBannerVisible') !== null ||
       localStorage.getItem('isCookieBannerVisible') === 'false'
@@ -32,8 +34,7 @@ export default function Layout(props) {
     } else {
       setIsCookieBannerVisible(true)
     }
-
-  }, [])
+  }, [areCookiesAccepted])
 
   const handleVisibility = e => {
     if (e.currentTarget.name === 'logIn') {
@@ -52,6 +53,11 @@ export default function Layout(props) {
       setIsAuthModalVisible(false)
       document.body.style.overflow = 'visible'
     }
+  }
+
+  const showCookieBanner = e => {
+    e.preventDefault()
+    setIsCookieBannerVisible(true)
   }
 
   const router = useRouter()
@@ -80,8 +86,12 @@ export default function Layout(props) {
           : null
         }
         {props.children}
-        <CookieBanner areCookiesAccepted={areCookiesAccepted} />
-        <Footer setIsCookieBannerVisible={setIsCookieBannerVisible} />
+        <CookieBanner 
+          isCookieBannerVisible={isCookieBannerVisible}
+          setAreCookiesAccepted={setAreCookiesAccepted}
+          setIsCookieBannerVisible={setIsCookieBannerVisible}
+        />
+        <Footer showCookieBanner={showCookieBanner} />
       </DivGrid>
     </>
   )

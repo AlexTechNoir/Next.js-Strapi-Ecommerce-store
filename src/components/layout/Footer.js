@@ -4,10 +4,10 @@ import Lists from './footer/Lists'
 import Buttons from './footer/Buttons'
 import Social from './footer/Social'
 
-export default function Footer() {
+export default function Footer({ showCookieBanner }) {
   return (
     <StyledFooter>
-      <Lists />
+      <Lists showCookieBanner={e => showCookieBanner(e)} />
       <Buttons />
       <Social />
     </StyledFooter>

@@ -1,21 +1,24 @@
 import styled from 'styled-components'
 
-export default function CookieBanner() {
+export default function CookieBanner({ isCookieBannerVisible, setAreCookiesAccepted, setIsCookieBannerVisible }) {
   const rejectCookies = () => {
     localStorage.setItem('areCookiesAccepted', 'false')
+    setAreCookiesAccepted(false)
     localStorage.setItem('isCookieBannerVisible', 'false')
+    setIsCookieBannerVisible(false)
   }
-  
+
   const acceptCookies = () => {
     localStorage.setItem('areCookiesAccepted', 'true')
+    setAreCookiesAccepted(true)
     localStorage.setItem('isCookieBannerVisible', 'false')
+    setIsCookieBannerVisible(false)
   }
 
   return (
-    <DivCookieBanner>
-      <p>This demo website uses third party cookies from Google Analytics and Facebook Comments plugin. Please, accept, reject or manage settings. You can change your mind anytime by clicking 'Cookies' below.</p>
+    <DivCookieBanner isCookieBannerVisible={isCookieBannerVisible}>
+      <p>This demo website uses cookies for analytics and social media. Please, accept or reject them. You can change your mind anytime by clicking 'Cookie consent' below.</p>
       <button type="button" className="btn btn-danger" onClick={rejectCookies}>Reject all</button>
-      <button type="button" className="btn btn-primary">Manage cookie settings</button>
       <button type="button" className="btn btn-success" onClick={acceptCookies}>Accept all</button>
     </DivCookieBanner>
   )
@@ -32,7 +35,8 @@ const DivCookieBanner = styled.div`
   background: white;
   padding: 1em;
   border-radius: 15px;
-  z-index: 20;
+  z-index: 100;
+  display: ${props => props.isCookieBannerVisible ? 'block' : 'none'};
   > button {
     margin: .3em;
   }
