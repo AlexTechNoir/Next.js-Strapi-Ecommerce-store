@@ -3,6 +3,7 @@ import styled, { createGlobalStyle } from 'styled-components'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import * as gtag from '../../lib/gtag'
+import { GA_TRACKING_ID } from '../../lib/gtag'
 
 import Header from './layout/Header'
 const AuthForm = dynamic(() => import('./layout/AuthForm'))
@@ -36,6 +37,38 @@ export default function Layout(props) {
     }
   }, [areCookiesAccepted])
 
+  const router = useRouter()
+  useEffect(() => {
+    console.log('useEffect', areCookiesAccepted, localStorage.getItem('areCookiesAccepted'), GA_TRACKING_ID)
+
+    if (localStorage.getItem('areCookiesAccepted') === 'true') {
+      console.log(1)
+      const handleRouteChange = url => {
+        gtag.pageview(url)
+      }
+      router.events.on('routeChangeComplete', handleRouteChange)
+      return () => {
+        router.events.off('routeChangeComplete', handleRouteChange)
+      }
+    } else if (localStorage.getItem('areCookiesAccepted') === 'false') {
+      console.log(2)
+      window[`ga-disable-${GA_TRACKING_ID}`] = true
+
+      document.cookie = '_ga=; Max-Age=0;'
+
+      const cookiePair = document.cookie.split('; ').find(row => row.startsWith('_ga_'))
+      if (cookiePair !== undefined) {
+        const cookieName = cookiePair.substring(0, cookiePair.indexOf('='))
+        document.cookie = `${cookieName}=; Max-Age=0;`
+      }
+      
+      document.cookie = '_gid=; Max-Age=0;'
+    } else if (localStorage.getItem('areCookiesAccepted') === null) {
+      console.log(3)
+      window[`ga-disable-${GA_TRACKING_ID}`] = true
+    }
+  }, [router.events, areCookiesAccepted])
+
   const handleVisibility = e => {
     if (e.currentTarget.name === 'logIn') {
       setIsAuthModalVisible(true)
@@ -59,17 +92,6 @@ export default function Layout(props) {
     e.preventDefault()
     setIsCookieBannerVisible(true)
   }
-
-  const router = useRouter()
-  useEffect(() => {
-    const handleRouteChange = url => {
-      gtag.pageview(url)
-    }
-    router.events.on('routeChangeComplete', handleRouteChange)
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange)
-    }
-  }, [router.events])
 
   return (
     <>
