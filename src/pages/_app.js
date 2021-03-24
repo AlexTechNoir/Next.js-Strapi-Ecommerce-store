@@ -1,6 +1,5 @@
-import App from 'next/app'
-import { withRouter } from 'next/router'
 import Context from '../context'
+import { useState, useEffect } from 'react'
 
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
@@ -8,26 +7,16 @@ import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false
 
-class ContextProvider extends App {
-  constructor() {
-    super()
-    this.state = {
-      itemsPerPage: 8,
-      cartList: [],
-      cartSubTotalPrice: 0,
-      fetchedRates: {},
-      currency: '€',
-      ratings: []
-    }
+export default function ContextProvider({ Component, pageProps }) {
+  const [ itemsPerPage, setItemsPerPage ] = useState(8)
+  const [ cartList, setCartList ] = useState([])
+  const [ cartSubTotalPrice, setCartSubTotalPrice ] = useState(0)
+  const [ fetchedRates, setFetchedRates ] = useState({})
+  const [ currency, setCurrency ] = useState('€')
+  const [ ratings, setRatings ] = useState([])
+  const [ areCookiesAccepted, setAreCookiesAccepted ] = useState(false)
 
-    this.refreshCart = this.refreshCart.bind(this)
-    this.clearCart = this.clearCart.bind(this)
-    this.evaluateTotalPrice = this.evaluateTotalPrice.bind(this)
-    this.refreshCurrency = this.refreshCurrency.bind(this)
-    this.refreshRatings = this.refreshRatings.bind(this)
-  }
-
-  async componentDidMount() {
+  useEffect(async () => {
     if (localStorage.getItem('cartList') === null) {
       localStorage.setItem('cartList', JSON.stringify([]))
     }
@@ -51,83 +40,58 @@ class ContextProvider extends App {
         }
         return r.json()
       }).then(r => {  
-        this.setState({
-          cartList: JSON.parse(localStorage.cartList),
-          fetchedRates: r.rates,
-          currency: JSON.parse(localStorage.currency),
-          ratings: JSON.parse(localStorage.ratings)
-        }) 
+        setCartList(JSON.parse(localStorage.cartList))
+        setFetchedRates(r.rates)
+        setCurrency(JSON.parse(localStorage.currency))
+        setRatings(JSON.parse(localStorage.ratings))
       })
 
-    this.evaluateTotalPrice()
-  }
+    evaluateTotalPrice()
+  },[])
 
-  refreshCart() {
-    this.setState({
-      cartList: JSON.parse(localStorage.cartList)
-    })
-  }
-  
-  clearCart() {
+  const refreshCart = () => setCartList(JSON.parse(localStorage.cartList))
+
+  const clearCart = () => {
     localStorage.setItem('cartList', JSON.stringify([]))
-    this.setState({
-      cartList: JSON.parse(localStorage.cartList)
-    })
+    setCartList(JSON.parse(localStorage.cartList))
+
     window.scrollTo(0,0)
   }
 
-  evaluateTotalPrice() {
+  const evaluateTotalPrice = () => {
     const cartList = JSON.parse(localStorage.cartList)
 
     if (cartList.length === 0) {
-      this.setState({
-        cartSubTotalPrice: 0
-      })
+      setCartSubTotalPrice(0)
     } else if (cartList.length === 1) {
       const cartSubTotalPrice = (cartList[0].totalPrice * cartList[0].discount).toFixed(2)
-      this.setState({
-        cartSubTotalPrice: cartSubTotalPrice
-      })
+      setCartSubTotalPrice(cartSubTotalPrice)
     } else {
       const cartSubTotalPrice = cartList.reduce((acc, cur) => acc + (cur.totalPrice * cur.discount), 0)
-      this.setState({
-        cartSubTotalPrice: cartSubTotalPrice
-      })
+      setCartSubTotalPrice(cartSubTotalPrice)
     }
   }
 
-  refreshCurrency() {
-    this.setState({
-      currency: JSON.parse(localStorage.currency)
-    })
-  }
+  const refreshCurrency = () => setCurrency(JSON.parse(localStorage.currency))
 
-  refreshRatings() {
-    this.setState({
-      ratings: JSON.parse(localStorage.ratings)
-    })
-  }
+  const refreshRatings = () => setRatings(JSON.parse(localStorage.ratings))
 
-  showCookieConsent() {
-    localStorage.setItem('isCookieBannerVisible', 'true')
-  }
-
-  render() {
-    const { Component, pageProps } = this.props
-
-    return (
-      <Context.Provider value={{
-        ...this.state,
-        refreshCart: this.refreshCart,
-        clearCart: this.clearCart,
-        evaluateTotalPrice: this.evaluateTotalPrice,
-        refreshCurrency: this.refreshCurrency,
-        refreshRatings: this.refreshRatings
-      }}>
-        <Component {...pageProps} />
-      </Context.Provider>
-    )
-  }
+  return (
+    <Context.Provider value={{
+      itemsPerPage,
+      cartList,
+      cartSubTotalPrice,
+      fetchedRates,
+      currency,
+      areCookiesAccepted,
+      setAreCookiesAccepted,
+      refreshCart,
+      clearCart,
+      evaluateTotalPrice,
+      refreshCurrency,
+      refreshRatings
+    }}>
+      <Component {...pageProps} />
+    </Context.Provider>
+  )
 }
-
-export default withRouter(ContextProvider)

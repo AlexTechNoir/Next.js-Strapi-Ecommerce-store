@@ -1,17 +1,28 @@
-import { useEffect } from 'react'
+import { useEffect, useContext } from 'react'
+import Context from '../../context'
 
 export default function Comments() {
+  const { areCookiesAccepted } = useContext(Context)
+  
   useEffect(() => {
-    window.FB.XFBML.parse()
-  })
+    if (areCookiesAccepted) {
+      window.FB.XFBML.parse()
+    }
+  }, [areCookiesAccepted])
   
   return (
     <div>
-      <div
-        className="fb-comments"
-        data-href={window.location.href}
-        data-width="100%"
-      ></div>
+      {
+        areCookiesAccepted ? (
+          <div
+            className="fb-comments"
+            data-href={window.location.href}
+            data-width="100%"
+          ></div>
+        ) : (
+          <div>User rejected cookies</div>
+        )
+      }
     </div>
   );
 }

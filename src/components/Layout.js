@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import * as gtag from '../../lib/gtag'
 import { GA_TRACKING_ID } from '../../lib/gtag'
+import Context from '../context'
 
 import Header from './layout/Header'
 const AuthForm = dynamic(() => import('./layout/AuthForm'))
@@ -12,9 +13,10 @@ import Footer from './layout/Footer'
 
 export default function Layout(props) {
   const [ isAuthModalVisible, setIsAuthModalVisible ] = useState(false)
-  const [ isLogInTabVisible, setIsLogInTabVisible ] = useState(null)
-  const [ areCookiesAccepted, setAreCookiesAccepted ] = useState(false)
+  const [ isLogInTabVisible, setIsLogInTabVisible ] = useState(null)  
   const [ isCookieBannerVisible, setIsCookieBannerVisible ] = useState(false)
+
+  const { areCookiesAccepted, setAreCookiesAccepted } = useContext(Context)
 
   useEffect(() => {
     if (localStorage.getItem('areCookiesAccepted') !== null) {
@@ -50,7 +52,8 @@ export default function Layout(props) {
       return () => {
         router.events.off('routeChangeComplete', handleRouteChange)
       }
-    } else if (localStorage.getItem('areCookiesAccepted') === 'false') {
+    } else if (localStorage.getItem('areCookiesAccepted') === 'false' ||
+    localStorage.getItem('areCookiesAccepted') === null) {
       console.log(2)
       window[`ga-disable-${GA_TRACKING_ID}`] = true
 
@@ -63,9 +66,6 @@ export default function Layout(props) {
       }
       
       document.cookie = '_gid=; Max-Age=0;'
-    } else if (localStorage.getItem('areCookiesAccepted') === null) {
-      console.log(3)
-      window[`ga-disable-${GA_TRACKING_ID}`] = true
     }
   }, [router.events, areCookiesAccepted])
 
