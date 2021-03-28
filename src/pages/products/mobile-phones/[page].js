@@ -7,6 +7,7 @@ import ReactPaginate from 'react-paginate'
 import styled from 'styled-components'
 import Context from '../../../context'
 import { mobile_phones } from '../../../data'
+import { GA_TRACKING_ID } from '../../../../lib/gtag'
 
 import Layout from '../../../components/Layout'
 import ProductListItem from '../../../components/ProductListItem'
@@ -30,7 +31,7 @@ export default function MobilePhones(props) {
   const router = useRouter()
   const { page } = router.query
 
-  const { itemsPerPage } = useContext(Context)
+  const { itemsPerPage, areCookiesAccepted } = useContext(Context)
 
   const initialData = props.data
   const { data } = useSWR(
@@ -52,6 +53,17 @@ export default function MobilePhones(props) {
       <Head>
         <title>Mobile Phones - Alimazon</title>
         <meta name="description" content={`The BEST mobile phones in the world!!!`} />
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            window['ga-disable-${GA_TRACKING_ID}'] = ${!areCookiesAccepted}
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_TRACKING_ID}', {
+              page_path: window.location.pathname,
+            });
+          `,
+        }} />
       </Head>
 
       <Layout>

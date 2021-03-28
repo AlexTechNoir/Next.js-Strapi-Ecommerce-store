@@ -3,7 +3,6 @@ import styled, { createGlobalStyle } from 'styled-components'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import * as gtag from '../../lib/gtag'
-import { GA_TRACKING_ID } from '../../lib/gtag'
 import Context from '../context'
 
 import Header from './layout/Header'
@@ -41,10 +40,7 @@ export default function Layout(props) {
 
   const router = useRouter()
   useEffect(() => {
-    console.log('useEffect', areCookiesAccepted, localStorage.getItem('areCookiesAccepted'), GA_TRACKING_ID)
-
     if (localStorage.getItem('areCookiesAccepted') === 'true') {
-      console.log(1)
       const handleRouteChange = url => {
         gtag.pageview(url)
       }
@@ -52,11 +48,7 @@ export default function Layout(props) {
       return () => {
         router.events.off('routeChangeComplete', handleRouteChange)
       }
-    } else if (localStorage.getItem('areCookiesAccepted') === 'false' ||
-    localStorage.getItem('areCookiesAccepted') === null) {
-      console.log(2)
-      window[`ga-disable-${GA_TRACKING_ID}`] = true
-
+    } else if (localStorage.getItem('areCookiesAccepted') === 'false') {
       document.cookie = '_ga=; Max-Age=0;'
 
       const cookiePair = document.cookie.split('; ').find(row => row.startsWith('_ga_'))

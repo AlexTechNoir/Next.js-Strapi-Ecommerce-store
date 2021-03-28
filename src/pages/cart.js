@@ -3,12 +3,21 @@ import Head from 'next/head'
 import styled from 'styled-components'
 import Context from '../context'
 import dynamic from 'next/dynamic'
+import { GA_TRACKING_ID } from '../../lib/gtag'
 
 import Layout from '../components/Layout'
 const CartList = dynamic(() => import('../components/cart/CartList'))
 
 export default function Cart() {
-  const { cartList, clearCart, cartSubTotalPrice, fetchedRates, currency, evaluateTotalPrice } = useContext(Context)
+  const { 
+    cartList, 
+    clearCart, 
+    cartSubTotalPrice, 
+    fetchedRates, 
+    currency, 
+    evaluateTotalPrice, 
+    areCookiesAccepted 
+  } = useContext(Context)
 
   useEffect(() => {
     evaluateTotalPrice()
@@ -18,6 +27,17 @@ export default function Cart() {
     <>
       <Head>
         <meta name="robots" content="noindex" />
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            window['ga-disable-${GA_TRACKING_ID}'] = ${!areCookiesAccepted}
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_TRACKING_ID}', {
+              page_path: window.location.pathname,
+            });
+          `,
+        }} />
       </Head>
       <Layout>
         <DivCart>

@@ -1,15 +1,31 @@
 import Head from 'next/head'
 import styled from 'styled-components'
 import Image from 'next/image'
+import Context from '../context'
+import { GA_TRACKING_ID } from '../../lib/gtag'
+import { useContext } from 'react'
 
 import Layout from '../components/Layout'
 
 export default function About() {
+  const { areCookiesAccepted } = useContext(Context)
+  
   return (
     <>
       <Head>
         <title>About Page</title>
         <meta name="description" content="Read about Alimazon Company and its CEO!" />
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            window['ga-disable-${GA_TRACKING_ID}'] = ${!areCookiesAccepted}
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_TRACKING_ID}', {
+              page_path: window.location.pathname,
+            });
+          `,
+        }} />
       </Head>
 
       <Layout>

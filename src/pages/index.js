@@ -2,7 +2,9 @@ import Head from 'next/head'
 import dynamic from 'next/dynamic'
 import useSWR from 'swr'
 import styled from 'styled-components'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import Context from '../context'
+import { GA_TRACKING_ID } from '../../lib/gtag'
 
 import Layout from '../components/Layout'
 import FeaturedProducts from '../components/index/FeaturedProducts'
@@ -41,6 +43,8 @@ export default function Index(props) {
 
   const [ windowWidth, setWindowWidth ] = useState(null)
 
+  const { areCookiesAccepted } = useContext(Context)
+
   const changeWindowWidth = () => setWindowWidth(window.screen.width)
 
   useEffect(() => {
@@ -55,6 +59,17 @@ export default function Index(props) {
       <Head>
         <title>Alimazon - Home Page</title>
         <meta name="description" content="Alimazon - the BEST online store in the entire world!!!" />
+        <script dangerouslySetInnerHTML={{
+            __html: `
+              window['ga-disable-${GA_TRACKING_ID}'] = ${!areCookiesAccepted}
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA_TRACKING_ID}', {
+                page_path: window.location.pathname,
+              });
+            `,
+          }} />
       </Head>
 
       <Layout>

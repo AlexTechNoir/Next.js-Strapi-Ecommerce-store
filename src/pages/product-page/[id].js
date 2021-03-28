@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import styled from 'styled-components'
 import dynamic from 'next/dynamic'
+import Context from '../../context'
+import { GA_TRACKING_ID } from '../../../lib/gtag'
 
 import Layout from '../../components/Layout'
 import ProductInfo from '../../components/productPage/ProductInfo'
@@ -32,6 +34,8 @@ export default function ProductPage({ dataItem }) {
   const { title, category } = dataItem
 
   const [ isReviewsTabVisible, setIsReviewsTabVisible ] = useState(true)
+
+  const { areCookiesAccepted } = useContext(Context)
 
   let productCategory
 
@@ -68,6 +72,17 @@ export default function ProductPage({ dataItem }) {
       <Head>
         <title>Buy {title} - Alimazon</title>
         <meta name="description" content={`${title} - the LOWEST price, the BEST quality!!!`} />
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            window['ga-disable-${GA_TRACKING_ID}'] = ${!areCookiesAccepted}
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_TRACKING_ID}', {
+              page_path: window.location.pathname,
+            });
+          `,
+        }} />
       </Head>
 
       <Layout>
