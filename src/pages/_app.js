@@ -8,7 +8,6 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false
 
 export default function ContextProvider({ Component, pageProps }) {
-  const [ itemsPerPage, setItemsPerPage ] = useState(8)
   const [ cartList, setCartList ] = useState([])
   const [ cartSubTotalPrice, setCartSubTotalPrice ] = useState(0)
   const [ fetchedRates, setFetchedRates ] = useState({})
@@ -29,7 +28,7 @@ export default function ContextProvider({ Component, pageProps }) {
       localStorage.setItem('ratings', JSON.stringify([]))
     }
 
-    await fetch('https://api.exchangeratesapi.io/latest')
+    await fetch(`http://api.exchangeratesapi.io/v1/latest?access_key=${process.env.NEXT_PUBLIC_ERAPI_ACCESS_KEY}`)
       .then(r => {
         if (r.status >= 400) {
           return r.json().then(errResData => {
@@ -78,7 +77,6 @@ export default function ContextProvider({ Component, pageProps }) {
 
   return (
     <Context.Provider value={{
-      itemsPerPage,
       cartList,
       cartSubTotalPrice,
       fetchedRates,

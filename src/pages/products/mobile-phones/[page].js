@@ -31,7 +31,7 @@ export default function MobilePhones(props) {
   const router = useRouter()
   const { page } = router.query
 
-  const { itemsPerPage, areCookiesAccepted } = useContext(Context)
+  const { areCookiesAccepted } = useContext(Context)
 
   const initialData = props.data
   const { data } = useSWR(
@@ -83,7 +83,7 @@ export default function MobilePhones(props) {
           </div>
           <ReactPaginate 
             forcePage={page - 1}
-            pageCount={Math.ceil(mobile_phones.length / itemsPerPage)}
+            pageCount={Math.ceil(mobile_phones.length / 8)}
             pageRangeDisplayed={2}
             marginPagesDisplayed={3}
             onPageChange={paginate}
