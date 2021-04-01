@@ -43,6 +43,7 @@ export default function ContextProvider({ Component, pageProps }) {
         setFetchedRates(r.rates)
         setCurrency(JSON.parse(localStorage.currency))
         setRatings(JSON.parse(localStorage.ratings))
+        console.log(r.rates)
       })
 
     evaluateTotalPrice()
