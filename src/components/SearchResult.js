@@ -41,8 +41,8 @@ export default function SearchResult({ result }) {
 
   let currencyRate = 1
   
-  if (currency === '$') {
-    currencyRate = fetchedRates.USD
+  if (currency === '€') {
+    currencyRate = fetchedRates.EUR
   } else if (currency === '₽') {
     currencyRate = fetchedRates.RUB
   } else if (currency === 'Ch¥') {

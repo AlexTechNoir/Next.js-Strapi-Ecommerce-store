@@ -20,8 +20,8 @@ export default function I18nButtons() {
       <div>
         Currency:
         <select id="rates" aria-label="Currency selection" onChange={e => changeCurrency(e)}>
-          <option id="€" value="€">€ (EUR) Euro</option>
           <option id="$" value="$">$ (USD) U.S. Dollar</option>
+          <option id="€" value="€">€ (EUR) Euro</option>
           <option id="₽" value="₽">₽ (RUB) Russian Ruble</option>
           <option id="Ch¥" value="Ch¥">¥ (CNY) Chinese Yuan</option>
           <option id="Jp¥" value="Jp¥">¥ (JPY) Japanese Yen</option>

@@ -6,8 +6,8 @@ import PayPalCheckoutButton from './cartList/PayPalCheckoutButton'
 export default function CartList({ cartList, clearCart, cartSubTotalPrice, fetchedRates, currency }) {
   let currencyRate = 1
   
-  if (currency === '$') {
-    currencyRate = fetchedRates.USD
+  if (currency === '€') {
+    currencyRate = fetchedRates.EUR
   } else if (currency === '₽') {
     currencyRate = fetchedRates.RUB
   } else if (currency === 'Ch¥') {

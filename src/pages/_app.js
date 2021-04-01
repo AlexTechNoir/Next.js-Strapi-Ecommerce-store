@@ -11,7 +11,7 @@ export default function ContextProvider({ Component, pageProps }) {
   const [ cartList, setCartList ] = useState([])
   const [ cartSubTotalPrice, setCartSubTotalPrice ] = useState(0)
   const [ fetchedRates, setFetchedRates ] = useState({})
-  const [ currency, setCurrency ] = useState('€')
+  const [ currency, setCurrency ] = useState('$')
   const [ ratings, setRatings ] = useState([])
   const [ areCookiesAccepted, setAreCookiesAccepted ] = useState(false)
 
@@ -21,14 +21,14 @@ export default function ContextProvider({ Component, pageProps }) {
     }
 
     if (localStorage.getItem('currency') === null) {
-      localStorage.setItem('currency', JSON.stringify('€'))
+      localStorage.setItem('currency', JSON.stringify('$'))
     }
 
     if (localStorage.getItem('ratings') === null) {
       localStorage.setItem('ratings', JSON.stringify([]))
     }
 
-    await fetch(`http://api.exchangeratesapi.io/v1/latest?access_key=${process.env.NEXT_PUBLIC_ERAPI_ACCESS_KEY}`)
+    await fetch(`https://openexchangerates.org/api/latest.json?app_id=${process.env.NEXT_PUBLIC_OERAPI_ACCESS_KEY}`)
       .then(r => {
         if (r.status >= 400) {
           return r.json().then(errResData => {
@@ -43,7 +43,6 @@ export default function ContextProvider({ Component, pageProps }) {
         setFetchedRates(r.rates)
         setCurrency(JSON.parse(localStorage.currency))
         setRatings(JSON.parse(localStorage.ratings))
-        console.log(r.rates)
       })
 
     evaluateTotalPrice()
