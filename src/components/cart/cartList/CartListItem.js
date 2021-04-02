@@ -150,7 +150,7 @@ export default function CartListItem({ cartListItem }) {
       <div>
         <label htmlFor={`itemsOf${id}`}>
           Quantity:&nbsp;
-          <select id={`itemsOf${id}`} onChange={() => editAmount(id, price)}>
+          <select className="form-control" id={`itemsOf${id}`} onChange={() => editAmount(id, price)}>
             {options}
           </select>
         </label>
@@ -222,6 +222,9 @@ const DivCartListItem = styled.div`
     display: flex;
     align-items: flex-start;
     margin-bottom: 0;
+    /* > label > select {
+      appearance: none;
+    } */
   }
   > :nth-child(4) {
     grid-area: 3 / 1 / 4 / 5;
