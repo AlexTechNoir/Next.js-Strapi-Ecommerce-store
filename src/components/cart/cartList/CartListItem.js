@@ -222,9 +222,9 @@ const DivCartListItem = styled.div`
     display: flex;
     align-items: flex-start;
     margin-bottom: 0;
-    /* > label > select {
+    > label > select {
       appearance: none;
-    } */
+    }
   }
   > :nth-child(4) {
     grid-area: 3 / 1 / 4 / 5;
