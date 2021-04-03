@@ -30,6 +30,7 @@ export default function CartListItem({ cartListItem }) {
   useEffect(() => {
     const select = document.getElementById(`itemsOf${id}`)
     select.options[amountInCart - 1].setAttribute('selected', true)
+    select.replaceChildren(select.options[amountInCart - 1])
   }, [])
 
   let currencyRate = 1
@@ -222,9 +223,6 @@ const DivCartListItem = styled.div`
     display: flex;
     align-items: flex-start;
     margin-bottom: 0;
-    > label > select {
-      -webkit-appearance: none;
-    }
   }
   > :nth-child(4) {
     grid-area: 3 / 1 / 4 / 5;
