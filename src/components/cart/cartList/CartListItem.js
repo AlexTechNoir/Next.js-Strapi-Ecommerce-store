@@ -29,7 +29,7 @@ export default function CartListItem({ cartListItem }) {
 
   useEffect(() => {
     const select = document.getElementById(`itemsOf${id}`)
-    select.options[amountInCart - 1].toggleAttribute('selected')
+    select.options[amountInCart - 1].selected = 'selected'
   }, [])
 
   let currencyRate = 1
