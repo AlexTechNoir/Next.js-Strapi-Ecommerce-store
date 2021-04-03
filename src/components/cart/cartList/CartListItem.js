@@ -223,7 +223,7 @@ const DivCartListItem = styled.div`
     align-items: flex-start;
     margin-bottom: 0;
     > label > select {
-      appearance: none;
+      -webkit-appearance: none;
     }
   }
   > :nth-child(4) {
