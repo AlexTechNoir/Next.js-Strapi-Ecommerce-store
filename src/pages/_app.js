@@ -30,7 +30,6 @@ export default function ContextProvider({ Component, pageProps }) {
 
     await fetch(`https://openexchangerates.org/api/latest.json?app_id=${process.env.NEXT_PUBLIC_OERAPI_ACCESS_KEY}`)
       .then(r => {
-        console.log(r)
         if (r.status >= 400) {
           return r.json().then(errResData => {
             const err = new Error('Error.')
