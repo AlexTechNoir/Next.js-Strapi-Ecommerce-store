@@ -6,8 +6,7 @@ export default function I18nButtons() {
 
   useEffect(() => {
     const select = document.getElementById('rates')
-    select.options.namedItem(JSON.parse(localStorage.currency)).setAttribute('selected', true)
-    select.replaceChildren(select.options)
+    select.options.namedItem(JSON.parse(localStorage.currency)).selected = 'selected'
   }, [])
 
   const changeCurrency = e => {
