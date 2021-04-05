@@ -12,7 +12,7 @@ import ProductListItem from '../../components/ProductListItem'
 export async function getStaticPaths() {
   return {
     paths: [
-      { params : { category: 'Mobile%20Phones' } },
+      { params : { category: 'Mobile Phones' } },
       { params : { category: 'Laptops' } },
       { params : { category: 'Tablets' } }
     ],
