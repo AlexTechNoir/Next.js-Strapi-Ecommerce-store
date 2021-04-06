@@ -70,20 +70,26 @@ const DivAbout = styled.div`
   border-radius: 5px;
   padding: 2.5em;
   > p {
+    display: flex;
+    flex-direction: column;
     text-align: justify;
     text-justify: inter-word;
     > div {
+      align-self: center;
       margin: 0 0 1em 0; 
-      transform: translate(50%, 0%);
+      /* transform: translate(50%, 0%); */
       float: none;
     }
   }
 
   @media only screen and (min-width: 600px) {
-    > p > div {
-      transform: translate(0%, 0%);
-      margin: 2rem;
-      float: left;
+    > p {
+      display: block;
+      > div {
+        transform: translate(0%, 0%);
+        margin: 2rem;
+        float: left;
+      }
     }
   }
 `
