@@ -26,14 +26,14 @@ export default function ProductListItem({ dataItem }) {
   const [ rating, setRating ] = useState(0)
 
   useEffect(() => {
-    const cartList = JSON.parse(localStorage.cartList)
+    const cartList = localStorage.getItem('cartList') !== null ? JSON.parse(localStorage.cartList) : []
     const item = cartList.find(cartListItem => cartListItem.id === id)
     if (item !== undefined) {
       setIsItemInCart(item.isInCart)
       setQuantity(item.amountInCart)
     }
 
-    const ratings = JSON.parse(localStorage.ratings)
+    const ratings = localStorage.getItem('ratings') !== null ? JSON.parse(localStorage.ratings) : []
     const itemRating = ratings.find(i => i.id === id)
     if (itemRating !== undefined) {
       setRating(itemRating.rating)

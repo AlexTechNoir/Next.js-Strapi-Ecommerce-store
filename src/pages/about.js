@@ -77,7 +77,6 @@ const DivAbout = styled.div`
     > div {
       align-self: center;
       margin: 0 0 1em 0; 
-      /* transform: translate(50%, 0%); */
       float: none;
     }
   }
