@@ -140,9 +140,6 @@ const DivGrid = styled.div`
   grid-template-columns: auto 100% auto;
   height: 100%;
   position: relative;
-  > :nth-child(3) {
-    
-  }
 
   @media only screen and (min-width: 1220px) {
     grid-template-columns: 1fr 1200px 1fr;

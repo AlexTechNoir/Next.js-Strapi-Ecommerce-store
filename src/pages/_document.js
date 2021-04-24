@@ -1,6 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
-import { GA_TRACKING_ID } from '../../lib/gtag'
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -46,11 +45,6 @@ class MyDocument extends Document {
           {/* Facebook Comments moderation tool */}
           <meta property="fb:app_id" content="660669431380946" />
 
-          {/* Global Site Tag (gtag.js) - Google Analytics */}
-          <script
-            async
-            src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
-          />
         </Head>
         <body>
           {/* Facebook Comments Plugin */}

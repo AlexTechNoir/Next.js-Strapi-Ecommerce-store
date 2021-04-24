@@ -1,11 +1,14 @@
 import Context from '../context'
 import { useState, useEffect } from 'react'
-
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false
+import Head from 'next/head'
+import { GA_TRACKING_ID } from '../../lib/gtag'
+
+import Layout from '../components/Layout'
 
 export default function ContextProvider({ Component, pageProps }) {
   const [ cartList, setCartList ] = useState([])
@@ -89,7 +92,28 @@ export default function ContextProvider({ Component, pageProps }) {
       refreshCurrency,
       refreshRatings
     }}>
-      <Component {...pageProps} />
+      <Head>
+        {/* Global Site Tag (gtag.js) - Google Analytics */}
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+        />
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            window['ga-disable-${GA_TRACKING_ID}'] = ${!areCookiesAccepted}
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_TRACKING_ID}', {
+              page_path: window.location.pathname,
+            });
+          `,
+        }} />
+      </Head>
+
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </Context.Provider>
   )
 }

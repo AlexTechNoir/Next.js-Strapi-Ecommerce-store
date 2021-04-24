@@ -16,7 +16,7 @@ export default function Catalogue() {
       </button>
       {
         isNavVisible
-        ? <Nav />
+        ? <Nav toggleNav={toggleNav} />
         : null
       }
     </div>

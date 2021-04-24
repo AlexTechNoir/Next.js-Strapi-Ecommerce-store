@@ -1,15 +1,11 @@
-import { useContext } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
 import ReactPaginate from 'react-paginate'
 import styled from 'styled-components'
-import Context from '../../../context'
 import { laptops } from '../../../data'
-import { GA_TRACKING_ID } from '../../../../lib/gtag'
 
-import Layout from '../../../components/Layout'
 import ProductListItem from '../../../components/ProductListItem'
 
 const fetcher = url => {
@@ -31,8 +27,6 @@ export default function Laptops(props) {
   const router = useRouter()
   const { page } = router.query
 
-  const { areCookiesAccepted } = useContext(Context)
-
   const initialData = props.data
   const { data } = useSWR(
     `${
@@ -53,48 +47,35 @@ export default function Laptops(props) {
       <Head>
         <title>Laptops - Alimazon</title>
         <meta name="description" content={`The BEST laptops in the world!!!`} />
-        <script dangerouslySetInnerHTML={{
-          __html: `
-            window['ga-disable-${GA_TRACKING_ID}'] = ${!areCookiesAccepted}
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_TRACKING_ID}', {
-              page_path: window.location.pathname,
-            });
-          `,
-        }} />
       </Head>
 
-      <Layout>
-        <DivProducts>
-          <nav aria-label="breadcrumb">
-            <ol className="breadcrumb">
-              <Link href="/"><a className="breadcrumb-item"><li>Home</li></a></Link>
-              <li className="breadcrumb-item active" aria-current="page">Laptops</li>
-            </ol>
-          </nav>
-          <div>
-            {
-              data.map(dataItem => {
-                return <ProductListItem key={dataItem.id} dataItem={dataItem} />
-              })
-            }
-          </div>
-          <ReactPaginate 
-            forcePage={page - 1}
-            pageCount={Math.ceil(laptops.length / 8)}
-            pageRangeDisplayed={2}
-            marginPagesDisplayed={3}
-            onPageChange={paginate}
-            previousLabel={'«'}
-            nextLabel={'»'}
-            breakLabel={'...'}
-            activeClassName={'active'}
-            disableInitialCallback={true}
-          />
-        </DivProducts>
-      </Layout>
+      <DivProducts>
+        <nav aria-label="breadcrumb">
+          <ol className="breadcrumb">
+            <Link href="/"><a className="breadcrumb-item"><li>Home</li></a></Link>
+            <li className="breadcrumb-item active" aria-current="page">Laptops</li>
+          </ol>
+        </nav>
+        <div>
+          {
+            data.map(dataItem => {
+              return <ProductListItem key={dataItem.id} dataItem={dataItem} />
+            })
+          }
+        </div>
+        <ReactPaginate 
+          forcePage={page - 1}
+          pageCount={Math.ceil(laptops.length / 8)}
+          pageRangeDisplayed={2}
+          marginPagesDisplayed={3}
+          onPageChange={paginate}
+          previousLabel={'«'}
+          nextLabel={'»'}
+          breakLabel={'...'}
+          activeClassName={'active'}
+          disableInitialCallback={true}
+        />
+      </DivProducts>
     </>
   )
 }

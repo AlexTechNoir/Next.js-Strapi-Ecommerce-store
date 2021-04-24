@@ -1,21 +1,21 @@
 import Link from 'next/link'
 import styled from 'styled-components'
 
-export default function Nav() {
+export default function Nav({ toggleNav }) {
   return (
     <StyledNav>
       <ul className="nav">
-        <li className="nav-item">
+        <li className="nav-item" onClick={toggleNav}>
           <Link href="/products/mobile-phones/[page]" as="/products/mobile-phones/1">
             <a className="nav-link"><b>Mobile Phones</b></a>
           </Link>
         </li>
-        <li className="nav-item">
+        <li className="nav-item" onClick={toggleNav}>
           <Link href="/products/laptops/[page]" as="/products/laptops/1">
             <a className="nav-link"><b>Laptops</b></a>
           </Link>
         </li>
-        <li className="nav-item">
+        <li className="nav-item" onClick={toggleNav}>
           <Link href="/products/tablets/[page]" as="/products/tablets/1">
             <a className="nav-link"><b>Tablets</b></a>
           </Link>
