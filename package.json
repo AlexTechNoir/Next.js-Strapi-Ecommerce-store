@@ -21,7 +21,7 @@
     "next": "^10.0.8",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-draft-wysiwyg": "^1.14.5",
+    "react-draft-wysiwyg": "^1.14.6",
     "react-image-magnifiers": "^1.4.0",
     "react-paginate": "^6.5.0",
     "react-rating": "^2.0.5",
