@@ -1,7 +1,8 @@
 import { useState, useEffect, useContext } from 'react'
 import Link from 'next/link'
 import styled from 'styled-components'
-import Context from '../../../context'
+import CurrencyContext from '../../../context/currencyContext'
+import CartContext from '../../../context/cartContext'
 import Image from 'next/image'
 
 export default function CartListItem({ cartListItem }) {
@@ -17,7 +18,9 @@ export default function CartListItem({ cartListItem }) {
     totalPrice,
   } = cartListItem
   
-  const { fetchedRates, currency, refreshCart, evaluateTotalPrice } = useContext(Context)
+  const { fetchedRates, currency } = useContext(CurrencyContext)
+  const { refreshCart, evaluateTotalPrice } = useContext(CartContext)
+
 
   const [ currentTotalPrice, setCurrentTotalPrice ] = useState(totalPrice)
 

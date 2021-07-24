@@ -34,7 +34,7 @@ export default function Sale({ params, data }) {
       <DivSales>
         <div>
           <picture>
-            <source data-srcSet={`/img/carousel/${params.category}/01.webp`} type="image/webp" />
+            <source data-srcset={`/img/carousel/${params.category}/01.webp`} type="image/webp" />
             <img src={`/img/carousel/${params.category}/01.jpg`} alt={`${params.category} Sale`} />
           </picture>
           <hr />

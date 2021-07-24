@@ -2,11 +2,11 @@ import { useContext } from 'react'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
-import Context from '../../../context'
+import CartContext from '../../../context/cartContext'
 import styled from 'styled-components'
 
 export default function CartButton() {
-  const { cartList } = useContext(Context)
+  const { cartList } = useContext(CartContext)
 
   return (
     <Link href="/cart">

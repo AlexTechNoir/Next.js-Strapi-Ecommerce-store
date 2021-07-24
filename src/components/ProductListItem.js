@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 import Link from 'next/link'
 import Rating from 'react-rating'
-import Context from '../context'
+import CurrencyContext from '../context/currencyContext'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-regular-svg-icons'
@@ -19,7 +19,7 @@ export default function ProductListItem({ dataItem }) {
     discount
   } = dataItem
 
-  const { fetchedRates, currency } = useContext(Context)
+  const { fetchedRates, currency } = useContext(CurrencyContext)
 
   const [ isItemInCart, setIsItemInCart ] = useState(false)
   const [ quantity, setQuantity ] = useState(0)

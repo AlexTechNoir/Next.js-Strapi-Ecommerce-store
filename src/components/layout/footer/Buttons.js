@@ -1,8 +1,8 @@
 import { useEffect, useContext } from 'react'
-import Context from '../../../context'
+import CurrencyContext from '../../../context/currencyContext'
 
 export default function I18nButtons() {
-  const { refreshCurrency } = useContext(Context)
+  const { refreshCurrency } = useContext(CurrencyContext)
 
   useEffect(() => {
     const select = document.getElementById('rates')

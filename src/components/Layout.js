@@ -3,7 +3,7 @@ import styled, { createGlobalStyle } from 'styled-components'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import * as gtag from '../../lib/gtag'
-import Context from '../context'
+import CookiesContext from '../context/cookiesContext'
 
 import Header from './layout/Header'
 const AuthForm = dynamic(() => import('./layout/AuthForm'))
@@ -15,7 +15,7 @@ export default function Layout(props) {
   const [ isLogInTabVisible, setIsLogInTabVisible ] = useState(null)  
   const [ isCookieBannerVisible, setIsCookieBannerVisible ] = useState(false)
 
-  const { areCookiesAccepted, setAreCookiesAccepted } = useContext(Context)
+  const { areCookiesAccepted, setAreCookiesAccepted } = useContext(CookiesContext)
 
   useEffect(() => {
     if (localStorage.getItem('areCookiesAccepted') !== null) {
@@ -41,6 +41,7 @@ export default function Layout(props) {
   const router = useRouter()
   useEffect(() => {
     if (localStorage.getItem('areCookiesAccepted') === 'true') {
+      console.log(1)
       const handleRouteChange = url => {
         gtag.pageview(url)
       }
@@ -49,6 +50,7 @@ export default function Layout(props) {
         router.events.off('routeChangeComplete', handleRouteChange)
       }
     } else if (localStorage.getItem('areCookiesAccepted') === 'false') {
+      console.log(0)
       document.cookie = '_ga=; Max-Age=0;'
 
       const cookiePair = document.cookie.split('; ').find(row => row.startsWith('_ga_'))

@@ -1,20 +1,15 @@
 import { useEffect, useContext } from 'react'
 import Head from 'next/head'
 import styled from 'styled-components'
-import Context from '../context'
+import CurrencyContext from '../context/currencyContext'
+import CartContext from '../context/cartContext'
 import dynamic from 'next/dynamic'
 
 const CartList = dynamic(() => import('../components/cart/CartList'))
 
 export default function Cart() {
-  const { 
-    cartList, 
-    clearCart, 
-    cartSubTotalPrice, 
-    fetchedRates, 
-    currency, 
-    evaluateTotalPrice, 
-  } = useContext(Context)
+  const { fetchedRates, currency } = useContext(CurrencyContext)
+  const { cartList, clearCart, cartSubTotalPrice, evaluateTotalPrice } = useContext(CartContext)
 
   useEffect(() => {
     evaluateTotalPrice()
@@ -37,7 +32,8 @@ export default function Cart() {
               clearCart={clearCart} 
               fetchedRates={fetchedRates}
               currency={currency}
-              cartSubTotalPrice={cartSubTotalPrice} />
+              cartSubTotalPrice={cartSubTotalPrice}
+            />
         }
       </DivCart>
     </>

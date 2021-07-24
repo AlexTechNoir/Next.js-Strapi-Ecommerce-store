@@ -1,8 +1,8 @@
 import { useEffect, useContext } from 'react'
-import Context from '../../context'
+import CookiesContext from '../../context/cookiesContext'
 
 export default function Comments() {
-  const { areCookiesAccepted } = useContext(Context)
+  const { areCookiesAccepted } = useContext(CookiesContext)
   
   useEffect(() => {
     if (areCookiesAccepted) {

@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react'
 import Link from 'next/link'
-import Context from '../context'
+import CurrencyContext from '../context/currencyContext'
 import styled from 'styled-components'
 import Rating from 'react-rating'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -18,7 +18,7 @@ export default function SearchResult({ result }) {
     discount
   } = result
 
-  const { fetchedRates, currency } = useContext(Context)
+  const { fetchedRates, currency } = useContext(CurrencyContext)
 
   const [ isItemInCart, setIsItemInCart ] = useState(false)
   const [ quantity, setQuantity ] = useState(0)

@@ -1,9 +1,9 @@
 import { useState, useEffect, useContext } from 'react'
-import Context from '../../context'
+import CartContext from '../../context/cartContext'
 
 export default function AddToCart({ dataItem }) {
   const { id, price, inStock } = dataItem
-  const { refreshCart, evaluateTotalPrice } = useContext(Context)
+  const { refreshCart, evaluateTotalPrice } = useContext(CartContext)
 
   const [ item, setItem ] = useState(dataItem)
   const [ isInCart, setIsInCart ] = useState(dataItem.isInCart)

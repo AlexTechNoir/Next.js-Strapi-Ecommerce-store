@@ -1,4 +1,7 @@
-import Context from '../context'
+import CartContext from '../context/cartContext'
+import CookiesContext from '../context/cookiesContext'
+import CurrencyContext from '../context/currencyContext'
+import RatingsContext from '../context/ratingsContext'
 import { useState, useEffect } from 'react'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
@@ -79,41 +82,48 @@ export default function ContextProvider({ Component, pageProps }) {
   const refreshRatings = () => setRatings(JSON.parse(localStorage.ratings))
 
   return (
-    <Context.Provider value={{
-      cartList,
-      cartSubTotalPrice,
-      fetchedRates,
-      currency,
+    <CookiesContext.Provider value={{
       areCookiesAccepted,
-      setAreCookiesAccepted,
-      refreshCart,
-      clearCart,
-      evaluateTotalPrice,
-      refreshCurrency,
-      refreshRatings
+      setAreCookiesAccepted      
     }}>
-      <Head>
-        {/* Global Site Tag (gtag.js) - Google Analytics */}
-        <script
-          async
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
-        />
-        <script dangerouslySetInnerHTML={{
-          __html: `
-            window['ga-disable-${GA_TRACKING_ID}'] = ${!areCookiesAccepted}
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_TRACKING_ID}', {
-              page_path: window.location.pathname,
-            });
-          `,
-        }} />
-      </Head>
+      <CartContext.Provider value={{
+        cartList,
+        cartSubTotalPrice,
+        refreshCart,
+        clearCart,
+        evaluateTotalPrice
+      }}>
+        <CurrencyContext.Provider value={{
+          fetchedRates,
+          currency,
+          refreshCurrency
+        }}>
+          <RatingsContext.Provider value={{ refreshRatings }}>
+            <Head>
+              {/* Global Site Tag (gtag.js) - Google Analytics */}
+              <script
+                async
+                src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+              />
+              <script dangerouslySetInnerHTML={{
+                __html: `
+                  window['ga-disable-${GA_TRACKING_ID}'] = ${!areCookiesAccepted}
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${GA_TRACKING_ID}', {
+                    page_path: window.location.pathname,
+                  });
+                `,
+              }} />
+            </Head>
 
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </Context.Provider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </RatingsContext.Provider>
+        </CurrencyContext.Provider>
+      </CartContext.Provider>
+    </CookiesContext.Provider>
   )
 }

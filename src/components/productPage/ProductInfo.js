@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react'
-import Context from '../../context'
+import RatingsContext from '../../context/ratingsContext'
+import CurrencyContext from '../../context/currencyContext'
 import Rating from 'react-rating'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-regular-svg-icons'
@@ -24,7 +25,8 @@ export default function ProductInfo({ dataItem }) {
     discount
   } = dataItem
 
-  const { fetchedRates, currency, refreshRatings } = useContext(Context)
+  const { fetchedRates, currency } = useContext(CurrencyContext)
+  const { refreshRatings } = useContext(RatingsContext)
   const [ rating, setRating ] = useState(0)
 
   let currencyRate = 1
