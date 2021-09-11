@@ -1,5 +1,4 @@
 import { useEffect, useContext } from 'react'
-import Head from 'next/head'
 import styled from 'styled-components'
 import CurrencyContext from '../context/currencyContext'
 import CartContext from '../context/cartContext'
@@ -16,11 +15,6 @@ export default function Cart() {
   }, [])
 
   return (
-    <>
-      <Head>
-        <meta name="robots" content="noindex" />
-      </Head>
-
       <DivCart>
         {
           !cartList || cartList.length < 1
@@ -36,7 +30,6 @@ export default function Cart() {
             />
         }
       </DivCart>
-    </>
   )
 }
 

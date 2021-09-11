@@ -45,6 +45,8 @@ class MyDocument extends Document {
           {/* Facebook Comments moderation tool */}
           <meta property="fb:app_id" content="660669431380946" />
 
+          <meta name="robots" content="noindex" />
+
         </Head>
         <body>
           {/* Facebook Comments Plugin */}
