@@ -33,17 +33,7 @@ Fully responsive mobile first demo website. Rewritten from [React CRA app](https
 - [Facebook Comments plugin](https://developers.facebook.com/docs/plugins/comments/) ([example](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/src/components/productPage/Comments.js))
 - [PayPal Checkout Button](https://developer.paypal.com/docs/checkout/#) ([example](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/src/components/cart/cartList/PayPalCheckoutButton.js))
 
-## Features:
-
-- fully responsive, mobile first
-- universal, serverless 
-- no user registration
-- global state managed with React Context
-- state persisted with Local Storage
-- API Routes
-
 ## Notes:
 
 - API Routes are made for sake of learning and imitating real-life app, so some network requests might be irrelevant, since data stored in Local Storage
 - html-to-draftjs library is deliberately downgraded to 1.4.0 to avoid bug (see [issue #78](https://github.com/jpuri/html-to-draftjs/issues/78))
-- ~~I wanted to implement i18n, like with [React CRA version](https://github.com/AlexTechNoir/react_e-commerce_online_store) of this app, however I encountered with some difficulties. As I understood, mainly there are 2 i18n libs for Next.js: [next-i18next](https://github.com/isaachinman/next-i18next) and [next-translate](https://github.com/vinissimus/next-translate). Next-i18next currently doesn't support serverless (see [issue #274](https://github.com/isaachinman/next-i18next/issues/274)), thought I saw a [comment](https://github.com/isaachinman/next-i18next/issues/729#issuecomment-637436767) of owner that beta version does, but I couldn't find a code example in docs. Next-translate doesn't wrap _app.js (see [issue #44](https://github.com/vinissimus/next-translate/issues/44)), even if that file doesn't need translation~~
