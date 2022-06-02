@@ -35,5 +35,4 @@ Fully responsive mobile first demo website. Rewritten from [React CRA app](https
 
 ## Notes:
 
-- API Routes are made for sake of learning and imitating real-life app, so some network requests might be irrelevant, since data stored in Local Storage
 - html-to-draftjs library is deliberately downgraded to 1.4.0 to avoid bug (see [issue #78](https://github.com/jpuri/html-to-draftjs/issues/78))

@@ -14,13 +14,48 @@ import { GA_TRACKING_ID } from '../../lib/gtag'
 import Layout from '../components/Layout'
 
 export default function ContextProvider({ Component, pageProps }) {
-  const [ cartList, setCartList ] = useState([])
-  const [ cartSubTotalPrice, setCartSubTotalPrice ] = useState(0)
-  const [ fetchedRates, setFetchedRates ] = useState({})
-  const [ currency, setCurrency ] = useState('$')
-  const [ ratings, setRatings ] = useState([])
+  // cookies ↓
   const [ areCookiesAccepted, setAreCookiesAccepted ] = useState(false)
 
+  // cart ↓
+  const [ cartList, setCartList ] = useState([])
+  const [ cartSubTotalPrice, setCartSubTotalPrice ] = useState(0)  
+
+  const refreshCart = () => setCartList(JSON.parse(localStorage.cartList))
+
+  const clearCart = () => {
+    localStorage.setItem('cartList', JSON.stringify([]))
+    setCartList(JSON.parse(localStorage.cartList))
+
+    window.scrollTo(0,0)
+  }
+
+  const evaluateTotalPrice = () => {
+    const cartList = JSON.parse(localStorage.cartList)
+
+    if (cartList.length === 0) {
+      setCartSubTotalPrice(0)
+    } else if (cartList.length === 1) {
+      const cartSubTotalPrice = (cartList[0].totalPrice * cartList[0].discount).toFixed(2)
+      setCartSubTotalPrice(cartSubTotalPrice)
+    } else {
+      const cartSubTotalPrice = cartList.reduce((acc, cur) => acc + (cur.totalPrice * cur.discount), 0)
+      setCartSubTotalPrice(cartSubTotalPrice)
+    }
+  }
+
+  // currency ↓
+  const [ fetchedRates, setFetchedRates ] = useState({})
+  const [ currency, setCurrency ] = useState('$')
+  
+  const refreshCurrency = () => setCurrency(JSON.parse(localStorage.currency))
+  
+  const refreshRatings = () => setRatings(JSON.parse(localStorage.ratings))
+
+  // ratings ↓
+  const [ ratings, setRatings ] = useState([])
+
+  // useEffect for cart, currency and ratings ↓
   useEffect(async () => {
     if (localStorage.getItem('cartList') === null) {
       localStorage.setItem('cartList', JSON.stringify([]))
@@ -53,33 +88,6 @@ export default function ContextProvider({ Component, pageProps }) {
 
     evaluateTotalPrice()
   },[])
-
-  const refreshCart = () => setCartList(JSON.parse(localStorage.cartList))
-
-  const clearCart = () => {
-    localStorage.setItem('cartList', JSON.stringify([]))
-    setCartList(JSON.parse(localStorage.cartList))
-
-    window.scrollTo(0,0)
-  }
-
-  const evaluateTotalPrice = () => {
-    const cartList = JSON.parse(localStorage.cartList)
-
-    if (cartList.length === 0) {
-      setCartSubTotalPrice(0)
-    } else if (cartList.length === 1) {
-      const cartSubTotalPrice = (cartList[0].totalPrice * cartList[0].discount).toFixed(2)
-      setCartSubTotalPrice(cartSubTotalPrice)
-    } else {
-      const cartSubTotalPrice = cartList.reduce((acc, cur) => acc + (cur.totalPrice * cur.discount), 0)
-      setCartSubTotalPrice(cartSubTotalPrice)
-    }
-  }
-
-  const refreshCurrency = () => setCurrency(JSON.parse(localStorage.currency))
-
-  const refreshRatings = () => setRatings(JSON.parse(localStorage.ratings))
 
   return (
     <CookiesContext.Provider value={{

@@ -1,60 +1,35 @@
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 export default function Nav({ toggleNav }) {
+  const [ navItems, setNavItems ] = useState([])
+
+  useEffect(async () => {
+    const data = await fetch(`/api/categories`)
+      .then(res => res.json())
+      .catch(err => console.error(err.message))
+
+    const navItems = data.data.categories.data
+
+    setNavItems(navItems)
+  },[])
+
   return (
     <StyledNav>
       <ul className="nav">
-        <li className="nav-item" onClick={toggleNav}>
-          <Link href="/products/mobile-phones/[page]" as="/products/mobile-phones/1">
-            <a className="nav-link"><b>Mobile Phones</b></a>
-          </Link>
-        </li>
-        <li className="nav-item" onClick={toggleNav}>
-          <Link href="/products/laptops/[page]" as="/products/laptops/1">
-            <a className="nav-link"><b>Laptops</b></a>
-          </Link>
-        </li>
-        <li className="nav-item" onClick={toggleNav}>
-          <Link href="/products/tablets/[page]" as="/products/tablets/1">
-            <a className="nav-link"><b>Tablets</b></a>
-          </Link>
-        </li>
-        <li className="nav-item">
-          <a href="/#" className="nav-link">
-            <b>Lorem ipsum sin amet</b> 
-          </a>
-        </li>
-        <li className="nav-item">
-          <a href="/#" className="nav-link">
-            <b>Lorem ipsum sin amet</b> 
-          </a>
-        </li>
-        <li className="nav-item">
-          <a href="/#" className="nav-link">
-            <b>Lorem ipsum sin amet</b> 
-          </a>
-        </li>
-        <li className="nav-item">
-          <a href="/#" className="nav-link">
-            <b>Lorem ipsum sin amet</b> 
-          </a>
-        </li>
-        <li className="nav-item">
-          <a href="/#" className="nav-link">
-            <b>Lorem ipsum sin amet</b> 
-          </a>
-        </li>
-        <li className="nav-item">
-          <a href="/#" className="nav-link">
-            <b>Lorem ipsum sin amet</b> 
-          </a>
-        </li>
-        <li className="nav-item">
-          <a href="/#" className="nav-link">
-            <b>Lorem ipsum sin amet</b> 
-          </a>
-        </li>
+        {
+          navItems.map(navItem => (
+            <li className="nav-item" onClick={toggleNav} key={navItem.id}>
+              <Link 
+                href={`/products/${navItem.attributes.name.toLowerCase().trim().replace(' ', '-')}/[page]`} 
+                as={`/products/${navItem.attributes.name.toLowerCase().trim().replace(' ', '-')}/1`}
+              >
+                <a className="nav-link"><b>{navItem.attributes.name}</b></a>
+              </Link>
+            </li>
+          ))
+        }
       </ul>
     </StyledNav>
   )
