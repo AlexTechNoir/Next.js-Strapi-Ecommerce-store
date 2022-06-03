@@ -1,22 +1,9 @@
-import { useState, useEffect, useContext } from 'react'
-import RatingsContext from '../../context/ratingsContext'
+import { useContext } from 'react'
 import CurrencyContext from '../../context/currencyContext'
-import Rating from 'react-rating'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/free-regular-svg-icons'
-import { faStar as faStarFull } from '@fortawesome/free-solid-svg-icons'
 
 export default function ProductInfo({ dataItem }) {
-  useEffect(() => {
-    const ratings = JSON.parse(localStorage.ratings)
-    const itemRating = ratings.find(i => i.id === id)
-    if (itemRating !== undefined) {
-      setRating(itemRating.rating)
-    }
-  })
 
   const { 
-    id,
     title, 
     company,
     description, 
@@ -26,8 +13,6 @@ export default function ProductInfo({ dataItem }) {
   } = dataItem
 
   const { fetchedRates, currency } = useContext(CurrencyContext)
-  const { refreshRatings } = useContext(RatingsContext)
-  const [ rating, setRating ] = useState(0)
 
   let currencyRate = 1
 
@@ -45,34 +30,10 @@ export default function ProductInfo({ dataItem }) {
     currencyRate = fetchedRates.INR
   }
 
-  const rate = value => {
-    setRating(value)    
-
-    const ratings = JSON.parse(localStorage.ratings)
-    const itemRating = ratings.find(i => i.id === id)
-    if (itemRating === undefined) {
-      ratings.push({ id: id, rating: value })
-      localStorage.setItem('ratings', JSON.stringify(ratings))
-    } else {
-      itemRating.rating = value
-      localStorage.setItem('ratings', JSON.stringify(ratings))
-    }
-
-    refreshRatings()
-  }
-
   return (
-    <div>
+    <div className="product-info">
       <h1>{title}</h1>
       <h2>Company: {company}</h2>
-      <Rating 
-        fractions={2}
-        emptySymbol={<FontAwesomeIcon icon={faStar} width="1em" size="2x" />}
-        fullSymbol={<FontAwesomeIcon icon={faStarFull} width="1em" size="2x" />}
-        initialRating={rating}
-        onClick={value => rate(value)}
-      />
-      <h5>Your rating: {rating}</h5>
       <h2>
         Price: &nbsp;
         <span>

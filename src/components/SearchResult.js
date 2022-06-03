@@ -2,10 +2,6 @@ import { useState, useEffect, useContext } from 'react'
 import Link from 'next/link'
 import CurrencyContext from '../context/currencyContext'
 import styled from 'styled-components'
-import Rating from 'react-rating'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/free-regular-svg-icons'
-import { faStar as faStarFull } from '@fortawesome/free-solid-svg-icons'
 import Image from 'next/image'
 
 export default function SearchResult({ result }) {
@@ -22,7 +18,6 @@ export default function SearchResult({ result }) {
 
   const [ isItemInCart, setIsItemInCart ] = useState(false)
   const [ quantity, setQuantity ] = useState(0)
-  const [ rating, setRating ] = useState(0)
 
   useEffect(() => {
     const cartList = JSON.parse(localStorage.cartList)
@@ -30,12 +25,6 @@ export default function SearchResult({ result }) {
     if (item !== undefined) {
       setIsItemInCart(item.isInCart)
       setQuantity(item.amountInCart)
-    }
-
-    const ratings = JSON.parse(localStorage.ratings)
-    const itemRating = ratings.find(i => i.id === id)
-    if (itemRating !== undefined) {
-      setRating(itemRating.rating)
     }
   }, [])
 
@@ -93,13 +82,6 @@ export default function SearchResult({ result }) {
           </a>
         </Link>
         <h6>{productCategory}</h6>
-        <Rating 
-          fractions={2}
-          emptySymbol={<FontAwesomeIcon icon={faStar} width="1em" />}
-          fullSymbol={<FontAwesomeIcon icon={faStarFull} width="1em" />}
-          initialRating={rating}
-          readonly={true}
-        />
       </div>
       <div className={isItemInCart ? "bg-danger text-white p-1 rounded" : null}>
         <span>In cart:</span>&nbsp;
@@ -164,11 +146,6 @@ const DivSearchResult = styled.div`
     }
     > h6 {
       color: #007bff;
-    }
-    > span > span > :last-child {
-      color: yellow;
-      stroke: black;
-      stroke-width: 25;
     }
   }
   > :nth-child(3) {

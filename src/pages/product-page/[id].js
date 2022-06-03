@@ -112,17 +112,12 @@ const DivProductPage = styled.div`
       }
     }
   }
-  > :nth-child(3) {
+  > .product-info {
     display: flex;
     flex-direction: column;
     margin-top: 5rem;
     padding-left: 1rem;
     padding-right: 1rem;
-    > span > span > :last-child {
-      color: yellow;
-      stroke: black;
-      stroke-width: 25;
-    }
   }
   > :nth-child(4) {
     display: flex;

@@ -1,7 +1,6 @@
 import CartContext from '../context/cartContext'
 import CookiesContext from '../context/cookiesContext'
 import CurrencyContext from '../context/currencyContext'
-import RatingsContext from '../context/ratingsContext'
 import { useState, useEffect } from 'react'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
@@ -48,14 +47,9 @@ export default function ContextProvider({ Component, pageProps }) {
   const [ fetchedRates, setFetchedRates ] = useState({})
   const [ currency, setCurrency ] = useState('$')
   
-  const refreshCurrency = () => setCurrency(JSON.parse(localStorage.currency))
-  
-  const refreshRatings = () => setRatings(JSON.parse(localStorage.ratings))
+  const refreshCurrency = () => setCurrency(JSON.parse(localStorage.currency))  
 
-  // ratings ↓
-  const [ ratings, setRatings ] = useState([])
-
-  // useEffect for cart, currency and ratings ↓
+  // useEffect for cart and currency ↓
   useEffect(async () => {
     if (localStorage.getItem('cartList') === null) {
       localStorage.setItem('cartList', JSON.stringify([]))
@@ -63,10 +57,6 @@ export default function ContextProvider({ Component, pageProps }) {
 
     if (localStorage.getItem('currency') === null) {
       localStorage.setItem('currency', JSON.stringify('$'))
-    }
-
-    if (localStorage.getItem('ratings') === null) {
-      localStorage.setItem('ratings', JSON.stringify([]))
     }
 
     await fetch(`https://openexchangerates.org/api/latest.json?app_id=${process.env.NEXT_PUBLIC_OERAPI_ACCESS_KEY}`)
@@ -83,7 +73,6 @@ export default function ContextProvider({ Component, pageProps }) {
         setCartList(JSON.parse(localStorage.cartList))
         setFetchedRates(r.rates)
         setCurrency(JSON.parse(localStorage.currency))
-        setRatings(JSON.parse(localStorage.ratings))
       })
 
     evaluateTotalPrice()
@@ -106,30 +95,28 @@ export default function ContextProvider({ Component, pageProps }) {
           currency,
           refreshCurrency
         }}>
-          <RatingsContext.Provider value={{ refreshRatings }}>
-            <Head>
-              {/* Global Site Tag (gtag.js) - Google Analytics */}
-              <script
-                async
-                src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
-              />
-              <script dangerouslySetInnerHTML={{
-                __html: `
-                  window['ga-disable-${GA_TRACKING_ID}'] = ${!areCookiesAccepted}
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', '${GA_TRACKING_ID}', {
-                    page_path: window.location.pathname,
-                  });
-                `,
-              }} />
-            </Head>
+          <Head>
+            {/* Global Site Tag (gtag.js) - Google Analytics */}
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+            />
+            <script dangerouslySetInnerHTML={{
+              __html: `
+                window['ga-disable-${GA_TRACKING_ID}'] = ${!areCookiesAccepted}
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_TRACKING_ID}', {
+                  page_path: window.location.pathname,
+                });
+              `,
+            }} />
+          </Head>
 
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </RatingsContext.Provider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </CurrencyContext.Provider>
       </CartContext.Provider>
     </CookiesContext.Provider>

@@ -5,8 +5,6 @@ export const mobile_phones = [
     company: "Samsung",
     category: "Mobile Phones",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 300,
     hasDiscount: false,
     discount: 1,
@@ -14,8 +12,7 @@ export const mobile_phones = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 1,
@@ -23,8 +20,6 @@ export const mobile_phones = [
     company: "Samsung",
     category: "Mobile Phones",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 250,
     hasDiscount: false,
     discount: 1,
@@ -32,8 +27,7 @@ export const mobile_phones = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 2,
@@ -41,8 +35,6 @@ export const mobile_phones = [
     company: "Samsung",
     category: "Mobile Phones",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 300,
     hasDiscount: true,
     discount: 0.85,
@@ -50,8 +42,7 @@ export const mobile_phones = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 3,
@@ -59,8 +50,6 @@ export const mobile_phones = [
     company: "Apple",
     category: "Mobile Phones",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 300,
     hasDiscount: false,
     discount: 1,
@@ -68,8 +57,7 @@ export const mobile_phones = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 4,
@@ -77,8 +65,6 @@ export const mobile_phones = [
     company: "Apple",
     category: "Mobile Phones",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 250,
     hasDiscount: false,
     discount: 1,
@@ -86,8 +72,7 @@ export const mobile_phones = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 5,
@@ -95,8 +80,6 @@ export const mobile_phones = [
     company: "Apple",
     category: "Mobile Phones",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 300,
     hasDiscount: true,
     discount: 0.9,
@@ -104,8 +87,7 @@ export const mobile_phones = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 6,
@@ -113,8 +95,6 @@ export const mobile_phones = [
     company: "Sony",
     category: "Mobile Phones",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 300,
     hasDiscount: false,
     discount: 1,
@@ -122,8 +102,7 @@ export const mobile_phones = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 7,
@@ -131,8 +110,6 @@ export const mobile_phones = [
     company: "Sony",
     category: "Mobile Phones",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 250,
     hasDiscount: false,
     discount: 1,
@@ -140,8 +117,7 @@ export const mobile_phones = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 8,
@@ -149,8 +125,6 @@ export const mobile_phones = [
     company: "Sony",
     category: "Mobile Phones",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 300,
     hasDiscount: true,
     discount: 0.8,
@@ -158,8 +132,7 @@ export const mobile_phones = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 9,
@@ -167,8 +140,6 @@ export const mobile_phones = [
     company: "Xiaomi",
     category: "Mobile Phones",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 300,
     hasDiscount: false,
     discount: 1,
@@ -176,8 +147,7 @@ export const mobile_phones = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 10,
@@ -185,8 +155,6 @@ export const mobile_phones = [
     company: "Xiaomi",
     category: "Mobile Phones",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 250,
     hasDiscount: false,
     discount: 1,
@@ -194,8 +162,7 @@ export const mobile_phones = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 11,
@@ -203,8 +170,6 @@ export const mobile_phones = [
     company: "Xiaomi",
     category: "Mobile Phones",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 300,
     hasDiscount: true,
     discount: 0.85,
@@ -212,8 +177,7 @@ export const mobile_phones = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 12,
@@ -221,8 +185,6 @@ export const mobile_phones = [
     company: "Huawei",
     category: "Mobile Phones",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 300,
     hasDiscount: false,
     discount: 1,
@@ -230,8 +192,7 @@ export const mobile_phones = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 13,
@@ -239,8 +200,6 @@ export const mobile_phones = [
     company: "Huawei",
     category: "Mobile Phones",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 250,
     hasDiscount: false,
     discount: 1,
@@ -248,8 +207,7 @@ export const mobile_phones = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 14,
@@ -257,8 +215,6 @@ export const mobile_phones = [
     company: "Huawei",
     category: "Mobile Phones",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 300,
     hasDiscount: true,
     discount: 0.85,
@@ -266,8 +222,7 @@ export const mobile_phones = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   }
 ]
 
@@ -278,8 +233,6 @@ export const laptops = [
     company: "Acer",
     category: "Laptops",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 300,
     hasDiscount: true,
     discount: 0.9,
@@ -287,8 +240,7 @@ export const laptops = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 16,
@@ -296,8 +248,6 @@ export const laptops = [
     company: "Acer",
     category: "Laptops",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 250,
     hasDiscount: false,
     discount: 1,
@@ -305,8 +255,7 @@ export const laptops = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 17,
@@ -314,8 +263,6 @@ export const laptops = [
     company: "Acer",
     category: "Laptops",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 300,
     hasDiscount: false,
     discount: 1,
@@ -323,8 +270,7 @@ export const laptops = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 18,
@@ -332,8 +278,6 @@ export const laptops = [
     company: "Apple",
     category: "Laptops",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 200,
     hasDiscount: true,
     discount: 0.95,
@@ -341,8 +285,7 @@ export const laptops = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 19,
@@ -350,8 +293,6 @@ export const laptops = [
     company: "Apple",
     category: "Laptops",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 300,
     hasDiscount: false,
     discount: 1,
@@ -359,8 +300,7 @@ export const laptops = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 20,
@@ -368,8 +308,6 @@ export const laptops = [
     company: "Asus",
     category: "Laptops",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 300,
     hasDiscount: false,
     discount: 1,
@@ -377,8 +315,7 @@ export const laptops = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 21,
@@ -386,8 +323,6 @@ export const laptops = [
     company: "Asus",
     category: "Laptops",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 250,
     hasDiscount: false,
     discount: 1,
@@ -395,8 +330,7 @@ export const laptops = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 22,
@@ -404,8 +338,6 @@ export const laptops = [
     company: "Asus",
     category: "Laptops",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 300,
     hasDiscount: false,
     discount: 1,
@@ -413,8 +345,7 @@ export const laptops = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 23,
@@ -422,8 +353,6 @@ export const laptops = [
     company: "Dell",
     category: "Laptops",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 200,
     hasDiscount: true,
     discount: 0.8,
@@ -431,8 +360,7 @@ export const laptops = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 24,
@@ -440,8 +368,6 @@ export const laptops = [
     company: "Dell",
     category: "Laptops",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 300,
     hasDiscount: false,
     discount: 1,
@@ -449,8 +375,7 @@ export const laptops = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 25,
@@ -458,8 +383,6 @@ export const laptops = [
     company: "HP",
     category: "Laptops",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 300,
     hasDiscount: true,
     discount: 0.9,
@@ -467,8 +390,7 @@ export const laptops = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 26,
@@ -476,8 +398,6 @@ export const laptops = [
     company: "HP",
     category: "Laptops",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 200,
     hasDiscount: false,
     discount: 1,
@@ -485,8 +405,7 @@ export const laptops = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 27,
@@ -494,8 +413,6 @@ export const laptops = [
     company: "MSI",
     category: "Laptops",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 200,
     hasDiscount: true,
     discount: 0.8,
@@ -503,8 +420,7 @@ export const laptops = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 28,
@@ -512,8 +428,6 @@ export const laptops = [
     company: "MSI",
     category: "Laptops",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 300,
     hasDiscount: false,
     discount: 1,
@@ -521,8 +435,7 @@ export const laptops = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 29,
@@ -530,8 +443,6 @@ export const laptops = [
     company: "Razer",
     category: "Laptops",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 300,
     hasDiscount: false,
     discount: 1,
@@ -539,8 +450,7 @@ export const laptops = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 30,
@@ -548,8 +458,6 @@ export const laptops = [
     company: "Razer",
     category: "Laptops",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 200,
     hasDiscount: true,
     discount: 0.85,
@@ -557,8 +465,7 @@ export const laptops = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   }
 ]
 
@@ -569,8 +476,6 @@ export const tablets = [
     company: "Apple",
     category: "Tablets",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 200,
     hasDiscount: true,
     discount: 0.95,
@@ -578,8 +483,7 @@ export const tablets = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 32,
@@ -587,8 +491,6 @@ export const tablets = [
     company: "Apple",
     category: "Tablets",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 300,
     hasDiscount: false,
     discount: 1,
@@ -596,8 +498,7 @@ export const tablets = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 33,
@@ -605,8 +506,6 @@ export const tablets = [
     company: "BQ",
     category: "Tablets",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 200,
     hasDiscount: true,
     discount: 0.8,
@@ -614,8 +513,7 @@ export const tablets = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 34,
@@ -623,8 +521,6 @@ export const tablets = [
     company: "BQ",
     category: "Tablets",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 300,
     hasDiscount: false,
     discount: 1,
@@ -632,8 +528,7 @@ export const tablets = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 35,
@@ -641,8 +536,6 @@ export const tablets = [
     company: "Huawei",
     category: "Tablets",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 200,
     hasDiscount: true,
     discount: 0.9,
@@ -650,8 +543,7 @@ export const tablets = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 36,
@@ -659,8 +551,6 @@ export const tablets = [
     company: "Huawei",
     category: "Tablets",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 300,
     hasDiscount: false,
     discount: 1,
@@ -668,8 +558,7 @@ export const tablets = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 37,
@@ -677,8 +566,6 @@ export const tablets = [
     company: "Lenovo",
     category: "Tablets",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 200,
     hasDiscount: true,
     discount: 0.85,
@@ -686,8 +573,7 @@ export const tablets = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 38,
@@ -695,8 +581,6 @@ export const tablets = [
     company: "Lenovo",
     category: "Tablets",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 300,
     hasDiscount: false,
     discount: 1,
@@ -704,8 +588,7 @@ export const tablets = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 39,
@@ -713,8 +596,6 @@ export const tablets = [
     company: "Microsoft",
     category: "Tablets",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 200,
     hasDiscount: true,
     discount: 0.8,
@@ -722,8 +603,7 @@ export const tablets = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 40,
@@ -731,8 +611,6 @@ export const tablets = [
     company: "Microsoft",
     category: "Tablets",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 300,
     hasDiscount: false,
     discount: 1,
@@ -740,8 +618,7 @@ export const tablets = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 41,
@@ -749,8 +626,6 @@ export const tablets = [
     company: "Samsung",
     category: "Tablets",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 200,
     hasDiscount: true,
     discount: 0.9,
@@ -758,8 +633,7 @@ export const tablets = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 42,
@@ -767,8 +641,6 @@ export const tablets = [
     company: "Samsung",
     category: "Tablets",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 300,
     hasDiscount: false,
     discount: 1,
@@ -776,8 +648,7 @@ export const tablets = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 43,
@@ -785,8 +656,6 @@ export const tablets = [
     company: "Xiaomi",
     category: "Tablets",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 300,
     hasDiscount: true,
     discount: 0.95,
@@ -794,8 +663,7 @@ export const tablets = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   },
   {
     id: 44,
@@ -803,8 +671,6 @@ export const tablets = [
     company: "Xiaomi",
     category: "Tablets",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium harum ipsam maiores excepturi, enim quae ex consectetur magnam quo temporibus error, vel iure eveniet id quas expedita cum cupiditate autem!",
-    imageWidth: 200,
-    imageHeight: 200,
     price: 200,
     hasDiscount: false,
     discount: 1,
@@ -812,8 +678,7 @@ export const tablets = [
     isInCart: false,
     amountInCart: 0,
     totalPrice: 0,
-    reviews: [],
-    rating: 0
+    reviews: []
   }
 ]
 

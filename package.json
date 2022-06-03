@@ -24,7 +24,6 @@
     "react-draft-wysiwyg": "^1.14.6",
     "react-image-magnifiers": "^1.4.0",
     "react-paginate": "^6.5.0",
-    "react-rating": "^2.0.5",
     "react-responsive-carousel": "^3.2.10",
     "styled-components": "^5.2.1",
     "swr": "^0.3.9"

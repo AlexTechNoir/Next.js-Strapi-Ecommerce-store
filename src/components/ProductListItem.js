@@ -1,19 +1,13 @@
 import { useState, useEffect, useContext } from 'react'
 import Link from 'next/link'
-import Rating from 'react-rating'
 import CurrencyContext from '../context/currencyContext'
 import styled from 'styled-components'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/free-regular-svg-icons'
-import { faStar as faStarFull } from '@fortawesome/free-solid-svg-icons'
 import Image from 'next/image'
 
 export default function ProductListItem({ dataItem }) {
   const {
     id,
     title,
-    imageWidth,
-    imageHeight,
     price,
     hasDiscount,
     discount
@@ -23,7 +17,6 @@ export default function ProductListItem({ dataItem }) {
 
   const [ isItemInCart, setIsItemInCart ] = useState(false)
   const [ quantity, setQuantity ] = useState(0)
-  const [ rating, setRating ] = useState(0)
 
   useEffect(() => {
     const cartList = localStorage.getItem('cartList') !== null ? JSON.parse(localStorage.cartList) : []
@@ -31,12 +24,6 @@ export default function ProductListItem({ dataItem }) {
     if (item !== undefined) {
       setIsItemInCart(item.isInCart)
       setQuantity(item.amountInCart)
-    }
-
-    const ratings = localStorage.getItem('ratings') !== null ? JSON.parse(localStorage.ratings) : []
-    const itemRating = ratings.find(i => i.id === id)
-    if (itemRating !== undefined) {
-      setRating(itemRating.rating)
     }
   }, [])
 
@@ -63,19 +50,12 @@ export default function ProductListItem({ dataItem }) {
           <Image 
             alt={title}
             src={`/img/products/${id}/01.webp`}
-            width={imageWidth}
-            height={imageHeight}
+            width={200}
+            height={200}
             layout="fixed"
           />
           <br />
           <div>{title}</div>
-          <Rating 
-            fractions={2}
-            emptySymbol={<FontAwesomeIcon icon={faStar} width="1em" />}
-            fullSymbol={<FontAwesomeIcon icon={faStarFull} width="1em" />}
-            initialRating={rating}
-            readonly={true}
-          />
           <br />
           <div>
             <div>
@@ -132,11 +112,6 @@ const DivProductListItem = styled.div`
     }
     > :nth-child(3) {
       font-size: 1.5rem;
-    }
-    > span > span > :last-child {
-      color: yellow;
-      stroke: black;
-      stroke-width: 30;
     }
     > :last-child {
       display: flex;
