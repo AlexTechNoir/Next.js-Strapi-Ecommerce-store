@@ -43,9 +43,7 @@ export default function Sale({ params, data }) {
         <div>
           {
             data
-              .filter(dataItem =>
-                dataItem.category === params.category && dataItem.hasDiscount === true
-              )
+              .filter(dataItem => dataItem.category === params.category)
               .map(dataItem => {
                 return <ProductListItem key={dataItem.id} dataItem={dataItem} />                  
               })

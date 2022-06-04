@@ -9,9 +9,7 @@ export default function SearchResult({ result }) {
     id,
     title,
     category,
-    price,
-    hasDiscount,
-    discount
+    price
   } = result
 
   const { fetchedRates, currency } = useContext(CurrencyContext)
@@ -95,23 +93,10 @@ export default function SearchResult({ result }) {
       </div>
       <div>
         <h4>
-          {
-            !hasDiscount
-            ? <span className="d-flex no-wrap">
-                <span>{currency}</span>&nbsp;
-                <span>{(parseFloat(price * currencyRate)).toFixed(2)}</span>
-              </span>
-            : <span className="d-flex flex-column">
-                <s className="d-flex no-wrap">
-                  <span>{currency}</span>&nbsp;
-                  <span>{(parseFloat(price * currencyRate)).toFixed(2)}</span>
-                </s>
-                <span className="d-flex no-wrap text-danger">
-                  <span>{currency}</span>&nbsp;
-                  <span>{(parseFloat((price * currencyRate) * discount)).toFixed(2)}</span>
-                </span>
-              </span>
-          }
+          <span className="d-flex no-wrap">
+            <span>{currency}</span>&nbsp;
+            <span>{(parseFloat(price * currencyRate)).toFixed(2)}</span>
+          </span>
         </h4>
       </div>
     </DivSearchResult>
@@ -160,9 +145,6 @@ const DivSearchResult = styled.div`
     justify-content: space-between;
     align-items: flex-end;
     margin-top: 1em;
-    > h3 {
-      margin-bottom: 0;
-    }
   }
 
   @media only screen and (min-width: 600px) {

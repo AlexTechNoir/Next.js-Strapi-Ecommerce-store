@@ -8,9 +8,7 @@ export default function ProductListItem({ dataItem }) {
   const {
     id,
     title,
-    price,
-    hasDiscount,
-    discount
+    price
   } = dataItem
 
   const { fetchedRates, currency } = useContext(CurrencyContext)
@@ -44,7 +42,7 @@ export default function ProductListItem({ dataItem }) {
   }
 
   return (
-    <DivProductListItem >
+    <DivProductListItem>
       <Link href="/product-page/[id].js" as={`/product-page/${id}`}>
         <a>
           <Image 
@@ -59,23 +57,10 @@ export default function ProductListItem({ dataItem }) {
           <br />
           <div>
             <div>
-              {
-                !hasDiscount
-                ? <span className="d-flex no-wrap">
-                    <span>{currency}</span>&nbsp;
-                    <span>{(parseFloat(price * currencyRate)).toFixed(2)}</span>
-                  </span>
-                : <span className="d-flex flex-column">
-                    <s className="d-flex no-wrap">
-                      <span>{currency}</span>&nbsp;
-                      <span>{(parseFloat(price * currencyRate)).toFixed(2)}</span>
-                    </s>
-                    <span className="d-flex no-wrap text-danger">
-                      <span>{currency}</span>&nbsp;
-                      <span>{(parseFloat((price * currencyRate) * discount)).toFixed(2)}</span>
-                    </span>
-                  </span>
-              }
+              <span className="d-flex no-wrap">
+                <span>{currency}</span>&nbsp;
+                <span>{(parseFloat(price * currencyRate)).toFixed(2)}</span>
+              </span>
             </div>
             {
               isItemInCart

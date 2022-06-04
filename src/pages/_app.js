@@ -35,10 +35,10 @@ export default function ContextProvider({ Component, pageProps }) {
     if (cartList.length === 0) {
       setCartSubTotalPrice(0)
     } else if (cartList.length === 1) {
-      const cartSubTotalPrice = (cartList[0].totalPrice * cartList[0].discount).toFixed(2)
+      const cartSubTotalPrice = cartList[0].totalPrice
       setCartSubTotalPrice(cartSubTotalPrice)
     } else {
-      const cartSubTotalPrice = cartList.reduce((acc, cur) => acc + (cur.totalPrice * cur.discount), 0)
+      const cartSubTotalPrice = cartList.reduce((acc, cur) => acc + cur.totalPrice, 0)
       setCartSubTotalPrice(cartSubTotalPrice)
     }
   }

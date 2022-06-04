@@ -7,9 +7,7 @@ export default function ProductInfo({ dataItem }) {
     title, 
     company,
     description, 
-    price,
-    hasDiscount,
-    discount
+    price
   } = dataItem
 
   const { fetchedRates, currency } = useContext(CurrencyContext)
@@ -37,23 +35,10 @@ export default function ProductInfo({ dataItem }) {
       <h2>
         Price: &nbsp;
         <span>
-          {
-            !hasDiscount
-            ? <span className="d-flex no-wrap">
-                <span>{currency}</span>&nbsp;
-                <span>{(parseFloat(price * currencyRate)).toFixed(2)}</span>
-              </span>
-            : <span className="d-flex flex-column">
-                <s className="d-flex no-wrap">
-                  <span>{currency}</span>&nbsp;
-                  <span>{(parseFloat(price * currencyRate)).toFixed(2)}</span>
-                </s>
-                <span className="d-flex no-wrap text-danger">
-                  <span>{currency}</span>&nbsp;
-                  <span>{(parseFloat((price * currencyRate) * discount)).toFixed(2)}</span>
-                </span>
-              </span>
-          }
+          <span className="d-flex no-wrap">
+            <span>{currency}</span>&nbsp;
+            <span>{(parseFloat(price * currencyRate)).toFixed(2)}</span>
+          </span>
         </span>
       </h2>
       <br />
