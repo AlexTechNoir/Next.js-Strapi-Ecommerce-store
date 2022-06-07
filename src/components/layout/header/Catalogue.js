@@ -14,11 +14,7 @@ export default function Catalogue() {
       <button type="button" className="btn btn-light" onClick={toggleNav}>
         Catalogue
       </button>
-      {
-        isNavVisible
-        ? <Nav toggleNav={toggleNav} />
-        : null
-      }
+      <Nav toggleNav={toggleNav} isNavVisible={isNavVisible} />
     </div>
   )
 }

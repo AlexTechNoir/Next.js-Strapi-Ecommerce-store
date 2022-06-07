@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
-export default function Nav({ toggleNav }) {
+export default function Nav({ toggleNav, isNavVisible }) {
   const [ navItems, setNavItems ] = useState([])
 
   useEffect(async () => {
@@ -16,7 +16,7 @@ export default function Nav({ toggleNav }) {
   },[])
 
   return (
-    <StyledNav>
+    <StyledNav isNavVisible={isNavVisible}>
       <ul className="nav">
         {
           navItems.map(navItem => (
@@ -42,6 +42,7 @@ const StyledNav = styled.nav`
   top: 104px;
   left: -60px;
   z-index: 3;
+  visibility: ${props => props.isNavVisible ? 'visible' : 'hidden'};
   > ul {
     display: flex;
     flex-direction: column;
