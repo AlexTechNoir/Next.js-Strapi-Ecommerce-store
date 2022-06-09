@@ -1,53 +1,78 @@
 import Head from 'next/head'
 import styled from 'styled-components'
-import { data } from '../../data'
 
 import Timer from '../../components/Timer'
 import ProductListItem from '../../components/ProductListItem'
 
-export async function getStaticPaths() {
+export async function getServerSideProps(ctx) {
+  const category = ctx.params.category  
+
+  const data = await fetch(`${
+    process.env.NODE_ENV === "production"
+      ? process.env.PROD_CMS_URL
+      : process.env.DEV_CMS_URL
+    }/graphql`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query: `
+        query {
+          products(filters: { category: { name: { eq: "${category}" }}} ) {
+            data {
+              id
+              attributes {
+                title
+                price
+                image {
+                  data {
+                    attributes {
+                      name
+                      alternativeText
+                      url
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      `
+    })
+  })
+    .then(r => r.json())
+    .catch(err => console.error(err.message))
+    
+  const categoryItems = data.data.products.data
+
   return {
-    paths: [
-      { params : { category: 'Mobile Phones' } },
-      { params : { category: 'Laptops' } },
-      { params : { category: 'Tablets' } }
-    ],
-    fallback: false
+    props: { category, categoryItems }
   }
 }
 
-export async function getStaticProps({ params }) {
-  return { props: { params, data } }
-}
-
-export default function Sale({ params, data }) {
+export default function Sale({ category, categoryItems }) {
   return (
     <>
       <Head>
-        <title>{params.category} Sale! - Alimazon</title>
+        <title>{category} Sale! - Alimazon</title>
         <meta
           name="description"
-          content={`${params.category} on SALE right now!!!`}
+          content={`${category} on SALE right now!!!`}
         />
       </Head>
 
       <DivSales>
         <div>
           <picture>
-            <source data-srcset={`/img/carousel/${params.category}/01.webp`} type="image/webp" />
-            <img src={`/img/carousel/${params.category}/01.jpg`} alt={`${params.category} Sale`} />
+            <source data-srcset={`/img/carousel/${category}/01.webp`} type="image/webp" />
+            <img src={`/img/carousel/${category}/01.jpg`} alt={`${category} Sale`} />
           </picture>
           <hr />
           <Timer />
         </div>
         <div>
-          {
-            data
-              .filter(dataItem => dataItem.category === params.category)
-              .map(dataItem => {
-                return <ProductListItem key={dataItem.id} dataItem={dataItem} />                  
-              })
-          }
+          {categoryItems.map(item => <ProductListItem key={item.id} item={item} />)}
         </div>
       </DivSales>
     </>

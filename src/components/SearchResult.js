@@ -2,15 +2,18 @@ import { useState, useEffect, useContext } from 'react'
 import Link from 'next/link'
 import CurrencyContext from '../context/currencyContext'
 import styled from 'styled-components'
-import Image from 'next/image'
 
 export default function SearchResult({ result }) {
-  const {
-    id,
-    title,
-    category,
-    price
-  } = result
+  const id = result.id
+  const attributes = result.attributes
+
+  const title = attributes.title
+  const price = attributes.price
+  const category = attributes.category.data.attributes.name
+  const categoryName = category.trim().replace('-', ' ').replace(/(^\w|\s\w)/g, m => m.toUpperCase())
+  const imgsArr = attributes.image.data
+  const img = imgsArr.filter(i => i.attributes.name === "01.jpg")
+  const imgUrl = img[0].attributes.url
 
   const { fetchedRates, currency } = useContext(CurrencyContext)
 
@@ -42,44 +45,20 @@ export default function SearchResult({ result }) {
     currencyRate = fetchedRates.INR
   }
 
-  let productCategory
-
-  if (category === "Mobile Phones") {
-    productCategory = (
-      <Link href="/products/mobile-phones/[page]" as="/products/mobile-phones/1">
-        <a>Mobile Phones</a>
-      </Link>
-    )
-  } else if (category === "Laptops") {
-    productCategory = (
-      <Link href="/products/laptops/[page]" as="/products/laptops/1">
-        <a>Laptops</a>
-      </Link>
-    )
-  } else if (category === "Tablets") {
-    productCategory = (
-      <Link href="/products/tablets/[page]" as="/products/tablets/1">
-        <a>Tablets</a>
-      </Link>
-    )
-  }
-
   return (
     <DivSearchResult>
-      <Image 
-        alt="SearchItem"
-        src={`/img/products/${id}/01.webp`}
-        width={121}
-        height={121}
-        layout="fixed"
-      />
+      <img src={imgUrl} alt="SearchItem" width={121} height={121} />
       <div>
         <Link href="/product-page/[id].js" as={`/product-page/${id}`}>
           <a>
             <h4>{title}</h4>
           </a>
         </Link>
-        <h6>{productCategory}</h6>
+        <h6>
+          <Link href="/products/[category]/[page]" as={`/products/${category}/1`}>
+            <a>{categoryName}</a>
+          </Link>
+        </h6>
       </div>
       <div className={isItemInCart ? "bg-danger text-white p-1 rounded" : null}>
         <span>In cart:</span>&nbsp;

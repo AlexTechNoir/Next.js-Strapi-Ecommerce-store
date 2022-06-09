@@ -5,41 +5,24 @@ import styled from 'styled-components'
 import dynamic from 'next/dynamic'
 const SearchResult = dynamic(() => import('../../components/SearchResult'))
 
-const fetcher = url => {
-  return fetch(url).then(res => res.json())
-}
+const fetcher = url => fetch(url).then(res => res.json())
 
 export default function SearchResults() {
   const router = useRouter()
   const { value } = router.query
 
-  const { data, error, loading } = useSWR(
-    `${
-      process.env.NODE_ENV === "production"
-        ? process.env.NEXT_PUBLIC_PROD_HOST
-        : process.env.NEXT_PUBLIC_DEV_HOST
-    }/api/data?category=search&value=${value}`,
-    fetcher
-  )
+  const { data, error, loading } = useSWR(`/api/data?category=search&value=${value}`, fetcher)
 
-  return (
-    <>
-      <Head>
-        <meta name="robots" content="noindex" />
-      </Head>
-      
-      <DivSearchResults>
-        {
-          loading || !data
-          ? "Loading..."
-          : error
-          ? "Error."
-          : data.map(result => {
-              return <SearchResult key={result.id} result={result} />
-          })
-        }
-      </DivSearchResults>
-    </>
+  return (      
+    <DivSearchResults>
+      {
+        loading || !data
+        ? "Loading..."
+        : error
+        ? "Error."
+        : data.data.products.data.map(result => <SearchResult key={result.id} result={result} />)
+      }
+    </DivSearchResults>
   )
 }
 

@@ -1,8 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 import CartContext from '../../context/cartContext'
 
-export default function AddToCart({ dataItem }) {
-  const { id, price, inStock } = dataItem
+export default function AddToCart({ id, price, available }) {
   const { refreshCart, evaluateTotalPrice } = useContext(CartContext)
 
   const [ item, setItem ] = useState(dataItem)
@@ -13,7 +12,7 @@ export default function AddToCart({ dataItem }) {
 
   let options = []
   
-  for (let i = 1; i <= inStock; i++) {
+  for (let i = 1; i <= available; i++) {
     options.push(<option value={`${i}`}>{i}</option>)
   }
 
@@ -148,7 +147,7 @@ export default function AddToCart({ dataItem }) {
   }
 
   return (
-    <div>
+    <div className="add-to-cart">
       <h3>
         {
           isInCart

@@ -10,9 +10,7 @@ import htmlToDraft from 'html-to-draftjs'
 
 const PublishedReviews = dynamic(() => import('./reviews/PublishedReviews'))
 
-export default function Reviews({ dataItem }) {
-  const { id } = dataItem
-
+export default function Reviews({ id }) {
   const [ editorState, setEditorState ] = useState(EditorState.createEmpty())
   const [ reviewedItems, setReviewedItems ] = useState([])
   const [ reviews, setReviews ] = useState([])

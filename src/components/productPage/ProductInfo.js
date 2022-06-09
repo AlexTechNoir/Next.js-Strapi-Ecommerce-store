@@ -1,15 +1,7 @@
 import { useContext } from 'react'
 import CurrencyContext from '../../context/currencyContext'
 
-export default function ProductInfo({ dataItem }) {
-
-  const { 
-    title, 
-    company,
-    description, 
-    price
-  } = dataItem
-
+export default function ProductInfo({ title, company, description, price }) {
   const { fetchedRates, currency } = useContext(CurrencyContext)
 
   let currencyRate = 1

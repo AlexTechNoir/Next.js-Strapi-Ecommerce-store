@@ -1,32 +1,58 @@
-import { data, mobile_phones, laptops, tablets } from '../../data'
+import { data } from '../../data'
 
-export default (req, res) => {
+export default async (req, res) => {
   const id = parseInt(req.query.id)
-  const page = req.query.page
-  const limit = req.query.limit
+  const value = req.query.value.toLowerCase().trim()
 
-  const startIndex = (page - 1) * limit
-  const endIndex = page * limit
-
-  if (req.query.category === 'mobile_phones') {
-    const result = mobile_phones.slice(startIndex, endIndex)
-    res.status(200).json(result)
-  } else if (req.query.category === 'laptops') {
-    const result = laptops.slice(startIndex, endIndex)
-    res.status(200).json(result)
-  } else if (req.query.category === 'tablets') {
-    const result = tablets.slice(startIndex, endIndex)
-    res.status(200).json(result)
-  } else if (req.query.category === 'best_offers') {
-    const result = data.filter(dataItem => dataItem.price === 250)
-    res.status(200).json(result)
-  } else if (req.query.category === 'search') {
-    const searchResults = data.filter(dataItem =>
-      dataItem.title
-        .toLowerCase()
-        .includes(req.query.value.toLowerCase().trim())
-    )
-    res.status(200).json(searchResults)
+  if (req.query.category === 'search') {
+    await fetch(`${
+      process.env.NODE_ENV === "production"
+        ? process.env.PROD_CMS_URL
+        : process.env.DEV_CMS_URL
+      }/graphql`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: `
+          query {
+            products(filters: { title: { containsi: "${value}" }}) {
+              data {
+                id
+                attributes {
+                  title
+                  price
+                  image {
+                    data {
+                      attributes {
+                        name
+                        alternativeText
+                        url
+                      }
+                    }
+                  }
+                  category {
+                    data {
+                      attributes {
+                        name
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        `
+      })
+    })
+      .then(r => r.json())
+      .then(data => {
+        console.log(data.data.products)
+        res.status(200).json(data)
+      })
+      .catch(err => res.status(404).json({ message: `Error: ${err}`}))
+    
   } else if (req.query.category === 'object') {
     const result = data.find(dataItem => dataItem.id === id)
     res.status(200).json(result)
@@ -45,6 +71,7 @@ export default (req, res) => {
     const reviewedItem = data[id].reviews.find(i => i.id === id)
     reviewedItem.filter(i => i.user !== req.query.user)
   } else {
+    // for product-page/[id].js ↓
     res.status(200).json(data)
   }
 }

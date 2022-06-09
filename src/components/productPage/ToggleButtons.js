@@ -1,6 +1,6 @@
 export default function ToggleButtons({ toggleTabs, isReviewsTabVisible }) {
   return (
-    <div>
+    <div className="toggle-buttons">
       <button
         type="button"
         name="reviews"

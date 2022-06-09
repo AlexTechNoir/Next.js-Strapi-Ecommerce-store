@@ -11,48 +11,79 @@ import Reviews from '../../components/productPage/Reviews'
 import ProductSlider from '../../components/productPage/ProductSlider'
 const Comments = dynamic(() => import('../../components/productPage/Comments'))
 
-export async function getServerSideProps(context) {
-  const res = await fetch(
-    `${
-      process.env.NODE_ENV === "production"
-        ? process.env.NEXT_PUBLIC_PROD_HOST
-        : process.env.NEXT_PUBLIC_DEV_HOST
-    }/api/data`
-  )
-  const data = await res.json()
-  const dataItem = data[Number(context.params.id)]
+export async function getServerSideProps(ctx) {
+  const data = await fetch(`${
+    process.env.NODE_ENV === "production"
+      ? process.env.PROD_CMS_URL
+      : process.env.DEV_CMS_URL
+    }/graphql`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query: `
+        query {
+          product(id: ${ctx.params.id}) {
+            data {
+              id
+              attributes {
+                title
+                company
+                description
+                price
+                available
+                reviews
+                image {
+                  data {
+                    id
+                    attributes {
+                      name
+                      alternativeText
+                      url
+                      formats
+                    }
+                  }
+                }
+                category {
+                  data {
+                    attributes {
+                      name
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      `
+    })
+  })
+    .then(r => r.json())
+    .catch(err => console.error(err.message))
+  
+  const dataItem = data.data.product.data
+  console.log(dataItem)
 
   return {
     props: { dataItem }
   }
 }
 
-export default function ProductPage({ dataItem }) {
-  const { title, category } = dataItem
+export default function ProductPage({ dataItem }) {  
+  const id = dataItem.id
+  const attributes = dataItem.attributes
+
+  const title = attributes.title
+  const company = attributes.company
+  const description = attributes.description
+  const price = attributes.price
+  const available = attributes.available
+  const category = attributes.category.data.attributes.name
+  const categoryPath = category.trim().toLowerCase().replace(' ', '-')
+  const images = attributes.image.data
 
   const [ isReviewsTabVisible, setIsReviewsTabVisible ] = useState(true)
-
-  let productCategory
-
-  if (category === "Mobile Phones") {
-    productCategory = (
-      <Link href="/products/mobile-phones/[page]" as="/products/mobile-phones/1">
-        <a>Mobile Phones</a>
-      </Link>
-    )
-  } else if (category === "Laptops") {
-    productCategory = (
-      <Link href="/products/laptops/[page]" as="/products/laptops/1">
-        <a>Laptops</a>
-      </Link>
-    )
-  } else if (category === "Tablets") {
-    productCategory = (
-      <Link href="/products/tablets/[page]" as="/products/tablets/1">
-        <a>Tablets</a>
-      </Link>
-    )
-  }
 
   const toggleTabs = e => {
     if (e.target.name === 'reviews') {
@@ -73,17 +104,21 @@ export default function ProductPage({ dataItem }) {
         <nav aria-label="breadcrumb">
           <ol className="breadcrumb">
             <li className="breadcrumb-item"><Link href="/"><a>Home</a></Link></li>
-            <li className="breadcrumb-item">{productCategory}</li>
+            <li className="breadcrumb-item">
+              <Link href="/products/[category]/[page]" as={`/products/${categoryPath}/1`}>
+                <a>{category}</a>
+              </Link>
+            </li>
             <li className="breadcrumb-item active" aria-current="page">{title}</li>
           </ol>
         </nav>
-        <ProductSlider dataItem={dataItem} />
-        <ProductInfo dataItem={dataItem} />
-        <AddToCart dataItem={dataItem} />
+        <ProductSlider images={images} />
+        <ProductInfo title={title} company={company} description={description} price={price}/>
+        {/* <AddToCart id={id} price={price} available={available} /> */}
         <ToggleButtons toggleTabs={toggleTabs} isReviewsTabVisible={isReviewsTabVisible} />
         {
           isReviewsTabVisible
-          ? <Reviews dataItem={dataItem} />
+          ? <Reviews id={id} />
           : <Comments />
         }
       </DivProductPage>
@@ -119,7 +154,7 @@ const DivProductPage = styled.div`
     padding-left: 1rem;
     padding-right: 1rem;
   }
-  > :nth-child(4) {
+  > .add-to-cart {
     display: flex;
     align-content: flex-start;
     align-items: flex-start;
@@ -142,7 +177,7 @@ const DivProductPage = styled.div`
       border-radius: 5px;
     }
   }
-  > :nth-child(5) {
+  > .toggle-buttons {
     align-self: stretch;
     > button {
       width: 50%;
@@ -152,7 +187,7 @@ const DivProductPage = styled.div`
       border-radius: 0;
     }
   }
-  > :nth-child(6) {
+  > :last-child {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -245,16 +280,18 @@ const DivProductPage = styled.div`
       grid-area: 2 / 1 / 3 / 2;
       justify-self: center;
     }
-    > :nth-child(3) {
+    > .product-info {
       grid-area: 2 / 2 / 3 / 3;
+      margin-top: 0;
+      align-self: start;
     }
-    > :nth-child(4) {
+    > .add-to-cart {
       grid-area: 3 / 2 / 4 / 3;
     }
-    > :nth-child(5) {
+    > .toggle-buttons {
       grid-area: 4 / 1 / 5 / 3;
     }
-    > :nth-child(6) {
+    > :last-child {
       grid-area: 5 / 1 / 6 / 3;
     }
   }

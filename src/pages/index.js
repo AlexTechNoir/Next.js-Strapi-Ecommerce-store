@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
-import useSWR from 'swr'
 import styled from 'styled-components'
 import { useState, useEffect } from 'react'
 
@@ -11,32 +10,49 @@ const FeaturedCarousel = dynamic(
   { ssr: false }
 )
 
-const fetcher = url => {
-  return fetch(url).then(res => res.json())
-}
-
 export async function getServerSideProps() {
-  const data = await fetcher(
-    `${
-      process.env.NODE_ENV === "production"
-        ? process.env.NEXT_PUBLIC_PROD_HOST
-        : process.env.NEXT_PUBLIC_DEV_HOST
-    }/api/data?category=best_offers`
-  )
+  const data = await fetch(`${
+    process.env.NODE_ENV === "production"
+      ? process.env.PROD_CMS_URL
+      : process.env.DEV_CMS_URL
+    }/graphql`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query: `
+        query {
+          products(filters: { price: { eq: 250 }}) {
+            data {
+              id
+              attributes {
+                title
+                price
+                image {
+                  data {
+                    attributes {
+                      name
+                      alternativeText
+                      url
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      `
+    })
+  })
+    .then(r => r.json())
+    .catch(err => console.error(err.message))
+  
   return { props: { data } }
 }
 
-export default function Index(props) {
-  const initialData = props.data
-  const { data } = useSWR(
-    `${
-      process.env.NODE_ENV === "production"
-        ? process.env.NEXT_PUBLIC_PROD_HOST
-        : process.env.NEXT_PUBLIC_DEV_HOST
-    }/api/data?category=best_offers`,
-    fetcher,
-    { initialData }
-  )
+export default function Index({ data }) {
+  const items = data.data.products.data
 
   const [ windowWidth, setWindowWidth ] = useState(null)
 
@@ -60,7 +76,7 @@ export default function Index(props) {
         <div role="banner">
           <FeaturedCarousel />
         </div>
-        <FeaturedProducts data={data} />
+        <FeaturedProducts items={items} />
       </DivIndex>
     </>
   )

@@ -1,15 +1,11 @@
 import ProductListItem from '../ProductListItem'
 
-export default function FeaturedProducts({ data }) {
+export default function FeaturedProducts({ items }) {
   return (
     <>
       <h1>Best Offers</h1>
       <div>
-        {
-          data.map( dataItem => {
-            return <ProductListItem key={dataItem.id} dataItem={dataItem} />
-          })
-        }
+        {items.map(item => <ProductListItem key={item.id} item={item} />)}
       </div>
     </>
   )

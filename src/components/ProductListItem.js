@@ -2,14 +2,16 @@ import { useState, useEffect, useContext } from 'react'
 import Link from 'next/link'
 import CurrencyContext from '../context/currencyContext'
 import styled from 'styled-components'
-import Image from 'next/image'
 
-export default function ProductListItem({ dataItem }) {
-  const {
-    id,
-    title,
-    price
-  } = dataItem
+export default function ProductListItem({ item }) {
+  const id = item.id
+  const attributes = item.attributes
+  
+  const title = attributes.title
+  const price = attributes.price
+  const imgsArr = attributes.image.data
+  const img = imgsArr.filter(i => i.attributes.name === "01.jpg")
+  const imgUrl = img[0].attributes.url
 
   const { fetchedRates, currency } = useContext(CurrencyContext)
 
@@ -45,13 +47,7 @@ export default function ProductListItem({ dataItem }) {
     <DivProductListItem>
       <Link href="/product-page/[id].js" as={`/product-page/${id}`}>
         <a>
-          <Image 
-            alt={title}
-            src={`/img/products/${id}/01.webp`}
-            width={200}
-            height={200}
-            layout="fixed"
-          />
+          <img alt={title} src={imgUrl} width={200} height={200} />
           <br />
           <div>{title}</div>
           <br />
