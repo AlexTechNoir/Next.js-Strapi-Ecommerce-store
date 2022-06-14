@@ -1,21 +1,39 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import CartContext from '../../../context/cartContext'
 import styled from 'styled-components'
+import { useState } from 'react'
 
 export default function CartButton() {
-  const { cartList } = useContext(CartContext)
+  const { cartBadgeToggle } = useContext(CartContext)
+
+  const [ itemsAmountInCart, setItemsAmountInCart ] = useState(0)
+
+  const assignProductAmountInCart = () => {
+    const cartList = JSON.parse(localStorage.cartList)
+    const cartListLength = cartList.length
+
+    setItemsAmountInCart(cartListLength)
+  }
+
+  useEffect(() => {
+    if (localStorage.getItem('cartList') !== null) {
+      assignProductAmountInCart()
+    } else {
+      setItemsAmountInCart(0)
+    }   
+  },[cartBadgeToggle])
 
   return (
     <Link href="/cart">
       <a aria-label="Shopping cart link">
         <FontAwesomeIcon icon={faShoppingCart} size="lg" />
         {
-          cartList.length > 0
+          itemsAmountInCart > 0
           ? <DivIconAmountInCart>
-              {cartList.length}
+              {itemsAmountInCart}
             </DivIconAmountInCart>
           : null
         }

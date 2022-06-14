@@ -8,6 +8,7 @@ export default function ProductSlider({ images }) {
       autoPlay={false}
       transitionTime={500}
       emulateTouch={true}
+      showThumbs={false}
     >
       {
         images.map(img => (

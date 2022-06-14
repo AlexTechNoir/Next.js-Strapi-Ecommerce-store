@@ -18,6 +18,8 @@ Fully responsive mobile first demo website. Rewritten from [React CRA app](https
 
 ## What did I use to make this demo:
 
+! Many links may be broken for now, I'll fix them ASA I'll finish rewriting this app !
+
 - [Create Next App](https://nextjs.org/docs/getting-started#setup)
 - [styled-components](https://github.com/styled-components/styled-components) (examples: [global style](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/src/components/Layout.js#L92), [ususal style](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/src/pages/index.js#L69))
 - [Bootstrap 4](https://getbootstrap.com/) - mainly for ready-made buttons and forms

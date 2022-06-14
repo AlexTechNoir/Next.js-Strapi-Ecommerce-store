@@ -1,9 +1,13 @@
 import styled from 'styled-components'
+import { useEffect, useState, useContext } from 'react'
+import CartContext from '../../context/cartContext'
 
 import CartListItem from './cartList/CartListItem'
 import PayPalCheckoutButton from './cartList/PayPalCheckoutButton'
 
-export default function CartList({ cartList, clearCart, cartSubTotalPrice, fetchedRates, currency }) {
+export default function CartList({ cartList, fetchedRates, currency, assignProductAmountInCart }) {
+  const { cartBadgeToggle, setCartBadgeToggle } = useContext(CartContext)
+
   let currencyRate = 1
   
   if (currency === '€') {
@@ -20,16 +24,54 @@ export default function CartList({ cartList, clearCart, cartSubTotalPrice, fetch
     currencyRate = fetchedRates.INR
   }
 
-  const subTotal = (cartSubTotalPrice * currencyRate).toFixed(2)
-  const tax = (subTotal * 0.1).toFixed(2)
-  const totalPrice = (+tax + +subTotal).toFixed(2)
+  const [ totalPrice, setTotalPrice ] = useState(0)
+
+  const estimateTotalPrice = () => {
+    const cartListWithAmounts = JSON.parse(localStorage.cartList)
+    const cartListWithPrices = cartList
+    
+    cartListWithAmounts.map(itemWithAmount => {
+      
+      cartListWithPrices.forEach(itemWithPrice => {
+
+        if (itemWithAmount.id === itemWithPrice.id) {
+          
+          itemWithAmount.price = itemWithPrice.attributes.price
+          
+        }
+      })
+    })
+    
+    const totalEstimatedPrice = cartListWithAmounts
+      .map(i => (i.price * i.selectedAmount).toFixed(2))
+      .reduce((acc, i) => parseFloat(acc) + parseFloat(i), 0)
+    
+    setTotalPrice(totalEstimatedPrice.toFixed(2))
+  }
+
+  const clearCart = () => {
+    localStorage.removeItem('cartList')
+    assignProductAmountInCart()
+    setCartBadgeToggle(!cartBadgeToggle)
+  }
+
+  useEffect(() => {
+    estimateTotalPrice()
+  },[])
 
   return (
     <DivCartList>
       <div>
         { 
           cartList.map(cartListItem => {
-            return <CartListItem key={cartListItem.id} cartListItem={cartListItem} />
+            return (
+              <CartListItem 
+                key={cartListItem.id} 
+                cartListItem={cartListItem} 
+                assignProductAmountInCart={assignProductAmountInCart}
+                estimateTotalPrice={estimateTotalPrice}
+              />
+            )
           })
         }
       </div>
@@ -41,17 +83,9 @@ export default function CartList({ cartList, clearCart, cartSubTotalPrice, fetch
         Clear cart
       </button>
       <div>
-        <h2>
-          <span>Subtotal price:</span>&nbsp;
-          <b>{currency} {subTotal}</b>
-        </h2>
-        <h2>
-          <span>Tax:</span>&nbsp;
-          <b>{currency} {tax}</b>
-        </h2>
         <h1>
           <span>Total price:</span>&nbsp;
-          <b>{currency} {totalPrice}</b>
+          <b>{currency} {(totalPrice * currencyRate).toFixed(2)}</b>
         </h1>
       </div>
       <PayPalCheckoutButton currency={currency} totalPrice={totalPrice} clearCart={clearCart} />
@@ -76,7 +110,7 @@ const DivCartList = styled.div`
   > :nth-child(3) {
     display: flex;
     flex-direction: column;
-    > h1, h2 {
+    > h1 {
       display: flex;
       flex-wrap: wrap;
     }

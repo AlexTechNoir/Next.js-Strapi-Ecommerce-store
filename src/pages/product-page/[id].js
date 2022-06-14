@@ -63,7 +63,6 @@ export async function getServerSideProps(ctx) {
     .catch(err => console.error(err.message))
   
   const dataItem = data.data.product.data
-  console.log(dataItem)
 
   return {
     props: { dataItem }
@@ -113,8 +112,8 @@ export default function ProductPage({ dataItem }) {
           </ol>
         </nav>
         <ProductSlider images={images} />
-        <ProductInfo title={title} company={company} description={description} price={price}/>
-        {/* <AddToCart id={id} price={price} available={available} /> */}
+        <ProductInfo title={title} company={company} description={description} price={price} />
+        <AddToCart id={id} available={available} />
         <ToggleButtons toggleTabs={toggleTabs} isReviewsTabVisible={isReviewsTabVisible} />
         {
           isReviewsTabVisible

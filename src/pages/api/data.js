@@ -1,4 +1,4 @@
-import { data } from '../../data'
+// import { data } from '../../data'
 
 export default async (req, res) => {
   const id = parseInt(req.query.id)
@@ -48,7 +48,6 @@ export default async (req, res) => {
     })
       .then(r => r.json())
       .then(data => {
-        console.log(data.data.products)
         res.status(200).json(data)
       })
       .catch(err => res.status(404).json({ message: `Error: ${err}`}))
@@ -71,7 +70,6 @@ export default async (req, res) => {
     const reviewedItem = data[id].reviews.find(i => i.id === id)
     reviewedItem.filter(i => i.user !== req.query.user)
   } else {
-    // for product-page/[id].js ↓
-    res.status(200).json(data)
+    res.status(200).json({ name: 'John Doe' })
   }
 }

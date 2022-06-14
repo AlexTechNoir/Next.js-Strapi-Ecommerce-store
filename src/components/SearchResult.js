@@ -21,11 +21,14 @@ export default function SearchResult({ result }) {
   const [ quantity, setQuantity ] = useState(0)
 
   useEffect(() => {
-    const cartList = JSON.parse(localStorage.cartList)
-    const item = cartList.find(cartListItem => cartListItem.id === id)
-    if (item !== undefined) {
-      setIsItemInCart(item.isInCart)
-      setQuantity(item.amountInCart)
+    if (localStorage.getItem('cartList') !== null) {
+      const cartList = JSON.parse(localStorage.cartList)
+      const item = cartList.find(cartListItem => cartListItem.id === id)
+
+      if (item !== undefined) {
+        setIsItemInCart(true)
+        setQuantity(item.selectedAmount)
+      }
     }
   }, [])
 
@@ -62,13 +65,7 @@ export default function SearchResult({ result }) {
       </div>
       <div className={isItemInCart ? "bg-danger text-white p-1 rounded" : null}>
         <span>In cart:</span>&nbsp;
-        <span>
-          {
-            isItemInCart
-            ? quantity
-            : 0
-          }
-        </span>
+        <span>{isItemInCart ? quantity : 0}</span>
       </div>
       <div>
         <h4>

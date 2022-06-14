@@ -3,35 +3,30 @@ import Link from 'next/link'
 import styled from 'styled-components'
 import CurrencyContext from '../../../context/currencyContext'
 import CartContext from '../../../context/cartContext'
-import Image from 'next/image'
 
-export default function CartListItem({ cartListItem }) {
-  const {
-    id,
-    title,
-    company,
-    amountInCart,
-    price,
-    inStock,
-    totalPrice,
-  } = cartListItem
+export default function CartListItem({ cartListItem, assignProductAmountInCart, estimateTotalPrice }) {
+  const id = parseFloat(cartListItem.id)
+  const attributes = cartListItem.attributes
+
+  const title = attributes.title
+  const company = attributes.company
+  const price = attributes.price
+  const available = attributes.available
+
+  const imgsArr = attributes.image.data
+  const img = imgsArr.filter(i => i.attributes.name === "01.jpg")
+  const imgUrl = img[0].attributes.url
   
   const { fetchedRates, currency } = useContext(CurrencyContext)
-  const { refreshCart, evaluateTotalPrice } = useContext(CartContext)
+  const { cartBadgeToggle, setCartBadgeToggle } = useContext(CartContext)
 
-
-  const [ currentTotalPrice, setCurrentTotalPrice ] = useState(totalPrice)
+  const [ currentTotalPrice, setCurrentTotalPrice ] = useState(0)
 
   let options = []
 
-  for (let i = 1; i <= inStock; i++) {
-    options.push(<option value={`${i}`}>{i}</option>)
+  for (let i = 1; i <= available; i++) {
+    options.push(<option key={i} value={`${i}`}>{i}</option>)
   }
-
-  useEffect(() => {
-    const select = document.getElementById(`itemsOf${id}`)
-    select.options[amountInCart - 1].selected = 'selected'
-  }, [])
 
   let currencyRate = 1
   
@@ -49,95 +44,63 @@ export default function CartListItem({ cartListItem }) {
     currencyRate = fetchedRates.INR
   }
 
+  const estimatePrice = () => {
+    const cartList = JSON.parse(localStorage.cartList)
+    const item = cartList.filter(i => parseFloat(i.id) === id)
+    const selectedAmount = parseFloat(item[0].selectedAmount)
+
+    const select = document.getElementById(`itemsOf${id}`)
+    select.options[selectedAmount - 1].selected = 'selected'
+
+    setCurrentTotalPrice(parseFloat(price * selectedAmount).toFixed(2))
+  }
+
   const editAmount = async (id, price) => {
+    const cartList = JSON.parse(localStorage.cartList)
     const selectedAmount = document.getElementById(`itemsOf${id}`).value
-    const updTotalPrice = price * selectedAmount
 
-    fetch(
-      `${
-        process.env.NODE_ENV === "production"
-          ? process.env.NEXT_PUBLIC_PROD_HOST
-          : process.env.NEXT_PUBLIC_DEV_HOST
-      }/api/cart/${id}?type=editInCart`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json;charset=utf-8"
-        },
-        body: JSON.stringify({
-          amountInCart: selectedAmount,
-          totalPrice: updTotalPrice
-        })
+    const editedCartList = cartList.map(i => {
+      if (parseFloat(i.id) === id) {
+        i.selectedAmount = +selectedAmount
+        return i
+      } else {
+        i = i
+        return i
       }
-    )
-      .then(r => {
-        if (r.status >= 400) {
-          return r.json().then(errResData => {
-            const err = new Error("Error.")
-            err.data = errResData
-            throw err
-          })
-        }
-        return r.json()
-      })
-      .then(r => {
-        const storageCartList = JSON.parse(localStorage.cartList)
-        const changedCartList = storageCartList.map(
-          obj => r.find(o => o.id === obj.id) || obj
-        )
-        setCurrentTotalPrice(r[0].totalPrice)
-        localStorage.setItem("cartList", JSON.stringify(changedCartList))
+    })
 
-        refreshCart()
-        evaluateTotalPrice()
-      })
+    localStorage.setItem('cartList', JSON.stringify(editedCartList))
+
+    const updTotalPrice = parseFloat(price * selectedAmount).toFixed(2)
+    setCurrentTotalPrice(updTotalPrice)
+
+    estimateTotalPrice()
   }
 
   const deleteItem = id => {
-    fetch(
-      `${
-        process.env.NODE_ENV === "production"
-          ? process.env.NEXT_PUBLIC_PROD_HOST
-          : process.env.NEXT_PUBLIC_DEV_HOST
-      }/api/cart/${id}?type=delete`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json;charset=utf-8"
-        }
-      }
-    )
-      .then(r => {
-        if (r.status >= 400) {
-          return r.json().then(errResData => {
-            const err = new Error("Error.")
-            err.data = errResData
-            throw err
-          })
-        }
-        return r.json()
-      })
-      .then(r => {
-        const storageCartList = JSON.parse(localStorage.cartList)
-        const changedCartList = storageCartList.filter(
-          obj => obj.id !== r[0].id
-        )
-        localStorage.setItem("cartList", JSON.stringify(changedCartList))
-        refreshCart()
+    const cartList = JSON.parse(localStorage.cartList)
 
-        evaluateTotalPrice()
-      })
+    const editedCartList = cartList.filter(i => parseFloat(i.id) !== id)
+
+    if (editedCartList.length === 0) {
+      localStorage.removeItem('cartList')
+      assignProductAmountInCart()
+    } else {
+      localStorage.setItem('cartList', JSON.stringify(editedCartList))
+      assignProductAmountInCart()
+    }
+    
+    setCartBadgeToggle(!cartBadgeToggle)
+    estimateTotalPrice()
   }
+
+  useEffect(() => {
+    estimatePrice()
+  }, [])
 
   return (
     <DivCartListItem>
-      <Image 
-        alt={title}
-        src={`/img/products/${id}/01.webp`}
-        width={100}
-        height={100}
-        layout="fixed"
-      />
+      <img src={imgUrl} alt={title} width={100} height={100} />
       <div>
         <Link href="/product-page/[id].js" as={`/product-page/${id}`}>
           <a>
@@ -160,7 +123,7 @@ export default function CartListItem({ cartListItem }) {
         <span>Total price:</span>
         <span className="d-flex no-wrap">
           <span className="align-self-end">{currency}</span>&nbsp;
-          <span className="align-self-end">{(parseFloat(currentTotalPrice * currencyRate)).toFixed(2)}</span>
+          <span className="align-self-end">{(currentTotalPrice * currencyRate).toFixed(2)}</span>
         </span>
       </h5>
       <button

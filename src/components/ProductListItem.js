@@ -19,11 +19,14 @@ export default function ProductListItem({ item }) {
   const [ quantity, setQuantity ] = useState(0)
 
   useEffect(() => {
-    const cartList = localStorage.getItem('cartList') !== null ? JSON.parse(localStorage.cartList) : []
-    const item = cartList.find(cartListItem => cartListItem.id === id)
-    if (item !== undefined) {
-      setIsItemInCart(item.isInCart)
-      setQuantity(item.amountInCart)
+    if (localStorage.getItem('cartList') !== null) {
+      const cartList = JSON.parse(localStorage.cartList)
+      const item = cartList.find(cartListItem => cartListItem.id === id)
+
+      if (item !== undefined) {
+        setIsItemInCart(true)
+        setQuantity(item.selectedAmount)
+      }
     }
   }, [])
 

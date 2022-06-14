@@ -17,31 +17,7 @@ export default function ContextProvider({ Component, pageProps }) {
   const [ areCookiesAccepted, setAreCookiesAccepted ] = useState(false)
 
   // cart ↓
-  const [ cartList, setCartList ] = useState([])
-  const [ cartSubTotalPrice, setCartSubTotalPrice ] = useState(0)  
-
-  const refreshCart = () => setCartList(JSON.parse(localStorage.cartList))
-
-  const clearCart = () => {
-    localStorage.setItem('cartList', JSON.stringify([]))
-    setCartList(JSON.parse(localStorage.cartList))
-
-    window.scrollTo(0,0)
-  }
-
-  const evaluateTotalPrice = () => {
-    const cartList = JSON.parse(localStorage.cartList)
-
-    if (cartList.length === 0) {
-      setCartSubTotalPrice(0)
-    } else if (cartList.length === 1) {
-      const cartSubTotalPrice = cartList[0].totalPrice
-      setCartSubTotalPrice(cartSubTotalPrice)
-    } else {
-      const cartSubTotalPrice = cartList.reduce((acc, cur) => acc + cur.totalPrice, 0)
-      setCartSubTotalPrice(cartSubTotalPrice)
-    }
-  }
+  const [ cartBadgeToggle, setCartBadgeToggle ] = useState(true)
 
   // currency ↓
   const [ fetchedRates, setFetchedRates ] = useState({})
@@ -49,12 +25,8 @@ export default function ContextProvider({ Component, pageProps }) {
   
   const refreshCurrency = () => setCurrency(JSON.parse(localStorage.currency))  
 
-  // useEffect for cart and currency ↓
+  // useEffect for currency ↓
   useEffect(async () => {
-    if (localStorage.getItem('cartList') === null) {
-      localStorage.setItem('cartList', JSON.stringify([]))
-    }
-
     if (localStorage.getItem('currency') === null) {
       localStorage.setItem('currency', JSON.stringify('$'))
     }
@@ -69,13 +41,10 @@ export default function ContextProvider({ Component, pageProps }) {
           })
         }
         return r.json()
-      }).then(r => {  
-        setCartList(JSON.parse(localStorage.cartList))
+      }).then(r => {
         setFetchedRates(r.rates)
         setCurrency(JSON.parse(localStorage.currency))
       })
-
-    evaluateTotalPrice()
   },[])
 
   return (
@@ -84,11 +53,8 @@ export default function ContextProvider({ Component, pageProps }) {
       setAreCookiesAccepted      
     }}>
       <CartContext.Provider value={{
-        cartList,
-        cartSubTotalPrice,
-        refreshCart,
-        clearCart,
-        evaluateTotalPrice
+        cartBadgeToggle,
+        setCartBadgeToggle
       }}>
         <CurrencyContext.Provider value={{
           fetchedRates,
