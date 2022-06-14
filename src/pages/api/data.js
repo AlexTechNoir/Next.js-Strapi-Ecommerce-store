@@ -56,7 +56,7 @@ export default async (req, res) => {
     const result = data.find(dataItem => dataItem.id === id)
     res.status(200).json(result)
   } else if (req.method === 'PATCH') {
-    const reviewedItem = data[id].reviews.find(i => i.id === id)
+    let reviewedItem = data[id].reviews.find(i => i.id === id)
     if (reviewedItem !== undefined) {
       reviewedItem = req.body
     }
