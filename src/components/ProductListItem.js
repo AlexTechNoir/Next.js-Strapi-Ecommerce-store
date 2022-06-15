@@ -49,13 +49,13 @@ export default function ProductListItem({ item }) {
   return (
     <DivProductListItem>
       <Link href="/product-page/[id].js" as={`/product-page/${id}`}>
-        <a>
-          <img alt={title} src={imgUrl} width={200} height={200} />
+        <a className="link">
+          <img alt={title} src={imgUrl} width={200} height={200} className="image" />
           <br />
-          <div>{title}</div>
+          <div className="title">{title}</div>
           <br />
-          <div>
-            <div>
+          <div className="price-and-in-cart-wrapper">
+            <div className="price">
               <span className="d-flex no-wrap">
                 <span>{currency}</span>&nbsp;
                 <span>{(parseFloat(price * currencyRate)).toFixed(2)}</span>
@@ -63,7 +63,7 @@ export default function ProductListItem({ item }) {
             </div>
             {
               isItemInCart
-              ? <div>In cart: {quantity}</div>
+              ? <div className="in-cart">In cart: {quantity}</div>
               : null
             }
           </div>
@@ -82,7 +82,7 @@ const DivProductListItem = styled.div`
     box-shadow: .1rem .1rem 1rem .1rem rgba(0,0,0,.3);
     text-decoration: none;
   }
-  > a {
+  > .link {
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -91,19 +91,19 @@ const DivProductListItem = styled.div`
     &:hover {
       text-decoration: none;
     }
-    > :first-child {
+    > .image {
       align-self: center;
     }
-    > :nth-child(3) {
+    > .title {
       font-size: 1.5rem;
     }
-    > :last-child {
+    > .price-and-in-cart-wrapper {
       display: flex;
       justify-content: space-between;
-      > :first-child {
+      > .price {
         font-size: 1.5rem;
       }
-      > :nth-child(2) {
+      > .in-cart {
         align-self: flex-start;
         background: #dc3545;
         color: white;

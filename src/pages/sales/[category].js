@@ -5,7 +5,7 @@ import Timer from '../../components/Timer'
 import ProductListItem from '../../components/ProductListItem'
 
 export async function getServerSideProps(ctx) {
-  const category = ctx.params.category  
+  const category = ctx.params.category
 
   const data = await fetch(`${
     process.env.NODE_ENV === "production"
@@ -63,7 +63,7 @@ export default function Sale({ category, categoryItems }) {
       </Head>
 
       <DivSales>
-        <div>
+        <div className="banner-and-timer">
           <picture>
             <source data-srcset={`/img/carousel/${category}/01.webp`} type="image/webp" />
             <img src={`/img/carousel/${category}/01.jpg`} alt={`${category} Sale`} />
@@ -71,7 +71,7 @@ export default function Sale({ category, categoryItems }) {
           <hr />
           <Timer />
         </div>
-        <div>
+        <div className="category-products">
           {categoryItems.map(item => <ProductListItem key={item.id} item={item} />)}
         </div>
       </DivSales>
@@ -86,7 +86,7 @@ const DivSales = styled.div`
   flex-direction: column;    
   width: 100%;
   max-width: 1200px;
-  > :first-child {
+  > .banner-and-timer {
     display: flex;
     flex-direction: column;
     align-self: center;
@@ -97,16 +97,8 @@ const DivSales = styled.div`
       max-width: 960px;
       height: 100%;
     }
-    > :last-child {
-      margin: auto;
-      > :first-child {
-        display: inline-flex;
-        flex-direction: column;
-        align-items: center;
-      }
-    }
   }
-  > :last-child {
+  > .category-products {
     display: grid;
     grid-template-columns: repeat(auto-fit, 290px);
     grid-row-gap: .5rem;

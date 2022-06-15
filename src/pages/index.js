@@ -73,7 +73,7 @@ export default function Index({ data }) {
       </Head>
 
       <DivIndex windowWidth={windowWidth <= 960 ? windowWidth : null}>
-        <div role="banner">
+        <div role="banner" className="carousel">
           <FeaturedCarousel />
         </div>
         <FeaturedProducts items={items} />
@@ -86,12 +86,12 @@ const DivIndex = styled.div`
   grid-area: 2 / 2 / 3 / 3;
   display: flex;
   flex-direction: column;
-  > :first-child {
+  > .carousel {
     max-width: 960px;
     height: ${props => props.windowWidth !== null ? (props.windowWidth / 1.92) + 'px' : '500px'};
     align-self: center;
     margin-bottom: 2em; 
-    > .carousel-root {        
+    > .carousel-root {
       &:hover {
         cursor: pointer;
       }
@@ -100,10 +100,10 @@ const DivIndex = styled.div`
       }
     }
   }
-  > :nth-child(2) {
+  > .best-offers-heading {
     margin-left: 1rem;
   }
-  > :last-child {
+  > .best-offers-products {
     display: grid;
     grid-template-columns: repeat(auto-fit, 290px);
     grid-row-gap: .5rem;

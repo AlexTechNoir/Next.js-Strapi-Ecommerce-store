@@ -61,7 +61,7 @@ export default function CartList({ cartList, fetchedRates, currency, assignProdu
 
   return (
     <DivCartList>
-      <div>
+      <div className="cart-items-wrapper">
         { 
           cartList.map(cartListItem => {
             return (
@@ -77,12 +77,12 @@ export default function CartList({ cartList, fetchedRates, currency, assignProdu
       </div>
       <button 
         type="button" 
-        className="btn btn-danger"
+        className="btn btn-danger clear-cart-button"
         onClick={() => clearCart()}
       >
         Clear cart
       </button>
-      <div>
+      <div className="total-price">
         <h1>
           <span>Total price:</span>&nbsp;
           <b>{currency} {(totalPrice * currencyRate).toFixed(2)}</b>
@@ -97,30 +97,22 @@ const DivCartList = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  > :first-child {
+  > .cart-items-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin-bottom: 1.5em;
   }
-  > :nth-child(2) {
+  > .clear-cart-button {
     align-self: flex-start;
     margin-bottom: 2.5em;
   }
-  > :nth-child(3) {
+  > .total-price {
     display: flex;
     flex-direction: column;
     > h1 {
       display: flex;
       flex-wrap: wrap;
-    }
-  }
-  > :nth-child(4) {
-    align-self: flex-start;
-    width: 100%;
-
-    @media only screen and (min-width: 426px) {
-      width: 290px;
     }
   }
 `

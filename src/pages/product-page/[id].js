@@ -100,7 +100,7 @@ export default function ProductPage({ dataItem }) {
       </Head>
 
       <DivProductPage>
-        <nav aria-label="breadcrumb">
+        <nav aria-label="breadcrumb" className="nav">
           <ol className="breadcrumb">
             <li className="breadcrumb-item"><Link href="/"><a>Home</a></Link></li>
             <li className="breadcrumb-item">
@@ -130,7 +130,7 @@ const DivProductPage = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  > :first-child {
+  > .nav {
     align-self: flex-start;
   }
   > .carousel-root {
@@ -144,46 +144,6 @@ const DivProductPage = styled.div`
       > :nth-child(3) {
         margin-right: 0;
       }
-    }
-  }
-  > .product-info {
-    display: flex;
-    flex-direction: column;
-    margin-top: 5rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-  > .add-to-cart {
-    display: flex;
-    align-content: flex-start;
-    align-items: flex-start;
-    align-self: flex-start;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    margin-top: 1em;
-    > :first-child > div {
-      display: flex;
-      flex-direction: column;
-      > h6 > button {
-        margin-right: 1em;
-      }
-    }
-    > :last-child {
-      background: #dc3545;
-      color: white;
-      margin: 0 1.5em 0 1.5em;
-      padding: .2em .5em .2em .5em;
-      border-radius: 5px;
-    }
-  }
-  > .toggle-buttons {
-    align-self: stretch;
-    > button {
-      width: 50%;
-      margin-top: 2.5em;
-      padding: .5em 2em .5em 2em;
-      box-shadow: none;
-      border-radius: 0;
     }
   }
   > :last-child {
@@ -278,17 +238,6 @@ const DivProductPage = styled.div`
       max-height: 400px;
       grid-area: 2 / 1 / 3 / 2;
       justify-self: center;
-    }
-    > .product-info {
-      grid-area: 2 / 2 / 3 / 3;
-      margin-top: 0;
-      align-self: start;
-    }
-    > .add-to-cart {
-      grid-area: 3 / 2 / 4 / 3;
-    }
-    > .toggle-buttons {
-      grid-area: 4 / 1 / 5 / 3;
     }
     > :last-child {
       grid-area: 5 / 1 / 6 / 3;

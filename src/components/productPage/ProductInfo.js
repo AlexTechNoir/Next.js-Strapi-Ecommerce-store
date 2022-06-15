@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import styled from 'styled-components'
 import CurrencyContext from '../../context/currencyContext'
 
 export default function ProductInfo({ title, company, description, price }) {
@@ -21,7 +22,7 @@ export default function ProductInfo({ title, company, description, price }) {
   }
 
   return (
-    <div className="product-info">
+    <ProductInfoDiv>
       <h1>{title}</h1>
       <h2>Company: {company}</h2>
       <h2>
@@ -35,6 +36,20 @@ export default function ProductInfo({ title, company, description, price }) {
       </h2>
       <br />
       <h3>Info: {description}</h3>
-    </div>
+    </ProductInfoDiv>
   )
 }
+
+const ProductInfoDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  @media only screen and (min-width: 850px) {
+    grid-area: 2 / 2 / 3 / 3;
+    margin-top: 0;
+    align-self: start;
+  }
+`

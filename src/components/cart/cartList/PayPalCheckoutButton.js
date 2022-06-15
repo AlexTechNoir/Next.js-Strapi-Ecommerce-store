@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import styled from 'styled-components'
 
 export default function PayPalCheckoutButton({ totalPrice, clearCart }) {
   useEffect(() => { 
@@ -38,8 +39,17 @@ export default function PayPalCheckoutButton({ totalPrice, clearCart }) {
   }, [])
 
   return (
-    <div>
+    <PayPalCheckoutDiv>
       <div id="paypalCheckoutButton"></div>
-    </div>
+    </PayPalCheckoutDiv>
   )
 }
+
+const PayPalCheckoutDiv = styled.div`
+  align-self: flex-start;
+  width: 100%;
+
+  @media only screen and (min-width: 426px) {
+    width: 290px;
+  }
+`

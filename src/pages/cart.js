@@ -40,7 +40,7 @@ export default function Cart() {
     <DivCart>
       {
         itemsAmountInCart < 1
-        ? <h2>
+        ? <h2 className="empty-cart-message">
             <div>Your shopping cart is empty</div>
           </h2>
         : <CartList 
@@ -59,7 +59,7 @@ const DivCart = styled.div`
   width: 100%;
   padding-left: 1em;
   padding-right: 1em;
-  > h2 {
+  > .empty-cart-message {
     display: flex;
     justify-content: center;
   }

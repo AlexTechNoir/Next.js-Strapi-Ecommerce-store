@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
+import styled from 'styled-components'
 import CartContext from '../../context/cartContext'
 
 export default function AddToCart({ id, available }) {
@@ -67,8 +68,8 @@ export default function AddToCart({ id, available }) {
   }, [])
 
   return (
-    <div className="add-to-cart">
-      <h3>
+    <AddToCartDiv className="add-to-cart">
+      <h3 className="button-wrapper-h3">
         {
           isProductInCart
           ? (
@@ -103,13 +104,41 @@ export default function AddToCart({ id, available }) {
       {
         isProductInCart
         ? (
-          <div>
+          <div className="in-cart-amount">
             <span>In cart: {amountInCart}</span>
           </div>
         ) : (
           <div className="invisible"></div>
         )          
       }
-    </div>
+    </AddToCartDiv>
   )
 }
+
+const AddToCartDiv = styled.div`
+  display: flex;
+  align-content: flex-start;
+  align-items: flex-start;
+  align-self: flex-start;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-top: 1em;
+  > .button-wrapper-h3 > div {
+    display: flex;
+    flex-direction: column;
+    > h6 > button {
+      margin-right: 1em;
+    }
+  }
+  > .in-cart-amount {
+    background: #dc3545;
+    color: white;
+    margin: 0 1.5em 0 1.5em;
+    padding: .2em .5em .2em .5em;
+    border-radius: 5px;
+  }
+
+  @media only screen and (min-width: 850px) {
+    grid-area: 3 / 2 / 4 / 3;
+  }
+`

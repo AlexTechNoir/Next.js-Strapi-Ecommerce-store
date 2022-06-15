@@ -50,24 +50,24 @@ export default function SearchResult({ result }) {
 
   return (
     <DivSearchResult>
-      <img src={imgUrl} alt="SearchItem" width={121} height={121} />
-      <div>
+      <img src={imgUrl} alt="SearchItem" width={121} height={121} className="image" />
+      <div className="title-and-category-wrapper">
         <Link href="/product-page/[id].js" as={`/product-page/${id}`}>
-          <a>
+          <a className="title-link">
             <h4>{title}</h4>
           </a>
         </Link>
-        <h6>
+        <h6 className="category-link-wrapper">
           <Link href="/products/[category]/[page]" as={`/products/${category}/1`}>
             <a>{categoryName}</a>
           </Link>
         </h6>
       </div>
-      <div className={isItemInCart ? "bg-danger text-white p-1 rounded" : null}>
+      <div className={`in-cart ${isItemInCart ? 'bg-danger text-white p-1 rounded' : null}`}>
         <span>In cart:</span>&nbsp;
         <span>{isItemInCart ? quantity : 0}</span>
       </div>
-      <div>
+      <div className="price-wrapper">
         <h4>
           <span className="d-flex no-wrap">
             <span>{currency}</span>&nbsp;
@@ -88,34 +88,34 @@ const DivSearchResult = styled.div`
   background: #f8f9fa;
   margin: .5em;
   padding: 1em;
-  > :first-child {
+  > .image {
     grid-area: 1 / 1 / 2 / 2;
     margin-right: 1rem;
   }
-  > :nth-child(2) {
+  > .title-and-category-wrapper {
     grid-area: 1 / 2 / 2 / 3;
     align-self: start;
     justify-self: start;
     display: flex;
     flex-direction: column;
-    > a, a:hover, a:focus {
+    > .title-link, .title-link:hover, .title-link:focus {
       color: #343a40;
       text-decoration: none;
     }
-    > a:hover, a:focus {
+    > .title-link:hover, .title-link:focus {
       text-shadow: 2px 2px 20px;
     }
-    > h6 {
+    > .category-link-wrapper {
       color: #007bff;
     }
   }
-  > :nth-child(3) {
+  > .in-cart {
     grid-area: 2 / 2 / 3 / 3; 
     display: flex;
     justify-self: start;
     align-self: start; 
   }
-  > :last-child {
+  > .price-wrapper {
     grid-area: 2 / 1 / 3 / 3;    
     display: flex;
     justify-content: space-between;

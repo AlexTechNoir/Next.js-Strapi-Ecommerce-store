@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import styled from 'styled-components'
 
 export default function Timer() {
   const [ currentTime, setCurrentTime ] = useState(new Date().getTime())  
@@ -28,7 +29,7 @@ export default function Timer() {
   }
 
   return (
-    <h1>
+    <TimerH1>
       <span> 
         <span>Offer ends in:</span>
         <span>
@@ -42,6 +43,15 @@ export default function Timer() {
           }
         </span>
       </span>
-    </h1>
+    </TimerH1>
   )
 }
+
+const TimerH1 = styled.h1`
+  margin: auto;
+  > :first-child {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+  }
+`
