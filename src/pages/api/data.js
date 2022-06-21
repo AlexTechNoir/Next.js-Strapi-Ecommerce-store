@@ -1,10 +1,12 @@
-// import { data } from '../../data'
+import DOMPurify from 'isomorphic-dompurify'
 
 export default async (req, res) => {
-  const id = parseInt(req.query.id)
-  const value = req.query.value.toLowerCase().trim()
+  const query = req.query
 
-  if (req.query.category === 'search') {
+  if (query.type === 'search') {
+
+    const value = query.value.toLowerCase().trim()
+
     await fetch(`${
       process.env.NODE_ENV === "production"
         ? process.env.PROD_CMS_URL
@@ -16,8 +18,8 @@ export default async (req, res) => {
       },
       body: JSON.stringify({
         query: `
-          query {
-            products(filters: { title: { containsi: "${value}" }}) {
+          query SearchProduct($value: String) {
+            products(filters: { title: { containsi: $value }}) {
               data {
                 id
                 attributes {
@@ -43,32 +45,96 @@ export default async (req, res) => {
               }
             }
           }
-        `
+        `,
+        variables: {
+          value: value
+        }
       })
     })
-      .then(r => r.json())
-      .then(data => {
-        res.status(200).json(data)
-      })
-      .catch(err => res.status(404).json({ message: `Error: ${err}`}))
+      .then(response => response.json())
+      .then(data => res.status(200).json(data))
+      .catch(err => res.status(404).json({ message: `Error: ${err}` }))
     
-  } else if (req.query.category === 'object') {
-    const result = data.find(dataItem => dataItem.id === id)
-    res.status(200).json(result)
-  } else if (req.method === 'PATCH') {
-    let reviewedItem = data[id].reviews.find(i => i.id === id)
-    if (reviewedItem !== undefined) {
-      reviewedItem = req.body
-    }
-    data[id].reviews.push(req.body)
-    const itemReview = {
-      user: req.body.user,
-      review: req.body.review
-    }
-    res.status(200).json(itemReview)
-  } else if (req.method === 'DELETE') {
-    const reviewedItem = data[id].reviews.find(i => i.id === id)
-    reviewedItem.filter(i => i.user !== req.query.user)
+  } else if (query.type === 'postReview') {
+
+    const productId = query.productId
+    const name = DOMPurify.sanitize(query.name.trim())
+    const email = DOMPurify.sanitize(query.email.trim().toLowerCase())
+    const reviewText = DOMPurify.sanitize(query.reviewText.trim())
+
+    await fetch(`${
+      process.env.NODE_ENV === "production"
+        ? process.env.PROD_CMS_URL
+        : process.env.DEV_CMS_URL
+      }/graphql`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: `
+          mutation postReview($productId: String, $name: String, $email: String, $reviewText: String) {
+            createReview(data: { productId: $productId, name: $name, email: $email, reviewText: $reviewText }) {
+              data {
+                id
+                attributes {
+                  productId
+                  name
+                  email
+                  reviewText
+                  createdAt
+                }
+              }
+            }
+          }
+        `,
+        variables: {
+          productId: productId,
+          name: name,
+          email: email,
+          reviewText: reviewText
+        }
+      })
+    })
+      .then(response => response.json())
+      .then(data => res.status(200).json(data))
+      .catch(err => res.status(404).json({ message: `Error: ${err}` }))
+    
+  } else if (query.type === 'getReviews') {
+    const productId = query.productId.trim()
+
+    await fetch(`${
+      process.env.NODE_ENV === "production"
+        ? process.env.PROD_CMS_URL
+        : process.env.DEV_CMS_URL
+      }/graphql`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: `
+          query GetReviewsOfproduct($productId: String) {
+            reviews(filters: { productId: { eq: $productId }}) {
+              data {
+                id
+                attributes {
+                  name
+                  reviewText
+                }
+              }
+            }
+          }
+        `,
+        variables: {
+          productId: productId
+        }
+      })
+    })
+      .then(response => response.json())
+      .then(data => res.status(200).json(data))
+      .catch(err => res.status(404).json({ message: `Error: ${err}` }))
+
   } else {
     res.status(200).json({ name: 'John Doe' })
   }
