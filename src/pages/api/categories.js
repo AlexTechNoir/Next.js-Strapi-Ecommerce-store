@@ -23,7 +23,16 @@ export default async function handler(req, res) {
       `
     })
   })
-    .then(r => r.json())
+    .then(r => {
+      if (r.status >= 400) {
+        return r.json().then(errResData => {
+          const err = new Error('Error')
+          err.data = errResData
+          throw err
+        })
+      }
+      return r.json()
+    })
     .then(navItems => res.status(200).json(navItems))
     .catch(err => res.status(500).json({ message: `Error: ${err}`}))
 }

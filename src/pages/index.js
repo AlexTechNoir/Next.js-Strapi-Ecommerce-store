@@ -38,6 +38,14 @@ export async function getServerSideProps() {
                     }
                   }
                 }
+                discount {
+                  data {
+                    attributes {
+                      discountPercent
+                      discountMultiplier
+                    }
+                  }
+                }
               }
             }
           }
@@ -45,8 +53,15 @@ export async function getServerSideProps() {
       `
     })
   })
-    .then(r => r.json())
-    .catch(err => console.error(err.message))
+    .then(r => {
+      if (r.status >= 400) {
+        const err = new Error('Error')
+        err.data = r
+        throw err
+      }
+      return r.json()
+    })
+    .catch(err => console.error(err))
   
   return { props: { data } }
 }

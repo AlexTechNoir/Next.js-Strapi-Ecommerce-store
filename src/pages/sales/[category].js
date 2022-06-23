@@ -19,7 +19,7 @@ export async function getServerSideProps(ctx) {
     body: JSON.stringify({
       query: `
         query {
-          products(filters: { category: { name: { eq: "${category}" }}} ) {
+          products(filters: { and: [{ category: { name: { eq: "${category}" }}}, { discount: { discountMultiplier: { lt: 1 }}}]}) {
             data {
               id
               attributes {
@@ -34,6 +34,14 @@ export async function getServerSideProps(ctx) {
                     }
                   }
                 }
+                discount {
+                  data {
+                    attributes {
+                      discountPercent
+                      discountMultiplier
+                    }
+                  }
+                }
               }
             }
           }
@@ -41,8 +49,15 @@ export async function getServerSideProps(ctx) {
       `
     })
   })
-    .then(r => r.json())
-    .catch(err => console.error(err.message))
+    .then(r => {
+      if (r.status >= 400) {
+        const err = new Error('Error')
+        err.data = r
+        throw err
+      }
+      return r.json()
+    })
+    .catch(err => console.error(err))
     
   const categoryItems = data.data.products.data
 

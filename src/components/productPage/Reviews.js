@@ -158,7 +158,7 @@ export default function Reviews({ id, reviewList }) {
           />
         </div>
         {formik.errors.message && <div className="feedback-msgs">{formik.errors.message}</div>}
-        <button type="submit" className="post-button btn btn-primary">
+        <button type="submit" className="post-button btn btn-primary" disabled={isEditorReadOnly}>
           Post Review
         </button>
       </form>

@@ -13,7 +13,17 @@ export default function ProductListItem({ item }) {
   const img = imgsArr.filter(i => i.attributes.name === "01.jpg")
   const imgUrl = img[0].attributes.url
 
-  const { fetchedRates, currency } = useContext(CurrencyContext)
+  let discountAttributes
+  let discountPercent
+  let discountMultiplier
+
+  if (attributes.discount.data !== null) {
+    discountAttributes = attributes.discount.data.attributes
+    discountPercent = discountAttributes.discountPercent
+    discountMultiplier = discountAttributes.discountMultiplier
+  }
+
+  const { isCurrencySet, fetchedRates, currency } = useContext(CurrencyContext)
 
   const [ isItemInCart, setIsItemInCart ] = useState(false)
   const [ quantity, setQuantity ] = useState(0)
@@ -53,25 +63,55 @@ export default function ProductListItem({ item }) {
           <img alt={title} src={imgUrl} width={200} height={200} className="image" />
           <br />
           <div className="title">{title}</div>
-          <br />
-          <div className="price-and-in-cart-wrapper">
-            <div className="price">
-              <span className="d-flex no-wrap">
-                <span>{currency}</span>&nbsp;
-                <span>{(parseFloat(price * currencyRate)).toFixed(2)}</span>
-              </span>
-            </div>
-            {
-              isItemInCart
-              ? <div className="in-cart">In cart: {quantity}</div>
-              : null
-            }
-          </div>
+          <br /> 
+          {
+            isCurrencySet
+            ? (
+              <div className="price-and-in-cart-wrapper">
+                {
+                  attributes.discount.data === null
+                  ? (
+                    <div className="price">
+                      <span className="d-flex no-wrap">
+                        <span>{currency}</span>&nbsp;
+                        <span>{(parseFloat(price * currencyRate)).toFixed(2)}</span>
+                      </span>
+                    </div>
+                  ) : (
+                    <div className="price d-flex">
+                      <h5 className="discount-text text-success">
+                        {discountPercent} OFF!
+                      </h5>
+                      <span className="d-flex flex-column">
+                        <s className="d-flex no-wrap">
+                          <span>{currency}</span>&nbsp;
+                          <span>{(parseFloat(price * currencyRate)).toFixed(2)}</span>
+                        </s>
+                        <span className="d-flex no-wrap text-danger">
+                          <span>{currency}</span>&nbsp;
+                          <span>{(parseFloat((price * currencyRate) * discountMultiplier)).toFixed(2)}</span>
+                        </span>
+                      </span>
+                    </div>
+                  )
+                }
+                {
+                  isItemInCart
+                  ? <div className="in-cart">In cart: {quantity}</div>
+                  : null
+                }
+              </div>
+            ) : (
+              <div className="loader"></div>
+            )
+          }
         </a>
       </Link>
     </DivProductListItem>
   )
 }
+
+
 
 const DivProductListItem = styled.div`
   height: 427px;
@@ -102,6 +142,13 @@ const DivProductListItem = styled.div`
       justify-content: space-between;
       > .price {
         font-size: 1.5rem;
+        position: relative;
+        > .discount-text {
+          position: absolute;
+          top: -12px;
+          right: -35px;
+          transform: rotate(24deg);
+        }
       }
       > .in-cart {
         align-self: flex-start;

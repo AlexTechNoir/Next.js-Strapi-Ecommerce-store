@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic'
 const CartList = dynamic(() => import('../components/cart/CartList'))
 
 export default function Cart() {
-  const { fetchedRates, currency } = useContext(CurrencyContext)
+  const { isCurrencySet, fetchedRates, currency } = useContext(CurrencyContext)
 
   const [ itemsAmountInCart, setItemsAmountInCart ] = useState(0)
   const [ cartList, setCartList ] = useState([])
@@ -18,8 +18,15 @@ export default function Cart() {
       const ids = cartList.map(i => i.id)
       
       const data = await fetch(`/api/cart?ids=${ids}`)
-        .then(r => r.json())
-        .catch(err => console.error(err.message))
+        .then(r => {
+          if (r.status >= 400) {
+            const err = new Error('Error')
+            err.data = r
+            throw err
+          }
+          return r.json()
+        })
+        .catch(err => console.error(err))
       
       const productsInCart = data.data.products.data
       setCartList(productsInCart)
@@ -45,6 +52,7 @@ export default function Cart() {
           </h2>
         : <CartList 
             cartList={cartList}
+            isCurrencySet={isCurrencySet}
             fetchedRates={fetchedRates}
             currency={currency}
             assignProductAmountInCart={assignProductAmountInCart}

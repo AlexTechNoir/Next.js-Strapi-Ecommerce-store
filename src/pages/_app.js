@@ -20,6 +20,7 @@ export default function ContextProvider({ Component, pageProps }) {
   const [ cartBadgeToggle, setCartBadgeToggle ] = useState(true)
 
   // currency ↓
+  const [ isCurrencySet, setIsCurrencySet ] = useState(false)
   const [ fetchedRates, setFetchedRates ] = useState({})
   const [ currency, setCurrency ] = useState('$')
   
@@ -29,13 +30,14 @@ export default function ContextProvider({ Component, pageProps }) {
   useEffect(async () => {
     if (localStorage.getItem('currency') === null) {
       localStorage.setItem('currency', JSON.stringify('$'))
+      setIsCurrencySet(true)
     }
 
     await fetch(`https://openexchangerates.org/api/latest.json?app_id=${process.env.NEXT_PUBLIC_OERAPI_ACCESS_KEY}`)
       .then(r => {
         if (r.status >= 400) {
           return r.json().then(errResData => {
-            const err = new Error('Error.')
+            const err = new Error('Error')
             err.data = errResData
             throw err
           })
@@ -44,7 +46,8 @@ export default function ContextProvider({ Component, pageProps }) {
       }).then(r => {
         setFetchedRates(r.rates)
         setCurrency(JSON.parse(localStorage.currency))
-      })
+        setIsCurrencySet(true)
+      }).catch(err => console.error(err))
   },[])
 
   return (
@@ -57,6 +60,7 @@ export default function ContextProvider({ Component, pageProps }) {
         setCartBadgeToggle
       }}>
         <CurrencyContext.Provider value={{
+          isCurrencySet,
           fetchedRates,
           currency,
           refreshCurrency

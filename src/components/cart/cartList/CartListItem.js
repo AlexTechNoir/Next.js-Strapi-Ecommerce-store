@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import CurrencyContext from '../../../context/currencyContext'
 import CartContext from '../../../context/cartContext'
 
-export default function CartListItem({ cartListItem, assignProductAmountInCart, estimateTotalPrice }) {
+export default function CartListItem({ cartListItem, assignProductAmountInCart, estimateTotalPrice, isCurrencySet }) {
   const id = parseFloat(cartListItem.id)
   const attributes = cartListItem.attributes
 
@@ -16,6 +16,14 @@ export default function CartListItem({ cartListItem, assignProductAmountInCart, 
   const imgsArr = attributes.image.data
   const img = imgsArr.filter(i => i.attributes.name === "01.jpg")
   const imgUrl = img[0].attributes.url
+
+  let discountAttributes
+  let discountMultiplier
+
+  if (attributes.discount.data !== null) {
+    discountAttributes = attributes.discount.data.attributes
+    discountMultiplier = discountAttributes.discountMultiplier
+  }
   
   const { fetchedRates, currency } = useContext(CurrencyContext)
   const { cartBadgeToggle, setCartBadgeToggle } = useContext(CartContext)
@@ -119,13 +127,36 @@ export default function CartListItem({ cartListItem, assignProductAmountInCart, 
           </select>
         </label>
       </div>
-      <h5>
-        <span>Total price:</span>
-        <span className="d-flex no-wrap">
-          <span className="align-self-end">{currency}</span>&nbsp;
-          <span className="align-self-end">{(currentTotalPrice * currencyRate).toFixed(2)}</span>
-        </span>
-      </h5>
+      {
+        isCurrencySet
+        ? (
+          <h5>
+            <span>Total price:</span>
+            {
+              attributes.discount.data === null
+              ? (
+                <span className="d-flex no-wrap">
+                  <span className="align-self-end">{currency}</span>&nbsp;
+                  <span className="align-self-end">{(currentTotalPrice * currencyRate).toFixed(2)}</span>
+                </span>
+              ) : (
+                <span className="d-flex flex-column">
+                  <s className="d-flex no-wrap">
+                    <span>{currency}</span>&nbsp;
+                    <span>{(parseFloat(currentTotalPrice * currencyRate)).toFixed(2)}</span>
+                  </s>
+                  <span className="d-flex no-wrap text-danger">
+                    <span>{currency}</span>&nbsp;
+                    <span>{(parseFloat((currentTotalPrice * currencyRate) * discountMultiplier)).toFixed(2)}</span>
+                  </span>
+                </span>
+              )
+            }
+          </h5>
+        ) : (
+          <div className="loader"></div>
+        )
+      }
       <button
         type="button"
         className="close text-danger d-inline-block"

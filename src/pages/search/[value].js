@@ -16,7 +16,7 @@ export default function SearchResults() {
     <DivSearchResults>
       {
         loading || !data
-        ? "Loading..."
+        ? <div className="loader"></div>
         : error
         ? "Error."
         : data.data.products.data.map(result => <SearchResult key={result.id} result={result} />)

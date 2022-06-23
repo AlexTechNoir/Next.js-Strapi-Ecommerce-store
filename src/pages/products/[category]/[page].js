@@ -39,6 +39,14 @@ export async function getServerSideProps(ctx) {
                     }
                   }
                 }
+                discount {
+                  data {
+                    attributes {
+                      discountPercent
+                      discountMultiplier
+                    }
+                  }
+                }
               }
             }
             meta {
@@ -51,8 +59,15 @@ export async function getServerSideProps(ctx) {
       `
     })
   })
-    .then(r => r.json())
-    .catch(err => console.error(err.message))
+    .then(r => {
+      if (r.status >= 400) {
+        const err = new Error('Error')
+        err.data = r
+        throw err
+      }
+      return r.json()
+    })
+    .catch(err => console.error(err))
 
   const categoryItems = data.data.products.data
   const totalItems = data.data.products.meta.pagination.total

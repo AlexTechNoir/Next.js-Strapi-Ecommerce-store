@@ -5,7 +5,7 @@ export default async (req, res) => {
 
   if (query.type === 'search') {
 
-    const value = query.value.toLowerCase().trim()
+    const value = DOMPurify.sanitize(query.value.toLowerCase().trim())
 
     await fetch(`${
       process.env.NODE_ENV === "production"
@@ -41,6 +41,14 @@ export default async (req, res) => {
                       }
                     }
                   }
+                  discount {
+                    data {
+                      attributes {
+                        discountPercent
+                        discountMultiplier
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -51,7 +59,16 @@ export default async (req, res) => {
         }
       })
     })
-      .then(response => response.json())
+      .then(r => {
+        if (r.status >= 400) {
+          return r.json().then(errResData => {
+            const err = new Error('Error')
+            err.data = errResData
+            throw err
+          })
+        }
+        return r.json()
+      })
       .then(data => res.status(200).json(data))
       .catch(err => res.status(404).json({ message: `Error: ${err}` }))
     
@@ -96,12 +113,22 @@ export default async (req, res) => {
         }
       })
     })
-      .then(response => response.json())
+      .then(r => {
+        if (r.status >= 400) {
+          return r.json().then(errResData => {
+            const err = new Error('Error')
+            err.data = errResData
+            throw err
+          })
+        }
+        return r.json()
+      })
       .then(data => res.status(200).json(data))
       .catch(err => res.status(404).json({ message: `Error: ${err}` }))
     
   } else if (query.type === 'getReviews') {
-    const productId = query.productId.trim()
+
+    const productId = query.productId
 
     await fetch(`${
       process.env.NODE_ENV === "production"
@@ -131,7 +158,16 @@ export default async (req, res) => {
         }
       })
     })
-      .then(response => response.json())
+      .then(r => {
+        if (r.status >= 400) {
+          return r.json().then(errResData => {
+            const err = new Error('Error')
+            err.data = errResData
+            throw err
+          })
+        }
+        return r.json()
+      })
       .then(data => res.status(200).json(data))
       .catch(err => res.status(404).json({ message: `Error: ${err}` }))
 

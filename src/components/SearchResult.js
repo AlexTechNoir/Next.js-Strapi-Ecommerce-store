@@ -15,7 +15,17 @@ export default function SearchResult({ result }) {
   const img = imgsArr.filter(i => i.attributes.name === "01.jpg")
   const imgUrl = img[0].attributes.url
 
-  const { fetchedRates, currency } = useContext(CurrencyContext)
+  let discountAttributes
+  let discountPercent
+  let discountMultiplier
+
+  if (attributes.discount.data !== null) {
+    discountAttributes = attributes.discount.data.attributes
+    discountPercent = discountAttributes.discountPercent
+    discountMultiplier = discountAttributes.discountMultiplier
+  }
+
+  const { isCurrencySet, fetchedRates, currency } = useContext(CurrencyContext)
 
   const [ isItemInCart, setIsItemInCart ] = useState(false)
   const [ quantity, setQuantity ] = useState(0)
@@ -67,14 +77,40 @@ export default function SearchResult({ result }) {
         <span>In cart:</span>&nbsp;
         <span>{isItemInCart ? quantity : 0}</span>
       </div>
-      <div className="price-wrapper">
-        <h4>
-          <span className="d-flex no-wrap">
-            <span>{currency}</span>&nbsp;
-            <span>{(parseFloat(price * currencyRate)).toFixed(2)}</span>
-          </span>
-        </h4>
-      </div>
+      {
+        isCurrencySet
+        ? (
+          <div className="price-wrapper">
+            <h4>
+              {
+                attributes.discount.data === null
+                ? (
+                  <span className="d-flex no-wrap">
+                    <span>{currency}</span>&nbsp;
+                    <span>{(parseFloat(price * currencyRate)).toFixed(2)}</span>
+                  </span>
+                ) : (
+                  <span className="d-flex flex-column">
+                    <h5 className="discount-text text-success">
+                      {discountPercent} OFF!
+                    </h5>
+                    <s className="d-flex no-wrap">
+                      <span>{currency}</span>&nbsp;
+                      <span>{(parseFloat(price * currencyRate)).toFixed(2)}</span>
+                    </s>
+                    <span className="d-flex no-wrap text-danger">
+                      <span>{currency}</span>&nbsp;
+                      <span>{(parseFloat((price * currencyRate) * discountMultiplier)).toFixed(2)}</span>
+                    </span>
+                  </span>
+                )
+              }
+            </h4>
+          </div>
+        ) : (
+          <div className="loader"></div>
+        )
+      }
     </DivSearchResult>
   )
 }
@@ -88,6 +124,7 @@ const DivSearchResult = styled.div`
   background: #f8f9fa;
   margin: .5em;
   padding: 1em;
+  position: relative;
   > .image {
     grid-area: 1 / 1 / 2 / 2;
     margin-right: 1rem;
@@ -121,6 +158,12 @@ const DivSearchResult = styled.div`
     justify-content: space-between;
     align-items: flex-end;
     margin-top: 1em;
+    > h4 > span > .discount-text {
+      position: absolute;
+      top: 10px;
+      right: 77px;
+      transform: rotate(340deg);
+    }
   }
 
   @media only screen and (min-width: 600px) {

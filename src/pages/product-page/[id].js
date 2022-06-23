@@ -47,6 +47,14 @@ export async function getServerSideProps(ctx) {
                     }
                   }
                 }
+                discount {
+                  data {
+                    attributes {
+                      discountPercent
+                      discountMultiplier
+                    }
+                  }
+                }
               }
             }
           }
@@ -57,11 +65,12 @@ export async function getServerSideProps(ctx) {
     .then(r => {
       if (r.status >= 400) {
         const err = new Error('Error')
+        err.data = r
         throw err
       }
       return r.json()
     })
-    .catch(err => console.error(err.message))
+    .catch(err => console.error(err))
   
   const dataItem = data.data.product.data
 
@@ -94,11 +103,12 @@ export async function getServerSideProps(ctx) {
     .then(r => {
       if (r.status >= 400) {
         const err = new Error('Error')
+        err.data = r
         throw err
       }
       return r.json()
     })
-    .catch(err => console.error(err.message))
+    .catch(err => console.error(err))
     
   const reviewList = reviewsData.data.reviews.data
 
@@ -120,6 +130,16 @@ export default function ProductPage({ dataItem, reviewList }) {
   const categoryPath = category.trim().toLowerCase().replace(' ', '-')
   const images = attributes.image.data
 
+  let discountAttributes
+  let discountPercent
+  let discountMultiplier
+
+  if (attributes.discount.data !== null) {
+    discountAttributes = attributes.discount.data.attributes
+    discountPercent = discountAttributes.discountPercent
+    discountMultiplier = discountAttributes.discountMultiplier
+  }
+
   return (
     <>
       <Head>
@@ -140,7 +160,15 @@ export default function ProductPage({ dataItem, reviewList }) {
           </ol>
         </nav>
         <ProductSlider images={images} />
-        <ProductInfo title={title} company={company} description={description} price={price} />
+        <ProductInfo 
+          attributes={attributes}
+          title={title} 
+          company={company} 
+          description={description} 
+          price={price} 
+          discountMultiplier={discountMultiplier} 
+          discountPercent={discountPercent}
+        />
         <AddToCart id={id} available={available} />
         <Reviews id={id} reviewList={reviewList} />
       </DivProductPage>
