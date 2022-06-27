@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic'
 const CartList = dynamic(() => import('../components/cart/CartList'))
 
 export default function Cart() {
-  const { isCurrencySet, fetchedRates, currency } = useContext(CurrencyContext)
+  const { isCurrencySet, currency, currencyRate } = useContext(CurrencyContext)
 
   const [ itemsAmountInCart, setItemsAmountInCart ] = useState(0)
   const [ cartList, setCartList ] = useState([])
@@ -53,8 +53,8 @@ export default function Cart() {
         : <CartList 
             cartList={cartList}
             isCurrencySet={isCurrencySet}
-            fetchedRates={fetchedRates}
             currency={currency}
+            currencyRate={currencyRate}
             assignProductAmountInCart={assignProductAmountInCart}
           />
       }

@@ -20,14 +20,21 @@ export default function ContextProvider({ Component, pageProps }) {
   const [ cartBadgeToggle, setCartBadgeToggle ] = useState(true)
 
   // currency ↓
-  const [ isCurrencySet, setIsCurrencySet ] = useState(false)
   const [ fetchedRates, setFetchedRates ] = useState({})
   const [ currency, setCurrency ] = useState('$')
+  const [ currencyRate, setCurrencyRate ] = useState(1)
+  const [ isCurrencySet, setIsCurrencySet ] = useState(false)
   
-  const refreshCurrency = () => setCurrency(JSON.parse(localStorage.currency))  
+  const refreshCurrency = () => {
+    setIsCurrencySet(false)
+    setCurrency(JSON.parse(localStorage.currency))
+    setIsCurrencySet(true)
+  }
 
-  // useEffect for currency ↓
+  // useEffect for setting up currency sign ↓
   useEffect(async () => {
+    setIsCurrencySet(false)
+
     if (localStorage.getItem('currency') === null) {
       localStorage.setItem('currency', JSON.stringify('$'))
       setIsCurrencySet(true)
@@ -45,26 +52,41 @@ export default function ContextProvider({ Component, pageProps }) {
         return r.json()
       }).then(r => {
         setFetchedRates(r.rates)
-        setCurrency(JSON.parse(localStorage.currency))
-        setIsCurrencySet(true)
+        refreshCurrency()
       }).catch(err => console.error(err))
   },[])
 
+  // useEffect for setting up currency rate based on curreny sign ↓
+  useEffect(() => {
+    switch (currency) {
+      case '€':
+        setCurrencyRate(fetchedRates.EUR)
+        break
+      case '₽':
+        setCurrencyRate(fetchedRates.RUB)
+        break
+      case 'Ch¥':
+        setCurrencyRate(fetchedRates.CNY)
+        break
+      case 'Jp¥':
+        setCurrencyRate(fetchedRates.JPY)
+        break
+      case '₩':
+        setCurrencyRate(fetchedRates.KRW)
+        break
+      case '₹':
+        setCurrencyRate(fetchedRates.INR)
+        break
+      default: 
+        setCurrencyRate(1)
+        break
+    }
+  },[currency])
+
   return (
-    <CookiesContext.Provider value={{
-      areCookiesAccepted,
-      setAreCookiesAccepted      
-    }}>
-      <CartContext.Provider value={{
-        cartBadgeToggle,
-        setCartBadgeToggle
-      }}>
-        <CurrencyContext.Provider value={{
-          isCurrencySet,
-          fetchedRates,
-          currency,
-          refreshCurrency
-        }}>
+    <CookiesContext.Provider value={{ areCookiesAccepted, setAreCookiesAccepted }}>
+      <CartContext.Provider value={{ cartBadgeToggle, setCartBadgeToggle }}>
+        <CurrencyContext.Provider value={{ isCurrencySet, currency, currencyRate, refreshCurrency }}>
           <Head>
             {/* Global Site Tag (gtag.js) - Google Analytics */}
             <script

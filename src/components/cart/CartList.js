@@ -5,41 +5,25 @@ import CartContext from '../../context/cartContext'
 import CartListItem from './cartList/CartListItem'
 import PayPalCheckoutButton from './cartList/PayPalCheckoutButton'
 
-export default function CartList({ cartList, isCurrencySet, fetchedRates, currency, assignProductAmountInCart }) {
+export default function CartList({ cartList, isCurrencySet, currency, currencyRate, assignProductAmountInCart }) {
   const { cartBadgeToggle, setCartBadgeToggle } = useContext(CartContext)
-
-  let currencyRate = 1
-  
-  if (currency === '€') {
-    currencyRate = fetchedRates.EUR
-  } else if (currency === '₽') {
-    currencyRate = fetchedRates.RUB
-  } else if (currency === 'Ch¥') {
-    currencyRate = fetchedRates.CNY
-  } else if (currency === 'Jp¥') {
-    currencyRate = fetchedRates.JPY
-  } else if (currency === '₩') {
-    currencyRate = fetchedRates.KRW
-  } else if (currency === '₹') {
-    currencyRate = fetchedRates.INR
-  }
 
   const [ totalPrice, setTotalPrice ] = useState(0)
   const [ totalDiscountedPrice, setTotalDiscountedPrice ] = useState(0)
+  const amountSaved = ((totalPrice - totalDiscountedPrice) * currencyRate).toFixed(2)
 
-  const amountSaved = (totalPrice - totalDiscountedPrice).toFixed(2)
-
-  const areThereAnyDiscountsInCart = cartList.find(i => i.attributes.discount.data === null)
+  const areThereAnyDiscountsInCart = cartList.some(i => i.attributes.discount.data !== null)
 
   const estimateTotalPrice = () => {
-    // cart list from localStorage with product ids and chosen amount in cart ↓
+    // cart list from localStorage with product ids and chosen amount ↓
     const cartListWithAmounts = JSON.parse(localStorage.cartList)
     // product list with prices and w/o chosen amount, fetched based on ids in cart list from localStorage ↓
     const cartListWithPrices = cartList
 
-    const allPrices = cartListWithAmounts.map(itemWithAmount => {
+    const cartItems = cartListWithAmounts.map(itemWithAmount => {
       for (let i = 0; i < cartListWithPrices.length; i++) {
         if (itemWithAmount.id === cartListWithPrices[i].id) { 
+          
           itemWithAmount.price = cartListWithPrices[i].attributes.price
 
           return itemWithAmount
@@ -47,15 +31,19 @@ export default function CartList({ cartList, isCurrencySet, fetchedRates, curren
       }
     })
 
-    const totalEstimatedPrice = allPrices
-      .map(i => (i.price * currencyRate * parseFloat(i.selectedAmount)).toFixed(2))
-      .reduce((acc, i) => parseFloat(acc) + parseFloat(i), 0)
+    let allPrices = cartItems.map(i => Number((i.price * i.selectedAmount).toFixed(2)))
 
-    setTotalPrice(totalEstimatedPrice.toFixed(2))
+    if (allPrices.length === 1) {
+      setTotalPrice(allPrices[0])
+    } else {
+      const sumOfPrices = allPrices.reduce((acc, i) => acc + i, 0)
 
-    if (areThereAnyDiscountsInCart !== undefined) {
+      setTotalPrice(sumOfPrices)
+    }
 
-      const allDiscountedPrices = cartListWithAmounts.map(itemWithAmount => {
+    if (areThereAnyDiscountsInCart) {
+
+      const discountedCartItems = cartListWithAmounts.map(itemWithAmount => {
         for (let i = 0; i < cartListWithPrices.length; i++) {
           if (itemWithAmount.id === cartListWithPrices[i].id) {
 
@@ -63,7 +51,7 @@ export default function CartList({ cartList, isCurrencySet, fetchedRates, curren
               itemWithAmount.price = cartListWithPrices[i].attributes.price
             } else {
               const discountMultiplier = cartListWithPrices[i].attributes.discount.data.attributes.discountMultiplier
-              itemWithAmount.price = cartListWithPrices[i].attributes.price * discountMultiplier 
+              itemWithAmount.price = cartListWithPrices[i].attributes.price * discountMultiplier
             }
 
             return itemWithAmount
@@ -71,11 +59,16 @@ export default function CartList({ cartList, isCurrencySet, fetchedRates, curren
         }
       })
 
-      const totalEstimatedDiscountedPrice = allDiscountedPrices
-        .map(i => (i.price * currencyRate * parseFloat(i.selectedAmount)).toFixed(2))
-        .reduce((acc, i) => parseFloat(acc) + parseFloat(i), 0)
+      const allDiscountedPrices = discountedCartItems
+        .map(i => Number((i.price * i.selectedAmount).toFixed(2)))
+
+      if (allDiscountedPrices.length < 2) {
+        setTotalDiscountedPrice(allDiscountedPrices[0])
+      } else {
+        const sumOfDiscountedPrices = allDiscountedPrices.reduce((acc, i) => acc + i, 0)
   
-      setTotalDiscountedPrice(totalEstimatedDiscountedPrice.toFixed(2))
+        setTotalDiscountedPrice(sumOfDiscountedPrices)
+      }
     }
   }
 
@@ -100,6 +93,7 @@ export default function CartList({ cartList, isCurrencySet, fetchedRates, curren
                 cartListItem={cartListItem} 
                 assignProductAmountInCart={assignProductAmountInCart}
                 estimateTotalPrice={estimateTotalPrice}
+                currencyRate={currencyRate}
                 isCurrencySet={isCurrencySet}
               />
             )
@@ -120,7 +114,7 @@ export default function CartList({ cartList, isCurrencySet, fetchedRates, curren
             <h1>
               <span>Total price:</span>&nbsp;
               {
-                areThereAnyDiscountsInCart === undefined
+                !areThereAnyDiscountsInCart
                 ? (
                   <b>{currency} {(totalPrice * currencyRate).toFixed(2)}</b>
                 ) : (
@@ -131,11 +125,18 @@ export default function CartList({ cartList, isCurrencySet, fetchedRates, curren
                 )
               }
             </h1>
-            <h4 className="text-success">You will save <b>{currency}&nbsp;{amountSaved}</b> on this purchase</h4>
           </div>
         ) : (
           <div className="loader"></div>
         )
+      }
+      {
+        areThereAnyDiscountsInCart && isCurrencySet
+        ? (
+          <h4 className="text-success">
+            You will save <b>{currency}&nbsp;{amountSaved}</b> on this purchase
+          </h4>
+        ) : null
       }
       <PayPalCheckoutButton 
         totalPrice={areThereAnyDiscountsInCart ? totalDiscountedPrice * currencyRate : totalPrice * currencyRate} 

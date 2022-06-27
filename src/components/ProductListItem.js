@@ -23,7 +23,7 @@ export default function ProductListItem({ item }) {
     discountMultiplier = discountAttributes.discountMultiplier
   }
 
-  const { isCurrencySet, fetchedRates, currency } = useContext(CurrencyContext)
+  const { isCurrencySet, currency, currencyRate } = useContext(CurrencyContext)
 
   const [ isItemInCart, setIsItemInCart ] = useState(false)
   const [ quantity, setQuantity ] = useState(0)
@@ -39,22 +39,6 @@ export default function ProductListItem({ item }) {
       }
     }
   }, [])
-
-  let currencyRate = 1
-  
-  if (currency === '€') {
-    currencyRate = fetchedRates.EUR
-  } else if (currency === '₽') {
-    currencyRate = fetchedRates.RUB
-  } else if (currency === 'Ch¥') {
-    currencyRate = fetchedRates.CNY
-  } else if (currency === 'Jp¥') {
-    currencyRate = fetchedRates.JPY
-  } else if (currency === '₩') {
-    currencyRate = fetchedRates.KRW
-  } else if (currency === '₹') {
-    currencyRate = fetchedRates.INR
-  }
 
   return (
     <DivProductListItem>

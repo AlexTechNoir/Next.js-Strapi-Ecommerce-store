@@ -25,7 +25,7 @@ export default function SearchResult({ result }) {
     discountMultiplier = discountAttributes.discountMultiplier
   }
 
-  const { isCurrencySet, fetchedRates, currency } = useContext(CurrencyContext)
+  const { isCurrencySet, currency, currencyRate } = useContext(CurrencyContext)
 
   const [ isItemInCart, setIsItemInCart ] = useState(false)
   const [ quantity, setQuantity ] = useState(0)
@@ -41,22 +41,6 @@ export default function SearchResult({ result }) {
       }
     }
   }, [])
-
-  let currencyRate = 1
-  
-  if (currency === '€') {
-    currencyRate = fetchedRates.EUR
-  } else if (currency === '₽') {
-    currencyRate = fetchedRates.RUB
-  } else if (currency === 'Ch¥') {
-    currencyRate = fetchedRates.CNY
-  } else if (currency === 'Jp¥') {
-    currencyRate = fetchedRates.JPY
-  } else if (currency === '₩') {
-    currencyRate = fetchedRates.KRW
-  } else if (currency === '₹') {
-    currencyRate = fetchedRates.INR
-  }
 
   return (
     <DivSearchResult>
@@ -87,7 +71,7 @@ export default function SearchResult({ result }) {
                 ? (
                   <span className="d-flex no-wrap">
                     <span>{currency}</span>&nbsp;
-                    <span>{(parseFloat(price * currencyRate)).toFixed(2)}</span>
+                    <span>{(price * currencyRate).toFixed(2)}</span>
                   </span>
                 ) : (
                   <span className="d-flex flex-column">
@@ -96,11 +80,11 @@ export default function SearchResult({ result }) {
                     </h5>
                     <s className="d-flex no-wrap">
                       <span>{currency}</span>&nbsp;
-                      <span>{(parseFloat(price * currencyRate)).toFixed(2)}</span>
+                      <span>{(price * currencyRate).toFixed(2)}</span>
                     </s>
                     <span className="d-flex no-wrap text-danger">
                       <span>{currency}</span>&nbsp;
-                      <span>{(parseFloat((price * currencyRate) * discountMultiplier)).toFixed(2)}</span>
+                      <span>{((price * currencyRate) * discountMultiplier).toFixed(2)}</span>
                     </span>
                   </span>
                 )

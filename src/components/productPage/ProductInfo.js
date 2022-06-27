@@ -12,23 +12,7 @@ export default function ProductInfo({
   discountPercent 
 }) {
 
-  const { isCurrencySet, fetchedRates, currency } = useContext(CurrencyContext)
-
-  let currencyRate = 1
-
-  if (currency === '€') {
-    currencyRate = fetchedRates.EUR
-  } else if (currency === '₽') {
-    currencyRate = fetchedRates.RUB
-  } else if (currency === 'Ch¥') {
-    currencyRate = fetchedRates.CNY
-  } else if (currency === 'Jp¥') {
-    currencyRate = fetchedRates.JPY
-  } else if (currency === '₩') {
-    currencyRate = fetchedRates.KRW
-  } else if (currency === '₹') {
-    currencyRate = fetchedRates.INR
-  }
+  const { isCurrencySet, currency, currencyRate } = useContext(CurrencyContext)
 
   return (
     <ProductInfoDiv>
@@ -45,7 +29,7 @@ export default function ProductInfo({
                 ? (
                   <span className="d-flex no-wrap">
                     <span>{currency}</span>&nbsp;
-                    <span>{(parseFloat(price * currencyRate)).toFixed(2)}</span>
+                    <span>{(price * currencyRate).toFixed(2)}</span>
                   </span>
                 ) : (
                   <span className="price d-flex flex-column">
@@ -54,11 +38,11 @@ export default function ProductInfo({
                     </h4>
                     <s className="d-flex no-wrap">
                       <span>{currency}</span>&nbsp;
-                      <span>{(parseFloat(price * currencyRate)).toFixed(2)}</span>
+                      <span>{(price * currencyRate).toFixed(2)}</span>
                     </s>
                     <span className="d-flex no-wrap text-danger">
                       <span>{currency}</span>&nbsp;
-                      <span>{(parseFloat((price * currencyRate) * discountMultiplier)).toFixed(2)}</span>
+                      <span>{((price * currencyRate) * discountMultiplier).toFixed(2)}</span>
                     </span>
                   </span>
                 )

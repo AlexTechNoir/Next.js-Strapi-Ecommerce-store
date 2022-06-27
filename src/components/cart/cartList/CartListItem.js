@@ -4,8 +4,14 @@ import styled from 'styled-components'
 import CurrencyContext from '../../../context/currencyContext'
 import CartContext from '../../../context/cartContext'
 
-export default function CartListItem({ cartListItem, assignProductAmountInCart, estimateTotalPrice, isCurrencySet }) {
-  const id = parseFloat(cartListItem.id)
+export default function CartListItem({ 
+  cartListItem, 
+  assignProductAmountInCart, 
+  estimateTotalPrice, 
+  currencyRate, 
+  isCurrencySet 
+}) {
+  const id = cartListItem.id
   const attributes = cartListItem.attributes
 
   const title = attributes.title
@@ -25,7 +31,7 @@ export default function CartListItem({ cartListItem, assignProductAmountInCart, 
     discountMultiplier = discountAttributes.discountMultiplier
   }
   
-  const { fetchedRates, currency } = useContext(CurrencyContext)
+  const { currency } = useContext(CurrencyContext)
   const { cartBadgeToggle, setCartBadgeToggle } = useContext(CartContext)
 
   const [ currentTotalPrice, setCurrentTotalPrice ] = useState(0)
@@ -36,25 +42,9 @@ export default function CartListItem({ cartListItem, assignProductAmountInCart, 
     options.push(<option key={i} value={`${i}`}>{i}</option>)
   }
 
-  let currencyRate = 1
-  
-  if (currency === '€') {
-    currencyRate = fetchedRates.EUR
-  } else if (currency === '₽') {
-    currencyRate = fetchedRates.RUB
-  } else if (currency === 'Ch¥') {
-    currencyRate = fetchedRates.CNY
-  } else if (currency === 'Jp¥') {
-    currencyRate = fetchedRates.JPY
-  } else if (currency === '₩') {
-    currencyRate = fetchedRates.KRW
-  } else if (currency === '₹') {
-    currencyRate = fetchedRates.INR
-  }
-
   const estimatePrice = () => {
     const cartList = JSON.parse(localStorage.cartList)
-    const item = cartList.filter(i => parseFloat(i.id) === id)
+    const item = cartList.filter(i => i.id === id)
     const selectedAmount = parseFloat(item[0].selectedAmount)
 
     const select = document.getElementById(`itemsOf${id}`)
@@ -63,12 +53,12 @@ export default function CartListItem({ cartListItem, assignProductAmountInCart, 
     setCurrentTotalPrice(parseFloat(price * selectedAmount).toFixed(2))
   }
 
-  const editAmount = async (id, price) => {
+  const editAmount = (id, price) => {
     const cartList = JSON.parse(localStorage.cartList)
     const selectedAmount = document.getElementById(`itemsOf${id}`).value
 
     const editedCartList = cartList.map(i => {
-      if (parseFloat(i.id) === id) {
+      if (i.id === id) {
         i.selectedAmount = +selectedAmount
         return i
       } else {
@@ -79,7 +69,7 @@ export default function CartListItem({ cartListItem, assignProductAmountInCart, 
 
     localStorage.setItem('cartList', JSON.stringify(editedCartList))
 
-    const updTotalPrice = parseFloat(price * selectedAmount).toFixed(2)
+    const updTotalPrice = Number(price.toFixed(2)) * selectedAmount
     setCurrentTotalPrice(updTotalPrice)
 
     estimateTotalPrice()
@@ -88,7 +78,7 @@ export default function CartListItem({ cartListItem, assignProductAmountInCart, 
   const deleteItem = id => {
     const cartList = JSON.parse(localStorage.cartList)
 
-    const editedCartList = cartList.filter(i => parseFloat(i.id) !== id)
+    const editedCartList = cartList.filter(i => i.id !== id)
 
     if (editedCartList.length === 0) {
       localStorage.removeItem('cartList')
@@ -143,11 +133,11 @@ export default function CartListItem({ cartListItem, assignProductAmountInCart, 
                 <span className="d-flex flex-column">
                   <s className="d-flex no-wrap">
                     <span>{currency}</span>&nbsp;
-                    <span>{(parseFloat(currentTotalPrice * currencyRate)).toFixed(2)}</span>
+                    <span>{(currentTotalPrice * currencyRate).toFixed(2)}</span>
                   </s>
                   <span className="d-flex no-wrap text-danger">
                     <span>{currency}</span>&nbsp;
-                    <span>{(parseFloat((currentTotalPrice * currencyRate) * discountMultiplier)).toFixed(2)}</span>
+                    <span>{((currentTotalPrice * currencyRate) * discountMultiplier).toFixed(2)}</span>
                   </span>
                 </span>
               )
