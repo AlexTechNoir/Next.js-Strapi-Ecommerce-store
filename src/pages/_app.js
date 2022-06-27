@@ -40,7 +40,7 @@ export default function ContextProvider({ Component, pageProps }) {
       setIsCurrencySet(true)
     }
 
-    await fetch(`https://openexchangerates.org/api/latest.json?app_id=${process.env.NEXT_PUBLIC_OERAPI_ACCESS_KEY}`)
+    await fetch('/api/currencyRates')
       .then(r => {
         if (r.status >= 400) {
           return r.json().then(errResData => {
