@@ -10,7 +10,7 @@ export default function SearchResults() {
   const router = useRouter()
   const { value } = router.query
 
-  const { data, error, loading } = useSWR(`/api/data?type=search&value=${value}`, fetcher)
+  const { data, error, loading } = useSWR(`/api/search?value=${value}`, fetcher)
 
   return (      
     <DivSearchResults>

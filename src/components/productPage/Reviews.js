@@ -20,6 +20,7 @@ const schema = Yup.object().shape({
 export default function Reviews({ id, reviewList }) {
 
   const [ isEditorReadOnly, setIsEditorReadOnly ] = useState(false)
+  const [ sameEmailError, setSameEmailError ] = useState(false)
 
   const formik = useFormik({
     initialValues: { name: '', email: '', message: '' },
@@ -27,24 +28,46 @@ export default function Reviews({ id, reviewList }) {
 
       setIsEditorReadOnly(true)
 
-      const data = await fetch(`/api/data?type=postReview&productId=${id}&name=${values.name}&email=${values.email}&reviewText=${encodeURIComponent(values.message)}`)
+      await fetch(`/api/postReview?productId=${id}&name=${values.name}&email=${values.email}&reviewText=${encodeURIComponent(values.message)}`)
         .then(res => {
           if (res.status >= 400) {
-            const err = new Error('Error')
-            throw err
+
+            if (res.status === 400) {
+              console.log(res.status, res)
+              setSameEmailError(res.statusText)
+
+              const err = new Error(res.statustext)
+
+              setIsEditorReadOnly(false)
+
+              throw err
+            } else if (res.status > 400) {
+              setSameEmailError(false)
+
+              const err = new Error('Error')
+  
+              setIsEditorReadOnly(false)
+  
+              throw err
+            }
           }
           return res.json()
         })
+        .then(data => {
+          resetForm()
+          setEditorState(EditorState.push(editorState, ContentState.createFromText('')))
+
+          setSameEmailError(false)
+          
+          const publishedReview = data.data.createReview.data    
+          reviewList.push(publishedReview)
+    
+          setIsEditorReadOnly(false)
+
+          const headingElement = document.getElementById('heading')
+          headingElement.scrollIntoView({ behavior: 'smooth' })
+        })
         .catch(err => console.error(err))
-
-      resetForm()
-      setEditorState(EditorState.push(editorState, ContentState.createFromText(''))) 
-      
-      const publishedReview = data.data.createReview.data
-
-      reviewList.push(publishedReview)
-
-      setIsEditorReadOnly(false)  
     },
     validationSchema: schema
   })
@@ -75,7 +98,7 @@ export default function Reviews({ id, reviewList }) {
 
   return (
     <ReviewsDiv>
-      <div className="heading">
+      <div className="heading" id="heading">
         {
           reviews.length === 0
           ? 'No reviews so far. Be the first!'
@@ -108,8 +131,8 @@ export default function Reviews({ id, reviewList }) {
             type="text" 
             aria-label="Sizing example input" 
             aria-describedby="inputGroup-sizing-default" 
-            pattern="[A-Za-z]{1,32}"
-            title="1 to 32 letters, no special symbols"
+            pattern="[A-Za-z ]{1,32}"
+            title="1 to 32 letters, no special symbols, except space"
             minLength="1"
             name="name"
             id="name" 
@@ -158,6 +181,11 @@ export default function Reviews({ id, reviewList }) {
           />
         </div>
         {formik.errors.message && <div className="feedback-msgs">{formik.errors.message}</div>}
+        {
+          sameEmailError 
+          ? <div className="feedback-msgs">{sameEmailError}</div> 
+          : null
+        }
         <button type="submit" className="post-button btn btn-primary" disabled={isEditorReadOnly}>
           Post Review
         </button>
