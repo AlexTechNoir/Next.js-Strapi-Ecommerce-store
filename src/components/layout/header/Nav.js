@@ -22,8 +22,9 @@ export default function Nav({ toggleNav, isNavVisible }) {
           navItems.map(navItem => (
             <li className="nav-item" onClick={toggleNav} key={navItem.id}>
               <Link 
-                href={`/products/${navItem.attributes.name.toLowerCase().trim().replace(' ', '-')}/[page]`} 
-                as={`/products/${navItem.attributes.name.toLowerCase().trim().replace(' ', '-')}/1`}
+                href={
+                  `/products/${encodeURIComponent(navItem.attributes.name.toLowerCase().trim().replace(' ', '-'))}/1`
+                } 
               >
                 <a className="nav-link"><b>{navItem.attributes.name}</b></a>
               </Link>
