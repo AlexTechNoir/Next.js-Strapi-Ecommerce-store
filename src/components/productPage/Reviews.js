@@ -15,6 +15,7 @@ export default function Reviews({ id, reviewList }) {
 
   const [ isEditorReadOnly, setIsEditorReadOnly ] = useState(false)
   const [ sameEmailError, setSameEmailError ] = useState(false)
+  const [ reviews, setReviews ] = useState(reviewList)
 
   const formik = useFormik({
     initialValues: { name: '', email: '', message: '' },
@@ -22,11 +23,14 @@ export default function Reviews({ id, reviewList }) {
 
       setIsEditorReadOnly(true)
 
+      // fetch api route with attached data
       await fetch(`/api/postReview?productId=${id}&name=${values.name}&email=${values.email}&reviewText=${encodeURIComponent(values.message)}`)
         .then(res => {
+
           if (res.status >= 400) {
             if (res.status === 400) {
 
+              // api will send status 400 if email is already present, then we trigger error
               setSameEmailError(res.statusText)
               const err = new Error(res.statustext)
               setIsEditorReadOnly(false)
@@ -36,7 +40,7 @@ export default function Reviews({ id, reviewList }) {
             } else if (res.status > 400) {
 
               setSameEmailError(false)
-              const err = new Error('Error')  
+              const err = new Error('Error in components/productPage/Reviews.js, formik onSubmit, fetch, .then statement, if (res.status > 400) condition')  
               setIsEditorReadOnly(false)
   
               throw err
@@ -45,13 +49,16 @@ export default function Reviews({ id, reviewList }) {
           return res.json()
         })
         .then(data => {
+
           resetForm()
           setEditorState(EditorState.push(editorState, ContentState.createFromText('')))
 
           setSameEmailError(false)
           
-          const publishedReview = data.data.createReview.data    
+          const publishedReview = data.data.createReview.data 
+          // for now we're pushing review obj into array with others, after page reload they will be fetched altogether
           reviewList.push(publishedReview)
+          setReviews(reviewList)
     
           setIsEditorReadOnly(false)
 
@@ -65,13 +72,12 @@ export default function Reviews({ id, reviewList }) {
       email: Yup.string().min(6).max(50),
       message: Yup.string().min(1).max(100).required('Required')
     })
-  })
-
-  const [ reviews, setReviews ] = useState(reviewList)
+  })  
 
   const value = formik.values.message
   
   const prepareDraft = value => {
+
     const draft = htmlToDraft(value)
     const contentState = ContentState.createFromBlockArray(draft.contentBlocks)
     const editorState = EditorState.createWithContent(contentState)
@@ -84,6 +90,7 @@ export default function Reviews({ id, reviewList }) {
   const [ editorState, setEditorState ] = useState(value ? prepareDraft(value) : EditorState.createEmpty())
 
   const onEditorStateChange = editorState => {
+
     const forFormik = draftToHtml(
       convertToRaw(editorState.getCurrentContent())
     )
