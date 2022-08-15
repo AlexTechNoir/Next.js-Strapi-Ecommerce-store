@@ -29,6 +29,7 @@ export async function getServerSideProps() {
               attributes {
                 title
                 price
+                available
                 image {
                   data {
                     attributes {

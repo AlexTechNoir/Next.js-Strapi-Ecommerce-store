@@ -1,10 +1,12 @@
 export default async ({ query: { ids }}, res) => {
+
   const arrOfIds = ids.split(',')
   const filterArrValue = arrOfIds.map(i => ({ id : { eq: i }}))
 
-  // [{id:{eq:"<idNumber>"}},{id:{eq:"<idNumber>"}},{id:{eq:"<idNumber>"}}] ↓
+  // [{id:{eq:"<idNumber>"}},{id:{eq:"<idNumber>"}},{id:{eq:"<idNumber>"}}] - for query ↓
   const filterStringValue = JSON.stringify(filterArrValue).replaceAll('"id"', 'id').replaceAll('"eq"', 'eq')
 
+  // fetch items for cart nased on passed ids
   await fetch(`${
     process.env.NODE_ENV === "production"
       ? process.env.PROD_CMS_URL

@@ -9,21 +9,23 @@ import { useState } from 'react'
 export default function CartButton() {
   const { cartBadgeToggle } = useContext(CartContext)
 
-  const [ itemsAmountInCart, setItemsAmountInCart ] = useState(0)
+  const [ itemsAmountInCartForBadge, setItemsAmountInCartForBadge ] = useState(0)
 
-  const assignProductAmountInCart = () => {
-    const cartList = JSON.parse(localStorage.cartList)
-    const cartListLength = cartList.length
+  const assignItemsAmount = () => {
 
-    setItemsAmountInCart(cartListLength)
+    if (localStorage.getItem('cartList') !== null) {
+
+      const cartList = JSON.parse(localStorage.cartList)
+      const cartListLength = cartList.length
+  
+      setItemsAmountInCartForBadge(cartListLength)      
+    } else {
+      setItemsAmountInCartForBadge(0)
+    }  
   }
 
   useEffect(() => {
-    if (localStorage.getItem('cartList') !== null) {
-      assignProductAmountInCart()
-    } else {
-      setItemsAmountInCart(0)
-    }   
+    assignItemsAmount()
   },[cartBadgeToggle])
 
   return (
@@ -31,9 +33,9 @@ export default function CartButton() {
       <a aria-label="Shopping cart link">
         <FontAwesomeIcon icon={faShoppingCart} size="lg" />
         {
-          itemsAmountInCart > 0
+          itemsAmountInCartForBadge > 0
           ? <DivIconAmountInCart>
-              {itemsAmountInCart}
+              {itemsAmountInCartForBadge}
             </DivIconAmountInCart>
           : null
         }

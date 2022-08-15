@@ -46,13 +46,13 @@ export default function SearchResult({ result }) {
     <DivSearchResult>
       <img src={imgUrl} alt="SearchItem" width={121} height={121} className="image" />
       <div className="title-and-category-wrapper">
-        <Link href="/product-page/[id].js" as={`/product-page/${id}`}>
+        <Link href={`/product-page/${id}`}>
           <a className="title-link">
             <h4>{title}</h4>
           </a>
         </Link>
         <h6 className="category-link-wrapper">
-          <Link href="/products/[category]/[page]" as={`/products/${category}/1`}>
+          <Link href={`/products/${category}/1`}>
             <a>{categoryName}</a>
           </Link>
         </h6>
@@ -76,7 +76,7 @@ export default function SearchResult({ result }) {
                 ) : (
                   <span className="d-flex flex-column">
                     <h5 className="discount-text text-success">
-                      {discountPercent} OFF!
+                      {discountPercent}&nbsp;OFF!
                     </h5>
                     <s className="d-flex no-wrap">
                       <span>{currency}</span>&nbsp;
@@ -141,30 +141,41 @@ const DivSearchResult = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin-top: 1em;
-    > h4 > span > .discount-text {
-      position: absolute;
-      top: 10px;
-      right: 77px;
-      transform: rotate(340deg);
-    }
+    margin-top: 1em;    
+    > h4 > span {
+      position: relative;
+      > .discount-text {
+        position: absolute;
+        top: -9px;
+        right: -50px;
+        transform: rotate(20deg);
+      }
+    } 
+  }
+  > .loader {
+    justify-self: start;
   }
 
   @media only screen and (min-width: 600px) {
     grid-template-rows: auto;
     grid-template-columns: auto 1fr 1fr 1fr;
-    > :nth-child(2) {
-      justify-self: start;
-    }
-    > :nth-child(3) {
+    > .in-cart {
       grid-area: 1 / 3 / 2 / 4; 
       justify-self: center;
     }
-    > :last-child {
+    > .price-wrapper {
       grid-area: 1 / 4 / 2 / 5; 
       justify-self: end;
       align-self: start;
       margin-top: 0;
+      > h4 > span > .discount-text {
+        top: -6px;
+        right: 71px;
+        transform: rotate(340deg);
+      }
+    }
+    > .loader {
+      justify-self: end;
     }
   }
 `

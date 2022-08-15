@@ -6,16 +6,6 @@ Fully responsive mobile first demo website. Rewritten from [React CRA app](https
 
 ## [Scripts and CDN links](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/src/pages/_document.js#L34)
 
-## What can you do in this demo:
-
-- browse products
-- add/edit/delete products in cart
-- use sliders and magnifying glass
-- write/edit/delete reviews in Rich Text Editor and Facebook comments
-- search for products
-- make fake payments
-- change currency (7 avaliable)
-
 ## What did I use to make this demo:
 
 ! Many links may be broken for now, I'll fix them ASA I'll finish rewriting this app !
@@ -37,3 +27,112 @@ Fully responsive mobile first demo website. Rewritten from [React CRA app](https
 ## Notes:
 
 - html-to-draftjs library is deliberately downgraded to 1.4.0 to avoid bug (see [issue #78](https://github.com/jpuri/html-to-draftjs/issues/78))
+
+### Info about where Context data goes (from pages/_app.js):
+
+<details>
+  <summary>Show/hide</summary>
+  <br>
+
+  `areCookiesAccepted` goes to:
+
+  - components/Layout.js
+
+  `setAreCookiesAccepted` goes to:
+
+  - components/Layout.js
+  - components/layout/CookieBanner.js (as props from components/Layout.js)
+
+  `cartBadgeToggle` goes to:
+
+  - components/layout/header/CartButton.js
+  - components/productPage/AddToCart.js
+  - components/cart/CartList.js
+  - components/cart/cartList/CartListItem.js (as props from components/cart/CartList.js)
+  - components/checkout/PayPalCheckoutButton.js
+
+  `setCartBadgeToggle` goes to: 
+
+  - components/productPage/AddToCart.js
+  - components/cart/CartList.js
+  - components/cart/cartList/CartListItem.js (as props from components/cart/CartList.js)
+  - components/checkout/PayPalCheckoutButton.js
+
+  `itemsAmountInCart` goes to:
+
+  - pages/cart.js
+  - pages/checkout.js
+  - pages/checkout/CartInfo.js (as props from pages/checkout.js)
+
+  `cartList` goes to:
+
+  - components/cart/CartList.js
+  - pages/checkout.js
+
+  `setCartList` goes to:
+
+  - components/checkout/PayPalCheckoutButton.js
+
+  `totalPriceInCart`, `totalDiscountedPriceInCart` and `areThereAnyDiscountsInCart` go to:
+
+  - components/cart/CartList.js
+  - pages/checkout.js
+  - pages/checkout/CartInfo.js (as props from pages/checkout.js)
+
+  `assignProductAmountInCart` goes to:
+
+  - pages/cart.js
+  - components/cart/CartList.js (as props from pages/cart.js)
+  - components/cart/cartList/CartListItem.js(as props from components/cart/CartList.js)
+  - pages/checkout.js
+  - components/checkout/PayPalCheckoutButton.js (as props from pages/checkout.js)
+
+  `estimateTotalPrice` goes to:
+
+  - components/cart/CartList.js
+  - components/cart/cartList/CartListItem.js (as props from components/cart/CartList.js)
+  - pages/checkout.js
+
+  `currency` goes to:
+
+  - components/ProductListItem.js
+  - components/SearchResult.js
+  - components/product/productPage/ProductInfo.js
+  - components/cart/CartList.js
+  - components/cart/cartList/CartListItem.js (as props from components/cart/CartList.js)
+  - pages/checkout.js
+  - pages/checkout/CartInfo.js (as props from pages/checkout.js)
+  - pages/checkout/cartInfo/CheckoutCartListItem.js (as props from pages/checkout/CartInfo.js)
+  - pages/checkout/PayPalCheckoutButton.js (as props from pages/checkout.js)
+
+  `currencyCode` goes to:
+
+  - pages/checkout.js
+  - pages/checkout/PayPalCheckoutButton.js (as props from pages/checkout.js)
+
+  `currencyRate` goes to:
+
+  - components/ProductListItem.js
+  - components/SearchResult.js
+  - components/product/productPage/ProductInfo.js
+  - components/cart/CartList.js
+  - pages/checkout.js
+  - pages/checkout/CartInfo.js (as props from pages/checkout.js)
+  - pages/checkout/cartInfo/CheckoutCartListItem.js (as props from pages/checkout/CartInfo.js)
+  - pages/checkout/PayPalCheckoutButton.js (as props from pages/checkout.js)
+
+  `isCurrencySet` goes to:
+
+  - components/ProductListItem.js
+  - components/SearchResult.js
+  - components/product/productPage/ProductInfo.js
+  - components/cart/CartList.js
+  - pages/checkout.js
+  - pages/checkout/CartInfo.js (as props from pages/checkout.js)
+
+  `refreshCurrency` goes to:
+
+  - components/layout/footer/Buttons.js
+
+  `setItemsAmountInCart`, `setTotalPriceInCart`, `setTotalDiscountedPriceInCart`, `fetchedRates`, `setFetchedRates`, `setCurrency`, `setCurrencyCode`, `setCurrencyRate`, `setIsCurrencySet`, `setCurrencyCodes` and `setCurrencyCodes` stay in pages/_app.js
+</details>

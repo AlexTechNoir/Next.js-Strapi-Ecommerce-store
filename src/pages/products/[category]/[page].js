@@ -30,6 +30,7 @@ export async function getServerSideProps(ctx) {
               attributes {
                 title
                 price
+                available
                 image {
                   data {
                     attributes {
@@ -61,7 +62,7 @@ export async function getServerSideProps(ctx) {
   })
     .then(r => {
       if (r.status >= 400) {
-        const err = new Error('Error')
+        const err = new Error('Error in: pages/products/[category]/[page].js, server-side props, fetch, .then statement, if (r.status >= 400) condtion')
         err.data = r
         throw err
       }

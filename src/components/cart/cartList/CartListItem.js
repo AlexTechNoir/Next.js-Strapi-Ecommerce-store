@@ -1,15 +1,18 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import styled from 'styled-components'
-import CurrencyContext from '../../../context/currencyContext'
-import CartContext from '../../../context/cartContext'
 
 export default function CartListItem({ 
-  cartListItem, 
+  cartListItem,   
   assignProductAmountInCart, 
-  estimateTotalPrice, 
+  estimateTotalPriceOfAllItems, 
+  currency,
   currencyRate, 
-  isCurrencySet 
+  isCurrencySet,
+  cartBadgeToggle,
+  setCartBadgeToggle, 
+  itemsWithExceededAmount,
+  checkIfItemsAreAvailable
 }) {
   const id = cartListItem.id
   const attributes = cartListItem.attributes
@@ -23,41 +26,62 @@ export default function CartListItem({
   const img = imgsArr.filter(i => i.attributes.name === "01.jpg")
   const imgUrl = img[0].attributes.url
 
-  let discountAttributes
+  // check if discount is present, because if it's not, we can't access the value and put it into variable
   let discountMultiplier
-
   if (attributes.discount.data !== null) {
-    discountAttributes = attributes.discount.data.attributes
-    discountMultiplier = discountAttributes.discountMultiplier
+    discountMultiplier = attributes.discount.data.attributes.discountMultiplier
   }
-  
-  const { currency } = useContext(CurrencyContext)
-  const { cartBadgeToggle, setCartBadgeToggle } = useContext(CartContext)
 
+  const [ selectBorderColor, setSelectBorderColor ] = useState('lightgrey')
   const [ currentTotalPrice, setCurrentTotalPrice ] = useState(0)
 
   let options = []
 
+  //render option elements based on available amount
   for (let i = 1; i <= available; i++) {
     options.push(<option key={i} value={`${i}`}>{i}</option>)
   }
 
+  // this function fires initially and every time <available> value changes (below in useEffect). <available> is a key inside of <cartList>, thus depends on <cartList> change, that happens in assignProductAmountInCart() function, which lives in pages/_app.js and is spread through Context. assignProductAmountInCart() is triggered: 1. by useEffect in pages/cart.js initially, 2. in clearCart() function (on button click) in components/cart/CartList.js component, and 3. in goToCheckout() function (also on button click) also in components/cart/CartList.js component
   const estimatePrice = () => {
+
     const cartList = JSON.parse(localStorage.cartList)
     const item = cartList.filter(i => i.id === id)
-    const selectedAmount = parseFloat(item[0].selectedAmount)
+    const selectedAmount = parseFloat(item[0].selectedAmount)    
 
-    const select = document.getElementById(`itemsOf${id}`)
-    select.options[selectedAmount - 1].selected = 'selected'
+    // if there are enough units of item available in stock...
+    if (selectedAmount <= available) {
 
-    setCurrentTotalPrice(parseFloat(price * selectedAmount).toFixed(2))
+      const select = document.getElementById(`itemsOf${id}`)
+      if (select !== null) {
+        // ...we set selected by user amount as it should be, ...
+        select.options[selectedAmount].selected = 'selected'
+        setCurrentTotalPrice(parseFloat(price * selectedAmount).toFixed(2))
+        setSelectBorderColor('lightgrey')
+      }  
+    
+    // ...but if items in stock are not enough comparing to amount user selected...
+    } else if (selectedAmount > available) {
+
+      const select = document.getElementById(`itemsOf${id}`)
+      if (select !== null) {
+        // ...we set option as 'unselected' (which is the first in array of option elements)...
+        select.options[0].selected = 'selected'
+
+        // ...and price as zero
+        setCurrentTotalPrice((0).toFixed(2))
+        setSelectBorderColor('red')
+      } 
+    }
+
+    // in condition above we don't need to check if available !== 0, because if it does === 0, <select> element just won't render, user will see "out of stock" message instead, and then we don't need to make any changes ("available === 0" and "0 < selectedAmount <= available" are different cases to handle)
   }
 
   const editAmount = (id, price) => {
-    const cartList = JSON.parse(localStorage.cartList)
+
     const selectedAmount = document.getElementById(`itemsOf${id}`).value
 
-    const editedCartList = cartList.map(i => {
+    const editedCartList = JSON.parse(localStorage.cartList).map(i => {
       if (i.id === id) {
         i.selectedAmount = +selectedAmount
         return i
@@ -69,38 +93,71 @@ export default function CartListItem({
 
     localStorage.setItem('cartList', JSON.stringify(editedCartList))
 
-    const updTotalPrice = Number(price.toFixed(2)) * selectedAmount
-    setCurrentTotalPrice(updTotalPrice)
+    // set total price of one item
+    const updTotalPriceOfOneItem = Number(price.toFixed(2)) * selectedAmount
+    setCurrentTotalPrice(updTotalPriceOfOneItem)
 
-    estimateTotalPrice()
+    // estimate total price of all items
+    // this function lives in pages/_app.js
+    estimateTotalPriceOfAllItems()
+
+    // we launch this function in case when user edits amount of item that exceeded available amount in CMS, to toggle border colour (from red to lightgrey)
+    checkIfItemsAreAvailable()
   }
 
   const deleteItem = id => {
-    const cartList = JSON.parse(localStorage.cartList)
 
-    const editedCartList = cartList.filter(i => i.id !== id)
+    const editedCartList = JSON.parse(localStorage.cartList).filter(i => i.id !== id)
 
     if (editedCartList.length === 0) {
+
       localStorage.removeItem('cartList')
+      localStorage.removeItem('order')
+      localStorage.removeItem('isFormSubmitted')
       assignProductAmountInCart()
+
     } else {
+
       localStorage.setItem('cartList', JSON.stringify(editedCartList))
       assignProductAmountInCart()
     }
     
+    // toggle cart badge state to change number of items in cart badge (in components/layout/header/CartButton.js)
     setCartBadgeToggle(!cartBadgeToggle)
-    estimateTotalPrice()
+
+    estimateTotalPriceOfAllItems()
+  }
+
+  const toggleBorderColour = () => {
+
+    if (itemsWithExceededAmount.length > 0) {
+      
+      const isThisItemWithExceededAmount = itemsWithExceededAmount.some(i => i === id.toString())      
+
+      if (isThisItemWithExceededAmount) {
+        setSelectBorderColor('#dc3545')
+      } else {
+        setSelectBorderColor('lightgrey')
+      }
+    } else {
+      setSelectBorderColor('lightgrey')
+    }
   }
 
   useEffect(() => {
     estimatePrice()
-  }, [])
+  }, [available])
+
+  useEffect(() => {
+    toggleBorderColour()
+  },[itemsWithExceededAmount]) // triggers in components/cart/CartList.js in checkIfItemsAreAvailable() and goToCheckout()
 
   return (
-    <DivCartListItem>
-      <img src={imgUrl} alt={title} width={100} height={100} />
-      <div>
-        <Link href="/product-page/[id].js" as={`/product-page/${id}`}>
+    <DivCartListItem selectBorderColor={selectBorderColor}>
+      <img className="image" src={imgUrl} alt={title} width={100} height={100} />
+
+      <div className="title-and-company">
+        <Link href={`/product-page/${id}`}>
           <a>
             <h5>{title}</h5>
           </a>
@@ -109,18 +166,32 @@ export default function CartListItem({
           Company: {company}
         </h6>
       </div>
-      <div>
-        <label htmlFor={`itemsOf${id}`}>
-          Quantity:&nbsp;
-          <select className="form-control" id={`itemsOf${id}`} onChange={() => editAmount(id, price)}>
-            {options}
-          </select>
-        </label>
+
+      <div className="quantity">
+        {
+          available <= 0 
+          ? (
+            <div className="out-of-stock">
+              <h4 className="out-of-stock-text text-danger">
+                OUT OF STOCK!
+              </h4>
+            </div>
+          ) : (
+            <label htmlFor={`itemsOf${id}`}>
+              Quantity:&nbsp;
+              <select className="form-control" id={`itemsOf${id}`} onChange={() => editAmount(id, price)}>
+                <option value="-" disabled> - </option>      
+                {options}
+              </select>
+            </label>
+          )
+        }
       </div>
+
       {
         isCurrencySet
         ? (
-          <h5>
+          <h5 className="price">
             <span>Total price:</span>
             {
               attributes.discount.data === null
@@ -147,6 +218,7 @@ export default function CartListItem({
           <div className="loader"></div>
         )
       }
+
       <button
         type="button"
         className="close text-danger d-inline-block"
@@ -170,10 +242,10 @@ const DivCartListItem = styled.div`
   margin-bottom: 1em;
   padding: 1em;
   border: 1px solid #dc3545;
-  > :first-child {
+  > .image {
     grid-area: 1 / 1 / 2 / 2;
   }
-  > :nth-child(2) {
+  > .title-and-company {
     grid-area: 1 / 2 / 2 / 5;
     display: flex;
     flex-direction: column;
@@ -189,13 +261,25 @@ const DivCartListItem = styled.div`
       text-shadow: 2px 2px 20px;
     }
   }
-  > :nth-child(3) {
+  > .quantity {
     grid-area: 2 / 1 / 3 / 5;
     display: flex;
     align-items: flex-start;
     margin-bottom: 0;
+    > label > .form-control {
+      border-color: ${props => props.selectBorderColor};
+    }
+    > .out-of-stock {
+      position: relative;
+      > .out-of-stock-text {
+        position: absolute;
+        top: 2px;
+        left: 3px;
+        transform: rotate(14deg);
+      }
+    }
   }
-  > :nth-child(4) {
+  > .price {
     grid-area: 3 / 1 / 4 / 5;
     display: flex;
     justify-content: space-between;
@@ -204,21 +288,22 @@ const DivCartListItem = styled.div`
       margin-left: .2em;
     }
   }
-  > :last-child {
+  > .close {
     grid-area: 1 / 5 / 2 / 6;
     justify-self: end;
+    align-self: start;
   }
 
   @media only screen and (min-width: 500px) {
     grid-template-columns: auto 1fr 1fr 1fr auto;
     grid-template-rows: auto;
-    > :nth-child(2) {
+    > .title-and-company {
       grid-area: 1 / 2 / 2 / 3;
     }
-    > :nth-child(3) {
+    > .quantity {
       grid-area: 1 / 3 / 2 / 4;
     }
-    > :nth-child(4) {
+    > .price {
       grid-area: 1 / 4 / 2 / 5;
       justify-self: end;
     }

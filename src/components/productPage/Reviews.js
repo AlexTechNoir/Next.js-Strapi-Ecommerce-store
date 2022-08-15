@@ -11,12 +11,6 @@ import styled from 'styled-components'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
-const schema = Yup.object().shape({
-  name: Yup.string().min(1).max(20).required('Required'),
-  email: Yup.string().min(6).max(50).required('Required'),
-  message: Yup.string().min(1).max(100).required('Required')
-})
-
 export default function Reviews({ id, reviewList }) {
 
   const [ isEditorReadOnly, setIsEditorReadOnly ] = useState(false)
@@ -31,21 +25,18 @@ export default function Reviews({ id, reviewList }) {
       await fetch(`/api/postReview?productId=${id}&name=${values.name}&email=${values.email}&reviewText=${encodeURIComponent(values.message)}`)
         .then(res => {
           if (res.status >= 400) {
-
             if (res.status === 400) {
-              console.log(res.status, res)
+
               setSameEmailError(res.statusText)
-
               const err = new Error(res.statustext)
-
               setIsEditorReadOnly(false)
 
               throw err
-            } else if (res.status > 400) {
-              setSameEmailError(false)
 
-              const err = new Error('Error')
-  
+            } else if (res.status > 400) {
+
+              setSameEmailError(false)
+              const err = new Error('Error')  
               setIsEditorReadOnly(false)
   
               throw err
@@ -69,7 +60,11 @@ export default function Reviews({ id, reviewList }) {
         })
         .catch(err => console.error(err))
     },
-    validationSchema: schema
+    validationSchema: Yup.object().shape({
+      name: Yup.string().min(1).max(20),
+      email: Yup.string().min(6).max(50),
+      message: Yup.string().min(1).max(100).required('Required')
+    })
   })
 
   const [ reviews, setReviews ] = useState(reviewList)

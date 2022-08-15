@@ -26,11 +26,7 @@ export default function I18nButtons() {
         <select id="rates" aria-label="Currency selection" onChange={e => changeCurrency(e)}>
           <option id="$" value="$">$ (USD) U.S. Dollar</option>
           <option id="€" value="€">€ (EUR) Euro</option>
-          <option id="₽" value="₽">₽ (RUB) Russian Ruble</option>
-          <option id="Ch¥" value="Ch¥">¥ (CNY) Chinese Yuan</option>
-          <option id="Jp¥" value="Jp¥">¥ (JPY) Japanese Yen</option>
-          <option id="₩" value="₩">₩ (KRW) Korean Won</option>
-          <option id="₹" value="₹">₹ (INR) Indian Rupee</option>
+          <option id="£" value="£">£ (GBP) British Pound</option>
         </select>
       </div>
       <div>
@@ -38,15 +34,6 @@ export default function I18nButtons() {
         <select aria-label="Country selection">
           <option value="UK">United Kingdom</option>
           <option value="USA">United States</option>
-          <option value="Germany">Germany</option>
-          <option value="France">France</option>
-          <option value="Spain">Spain</option>
-          <option value="Italy">Italy</option>
-          <option value="Russia">Russia</option>
-          <option value="China">China</option>
-          <option value="Japan">Japan</option>
-          <option value="Korea">Korea</option>
-          <option value="India">India</option>
         </select>
       </div>
     </div>

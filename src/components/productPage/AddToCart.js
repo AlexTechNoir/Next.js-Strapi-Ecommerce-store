@@ -3,18 +3,37 @@ import styled from 'styled-components'
 import CartContext from '../../context/cartContext'
 
 export default function AddToCart({ id, available }) {
+  
   const { cartBadgeToggle, setCartBadgeToggle } = useContext(CartContext)
 
   const [ selectedAmount, setSelectedAmount ] = useState(1)
   const [ isProductInCart, setIsProductInCart ] = useState(false)
   const [ amountInCart, setAmountInCart ] = useState(null)
 
-  const chooseAmount = () => setSelectedAmount(parseInt(document.getElementById("items").value))  
+  const checkIfProductIsInCart = () => {
+    if (localStorage.getItem('cartList') === null) {
+      setIsProductInCart(false)
+    } else {
 
-  const addToCart = (id, selectedAmount) => {
+      const cartList = JSON.parse(localStorage.cartList)
+      const isProductAlreadyInCart = cartList.find(i => i.id === id)      
 
+      if (isProductAlreadyInCart === undefined) {
+        setIsProductInCart(false)
+      } else {
+        const amountInCart = isProductAlreadyInCart.selectedAmount
+
+        setAmountInCart(amountInCart)
+        setIsProductInCart(true)
+      }
+    }
+  }
+
+  const chooseAmount = () => setSelectedAmount(parseInt(document.getElementById("items").value)) 
+
+  const addToCart = async (id, selectedAmount) => {    
     const addedProduct = { id, selectedAmount }
-    
+
     let cartList
 
     if (localStorage.getItem('cartList') === null) {
@@ -49,29 +68,22 @@ export default function AddToCart({ id, available }) {
   }
 
   useEffect(() => {
-    if (localStorage.getItem('cartList') === null) {
-      setIsProductInCart(false)
-    } else {
-
-      const cartList = JSON.parse(localStorage.cartList)
-      const isProductAlreadyInCart = cartList.find(i => i.id === id)      
-
-      if (isProductAlreadyInCart === undefined) {
-        setIsProductInCart(false)
-      } else {
-        const amountInCart = isProductAlreadyInCart.selectedAmount
-
-        setAmountInCart(amountInCart)
-        setIsProductInCart(true)
-      }
-    }
+    checkIfProductIsInCart()
   }, [])
 
   return (
     <AddToCartDiv className="add-to-cart">
       <h3 className="button-wrapper-h3">
         {
-          isProductInCart
+          available <= 0
+          ? (
+            <div className="out-of-stock">
+              <h3 className="out-of-stock-text text-danger">
+                OUT OF STOCK!
+              </h3>
+            </div>
+          ) 
+          : available > 0 && isProductInCart 
           ? (
             <div>
               <h6>
@@ -128,6 +140,17 @@ const AddToCartDiv = styled.div`
     flex-direction: column;
     > h6 > button {
       margin-right: 1em;
+    }
+  }
+  > .button-wrapper-h3 > .out-of-stock {
+    position: relative;
+    height: 100px;
+    width: 100px;
+    > .out-of-stock-text {
+      position: absolute;
+      top: 6px;
+      left: 5px;
+      transform: rotate(14deg);
     }
   }
   > .in-cart-amount {

@@ -42,7 +42,7 @@ export default function ProductListItem({ item }) {
 
   return (
     <DivProductListItem>
-      <Link href="/product-page/[id].js" as={`/product-page/${id}`}>
+      <Link href={`/product-page/${id}`}>
         <a className="link">
           <img alt={title} src={imgUrl} width={200} height={200} className="image" />
           <br />
@@ -80,9 +80,16 @@ export default function ProductListItem({ item }) {
                   )
                 }
                 {
-                  isItemInCart
-                  ? <div className="in-cart">In cart: {quantity}</div>
-                  : null
+                  attributes.available <= 0
+                  ? (
+                    <div className="out-of-stock">
+                      <h4 className="out-of-stock-text text-danger">
+                        OUT OF STOCK!
+                      </h4>
+                    </div>
+                  ) : attributes.available > 0 && isItemInCart ? (
+                    <div className="in-cart">In cart: {quantity}</div>
+                  ) : null
                 }
               </div>
             ) : (
@@ -131,6 +138,16 @@ const DivProductListItem = styled.div`
           position: absolute;
           top: -12px;
           right: -35px;
+          transform: rotate(24deg);
+        }
+      }
+      > .out-of-stock {
+        position: relative;
+        align-self: flex-start;
+        > .out-of-stock-text {
+          position: absolute;
+          top: 6px;
+          right: 7px;
           transform: rotate(24deg);
         }
       }

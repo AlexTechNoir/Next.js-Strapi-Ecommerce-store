@@ -46,9 +46,6 @@ class MyDocument extends Document {
 
         </Head>
         <body>
-          {/* PayPal Checkout */}
-          <script async src="https://www.paypal.com/sdk/js?client-id=Adrrm9v8CMsKKDnZ4csRq6wdZ245iCGET2k9RiE78vTgtVewM1Cl6MDcwonotjEgmv27vc4733phc21X&currency=USD"></script>
-
           <Main />
           <NextScript />
         </body>

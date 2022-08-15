@@ -1,62 +1,31 @@
-import { useEffect, useContext, useState } from 'react'
+import { useEffect, useContext } from 'react'
 import styled from 'styled-components'
-import CurrencyContext from '../context/currencyContext'
+import CartContext from '../context/cartContext'
 import dynamic from 'next/dynamic'
 
 const CartList = dynamic(() => import('../components/cart/CartList'))
 
 export default function Cart() {
-  const { isCurrencySet, currency, currencyRate } = useContext(CurrencyContext)
-
-  const [ itemsAmountInCart, setItemsAmountInCart ] = useState(0)
-  const [ cartList, setCartList ] = useState([])
-
-  const assignProductAmountInCart = async () => {
-    if (localStorage.getItem('cartList') !== null) {
-
-      const cartList = JSON.parse(localStorage.cartList)
-      const ids = cartList.map(i => i.id)
-      
-      const data = await fetch(`/api/cart?ids=${ids}`)
-        .then(r => {
-          if (r.status >= 400) {
-            const err = new Error('Error')
-            err.data = r
-            throw err
-          }
-          return r.json()
-        })
-        .catch(err => console.error(err))
-      
-      const productsInCart = data.data.products.data
-      setCartList(productsInCart)
-      
-      const cartListLength = cartList.length
-      setItemsAmountInCart(cartListLength)
-      
-    } else {
-      setItemsAmountInCart(0)
-    }
-  }
+  const { itemsAmountInCart, assignProductAmountInCart } = useContext(CartContext)
 
   useEffect(() => {
     assignProductAmountInCart()
   }, [])
-
+  
   return (
     <DivCart>
       {
-        itemsAmountInCart < 1
-        ? <h2 className="empty-cart-message">
+        itemsAmountInCart === null 
+        ? (
+          <div className="loader"></div>
+        ) 
+        : itemsAmountInCart < 1
+        ? (
+          <h2 className="empty-cart-message">
             <div>Your shopping cart is empty</div>
           </h2>
-        : <CartList 
-            cartList={cartList}
-            isCurrencySet={isCurrencySet}
-            currency={currency}
-            currencyRate={currencyRate}
-            assignProductAmountInCart={assignProductAmountInCart}
-          />
+        ) 
+        : <CartList assignProductAmountInCart={assignProductAmountInCart} />
       }
     </DivCart>
   )

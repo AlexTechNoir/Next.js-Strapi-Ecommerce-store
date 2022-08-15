@@ -17,7 +17,7 @@ export default async (req, res) => {
     body: JSON.stringify({
       query: `
         query SearchProduct($value: String) {
-          products(filters: { title: { containsi: $value }}) {
+          products(filters: { and: [{ title: { containsi: $value }}, { available: { ne: 0 }}] }) {
             data {
               id
               attributes {
