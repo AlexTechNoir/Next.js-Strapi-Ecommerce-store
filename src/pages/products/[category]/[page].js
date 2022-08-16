@@ -131,7 +131,7 @@ const DivProducts = styled.div`
     grid-template-columns: repeat(auto-fit, 290px);
     grid-row-gap: .5rem;
     grid-column-gap: .5rem;
-    justify-content: start;
+    justify-content: center;
   }
   > :last-child {
     align-self: center;    

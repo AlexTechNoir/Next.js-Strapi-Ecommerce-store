@@ -204,8 +204,9 @@ const ReviewsDiv = styled.div`
   background-color: #ffffff;
   color: #212529;
   width: 100%;
-  padding-bottom: 2em;
   padding-top: 2em;
+  margin-top: 16px;
+  margin-bottom: 32px;
   > .heading {
     align-self: stretch;
     padding: 0 2em .5em 2em;
@@ -233,8 +234,8 @@ const ReviewsDiv = styled.div`
   > .form {
     background: #e9e9e9;
     border: 1px solid #e9e9e9;
-    padding: 1em;
-    margin: 2em;
+    padding: 16px;
+    margin: 32px;
     max-width: 1136px;
     width: 100%;
     > .input-group {
@@ -277,7 +278,6 @@ const ReviewsDiv = styled.div`
         }
       }
     }
-
     > .feedback-msgs {
       margin: 0 1em 1em 0;
       color: red;
@@ -291,6 +291,6 @@ const ReviewsDiv = styled.div`
 
 
   @media only screen and (min-width: 850px) {
-    grid-area: 4 / 1 / 6 / 3;
+    grid-area: 4 / 1 / 5 / 3;    
   }
 `

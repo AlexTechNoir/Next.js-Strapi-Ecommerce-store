@@ -2,10 +2,11 @@ import Head from 'next/head'
 import Link from 'next/link'
 import styled from 'styled-components'
 
+import ProductSlider from '../../components/productPage/ProductSlider'
 import ProductInfo from '../../components/productPage/ProductInfo'
 import AddToCart from '../../components/productPage/AddToCart'
+import RelatedProducts from '../../components/productPage/RelatedProducts'
 import Reviews from '../../components/productPage/Reviews'
-import ProductSlider from '../../components/productPage/ProductSlider'
 
 export async function getServerSideProps(ctx) {
   const data = await fetch(`${
@@ -52,6 +53,26 @@ export async function getServerSideProps(ctx) {
                     attributes {
                       discountPercent
                       discountMultiplier
+                    }
+                  }
+                }
+                relatedProducts {
+                  products {
+                    data {
+                      id
+                      attributes {
+                        title
+                        image {
+                          data {
+                            attributes {
+                              name
+                              url
+                              alternativeText
+                              formats
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 }
@@ -140,6 +161,12 @@ export default function ProductPage({ dataItem, reviewList }) {
     discountMultiplier = discountAttributes.discountMultiplier
   }
 
+  let relatedProducts
+
+  if (attributes.relatedProducts !== null) {
+    relatedProducts = attributes.relatedProducts.products.data
+  }
+
   return (
     <>
       <Head>
@@ -171,6 +198,12 @@ export default function ProductPage({ dataItem, reviewList }) {
         />
         <AddToCart id={id} available={available} />
         <Reviews id={id} reviewList={reviewList} />
+        {
+          attributes.relatedProducts !== null
+          ? (
+            <RelatedProducts relatedProducts={relatedProducts} />
+          ) : null
+        }
       </DivProductPage>
     </>
   )
@@ -205,7 +238,7 @@ const DivProductPage = styled.div`
     > .nav {
       grid-area: 1 / 1 / 2 / 3;
     }
-    > :nth-child(2) {
+    > .carousel-root {
       max-width: 400px;
       max-height: 400px;
       grid-area: 2 / 1 / 3 / 2;
