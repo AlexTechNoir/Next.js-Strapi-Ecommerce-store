@@ -19,7 +19,6 @@ export default function Nav({ toggleNav, isNavVisible }) {
         }
         return r.json()
       })
-      .then(res => res.json())
       .catch(err => console.error('Error in components/layout/header/Nav.js, fetchCategoryNames() function, .catch statement, err.message object:', err.message))
 
     const navItems = data.data.categories.data
