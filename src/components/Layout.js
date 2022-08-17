@@ -11,23 +11,53 @@ import CookieBanner from './layout/CookieBanner'
 import Footer from './layout/Footer'
 
 export default function Layout(props) {
-  const [ isAuthModalVisible, setIsAuthModalVisible ] = useState(false)
-  const [ isLogInTabVisible, setIsLogInTabVisible ] = useState(null)  
-  const [ isCookieBannerVisible, setIsCookieBannerVisible ] = useState(false)
 
+  // auth modal ↓
+  const [ isAuthModalVisible, setIsAuthModalVisible ] = useState(false)
+  const [ isLogInTabVisible, setIsLogInTabVisible ] = useState(null) 
+
+  const handleAuthModalVisibility = e => {
+    
+    if (e.currentTarget.name === 'logIn') {
+
+      setIsAuthModalVisible(true)
+      setIsLogInTabVisible(true)
+      document.body.style.overflow = 'hidden'
+
+    } else if (e.currentTarget.name === 'singUp') {
+
+      setIsAuthModalVisible(true)
+      setIsLogInTabVisible(false)
+      document.body.style.overflow = 'hidden'
+    }
+  }
+
+  const closeAuthModal = e => {
+    if (e.target.id === 'outsideAuthModal') {      
+      setIsAuthModalVisible(false)
+      document.body.style.overflow = 'visible'
+    }
+  }
+
+  // cookies ↓
   const { areCookiesAccepted, setAreCookiesAccepted } = useContext(CookiesContext)
 
-  useEffect(() => {
-    if (localStorage.getItem('areCookiesAccepted') !== null) {
+  const [ isCookieBannerVisible, setIsCookieBannerVisible ] = useState(false)
+
+  const router = useRouter()
+
+  const setCookies = () => {
+
+    if (localStorage.getItem('areCookiesAccepted') !== null) {      
       if (localStorage.getItem('areCookiesAccepted') === 'false') {
         setAreCookiesAccepted(false)
       } else {
         setAreCookiesAccepted(true)
       }
     }
-  }, [isCookieBannerVisible])
+  }
 
-  useEffect(() => {
+  const setCookiesBanner = () => {
     if (
       localStorage.getItem('isCookieBannerVisible') !== null ||
       localStorage.getItem('isCookieBannerVisible') === 'false'
@@ -36,66 +66,64 @@ export default function Layout(props) {
     } else {
       setIsCookieBannerVisible(true)
     }
-  }, [areCookiesAccepted])
+  }
 
-  const router = useRouter()
-  useEffect(() => {
+  const manageGAScript = () => {    
     if (localStorage.getItem('areCookiesAccepted') === 'true') {
+
+      // initialize script on route change
       const handleRouteChange = url => {
         gtag.pageview(url)
       }
-      router.events.on('routeChangeComplete', handleRouteChange)
+      router.events.on('routeChangeComplete', handleRouteChange)      
       return () => {
         router.events.off('routeChangeComplete', handleRouteChange)
       }
+
     } else if (localStorage.getItem('areCookiesAccepted') === 'false') {
+
+      // delete all GA cookies by expiring them
+
       document.cookie = '_ga=; Max-Age=0;'
 
       const cookiePair = document.cookie.split('; ').find(row => row.startsWith('_ga_'))
       if (cookiePair !== undefined) {
         const cookieName = cookiePair.substring(0, cookiePair.indexOf('='))
         document.cookie = `${cookieName}=; Max-Age=0;`
-      }
-      
+      }      
+
       document.cookie = '_gid=; Max-Age=0;'
     }
-  }, [router.events, areCookiesAccepted])
-
-  const handleVisibility = e => {
-    if (e.currentTarget.name === 'logIn') {
-      setIsAuthModalVisible(true)
-      setIsLogInTabVisible(true)
-      document.body.style.overflow = 'hidden'
-    } else if (e.currentTarget.name === 'singUp') {
-      setIsAuthModalVisible(true)
-      setIsLogInTabVisible(false)
-      document.body.style.overflow = 'hidden'
-    }
   }
-
-  const closeAuthModal = e => {
-    if (e.target.id === 'outsideAuthModal') {
-      setIsAuthModalVisible(false)
-      document.body.style.overflow = 'visible'
-    }
-  }
-
+  
   const showCookieBanner = e => {
     e.preventDefault()
     setIsCookieBannerVisible(true)
   }
 
+  useEffect(() => {
+    setCookies()
+  }, [isCookieBannerVisible]) // triggers here in setCookiesBanner() and showCookieBanner(), and in components/layout/CookieBanner.js in rejectCookies() and acceptCookies()
+
+  useEffect(() => {
+    setCookiesBanner()
+  }, [areCookiesAccepted]) // triggers here in setCookies(), and in components/layout/CookieBanner.js in rejectCookies() and acceptCookies()
+
+  useEffect(() => {
+    manageGAScript()
+  }, [router.events, areCookiesAccepted]) // router.events triggers on route change and set here in manageGAScript(); areCookiesAccepted - see comment above
+
   return (
     <>
       <GlobalStyle />
       <DivGrid>
-        <Header handleVisibility={handleVisibility} />
+        <Header handleAuthModalVisibility={handleAuthModalVisibility} />
         {
           isAuthModalVisible
           ? <AuthForm 
               isLogInTabVisible={isLogInTabVisible}
               closeAuthModal={closeAuthModal}
-              handleVisibility={handleVisibility} 
+              handleAuthModalVisibility={handleAuthModalVisibility} 
             />
           : null
         }
@@ -167,11 +195,11 @@ const GlobalStyle = createGlobalStyle`
 const DivGrid = styled.div`
   display: grid;
   grid-template-rows: auto 1fr auto;
-  grid-template-columns: auto 100% auto;
+  grid-template-columns: 1fr 1200px 1fr;
   height: 100%;
   position: relative;
-
-  @media only screen and (min-width: 1220px) {
-    grid-template-columns: 1fr 1200px 1fr;
+  
+  @media only screen and (max-width: 1220px) {
+    grid-template-columns: auto 100% auto;
   }
 `

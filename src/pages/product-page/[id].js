@@ -85,13 +85,13 @@ export async function getServerSideProps(ctx) {
   })
     .then(r => {
       if (r.status >= 400) {
-        const err = new Error('Error')
+        const err = new Error('Error in pages/product-page/[id].js, getServerSideProps() function, first fetch, .then statement, if (r.status >= 400) condition')
         err.data = r
         throw err
       }
       return r.json()
     })
-    .catch(err => console.error(err))
+    .catch(err => console.error('Error in pages/product-page/[id].js, getServerSideProps() function, first fetch, .catch statement, err object:', err))
   
   const dataItem = data.data.product.data
 
@@ -123,13 +123,13 @@ export async function getServerSideProps(ctx) {
   })
     .then(r => {
       if (r.status >= 400) {
-        const err = new Error('Error')
+        const err = new Error('Error in pages/product-page/[id].js, getServerSideProps() function, second fetch, .then statement, if (r.status >= 400) condition')
         err.data = r
         throw err
       }
       return r.json()
     })
-    .catch(err => console.error(err))
+    .catch(err => console.error('Error in pages/product-page/[id].js, getServerSideProps() function, second fetch, .catch statement, err object:', err))
     
   const reviewList = reviewsData.data.reviews.data
 
@@ -211,16 +211,18 @@ export default function ProductPage({ dataItem, reviewList }) {
 
 const DivProductPage = styled.div`
   grid-area: 2 / 2 / 3 / 3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto 1fr auto auto auto;
   > .nav {
-    align-self: flex-start;
+    grid-area: 1 / 1 / 2 / 3;
   }
   > .carousel-root {
     margin-bottom: 2em;
     max-width: 400px;
     max-height: 400px;
+    grid-area: 2 / 1 / 3 / 2;
+    justify-self: center;
     > div > .thumbs-wrapper > ul {
       padding: 0;
       display: flex;
@@ -231,18 +233,15 @@ const DivProductPage = styled.div`
     }
   }
 
-  @media only screen and (min-width: 850px) {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto 1fr auto auto auto;
+  @media only screen and (max-width: 850px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     > .nav {
-      grid-area: 1 / 1 / 2 / 3;
+      align-self: flex-start;      
     }
     > .carousel-root {
-      max-width: 400px;
-      max-height: 400px;
-      grid-area: 2 / 1 / 3 / 2;
-      justify-self: center;
+      justify-self: auto;
     }
   }
 `

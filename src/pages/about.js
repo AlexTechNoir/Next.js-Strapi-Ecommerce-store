@@ -50,24 +50,24 @@ const DivAbout = styled.div`
   border-radius: 5px;
   padding: 2.5em;
   > p {
-    display: flex;
-    flex-direction: column;
-    text-align: justify;
-    text-justify: inter-word;
+    display: block;
     > div {
-      align-self: center;
-      margin: 0 0 1em 0; 
-      float: none;
+      transform: translate(0%, 0%);
+      margin: 2rem;
+      float: left;
     }
   }
 
-  @media only screen and (min-width: 600px) {
+  @media only screen and (max-width: 600px) {
     > p {
-      display: block;
+      display: flex;
+      flex-direction: column;
+      text-align: justify;
+      text-justify: inter-word;
       > div {
-        transform: translate(0%, 0%);
-        margin: 2rem;
-        float: left;
+        align-self: center;
+        margin: 0 0 1em 0; 
+        float: none;
       }
     }
   }

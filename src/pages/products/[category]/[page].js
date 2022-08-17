@@ -62,13 +62,13 @@ export async function getServerSideProps(ctx) {
   })
     .then(r => {
       if (r.status >= 400) {
-        const err = new Error('Error in: pages/products/[category]/[page].js, server-side props, fetch, .then statement, if (r.status >= 400) condtion')
+        const err = new Error('Error in pages/products/[category]/[page].js, getServerSideProps() function, .then statement, if (r.status >= 400) condtion')
         err.data = r
         throw err
       }
       return r.json()
     })
-    .catch(err => console.error(err))
+    .catch(err => console.error('Error in pages/products/[category]/[page].js, getServerSideProps() function, .catch statement, err object:', err))
 
   const categoryItems = data.data.products.data
   const totalItems = data.data.products.meta.pagination.total

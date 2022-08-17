@@ -58,7 +58,7 @@ export default function PayPalCheckoutButton({
                   }
                   return r.json()
                 })
-                .catch(err => console.error(err))
+                .catch(err => console.error('Error in src/components/checkout/PayPalCheckoutButton.js component, createOrder() function, .catch statement, err object:', err))
 
               const checkoutCartList = cartListWithPrices.map(itemWithPrice => {
                 for (let i = 0; i < cartListWithAmounts.length; i++) {
@@ -145,7 +145,7 @@ export default function PayPalCheckoutButton({
                   .then(r => {
                     if (r.status >= 400) {
                       return r.json().then(errResData => {
-                        const err = new Error('Error in components/chackout/PayPalCheckoutButton.js, onApprove function, if (r.status >= 400) condition')
+                        const err = new Error('Error in components/checkout/PayPalCheckoutButton.js, onApprove() function, if (r.status >= 400) condition')
                         err.data = errResData
                         throw err
                       })
@@ -162,7 +162,7 @@ export default function PayPalCheckoutButton({
 
                     router.push(`/thank-you?id=${res.id}`)
                   })
-                  .catch(err => console.error(err.data))
+                  .catch(err => console.error('Error in src/components/checkout/PayPalCheckoutButton.js component, onApprove() function, .catch statement, err.data object:', err.data))
               })
             }}
           />

@@ -128,6 +128,7 @@ export default function AddToCart({ id, available }) {
 }
 
 const AddToCartDiv = styled.div`
+  grid-area: 3 / 2 / 4 / 3;
   display: flex;
   align-content: flex-start;
   align-items: flex-start;
@@ -159,9 +160,5 @@ const AddToCartDiv = styled.div`
     margin: 0 1.5em 0 1.5em;
     padding: .2em .5em .2em .5em;
     border-radius: 5px;
-  }
-
-  @media only screen and (min-width: 850px) {
-    grid-area: 3 / 2 / 4 / 3;
   }
 `

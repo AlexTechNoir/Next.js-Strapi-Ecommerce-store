@@ -100,7 +100,7 @@ export default function CartList({ assignProductAmountInCart }) {
         }
         return r.json()
       })
-      .catch(err => console.error(err))
+      .catch(err => console.error('Error in src/components/cart/cartList/CartList.js component, goToCheckout() function, .catch statement, err object:', err))
 
     const { 
       areThereAnyOutOfStockItems, 

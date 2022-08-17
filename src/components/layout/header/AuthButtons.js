@@ -1,11 +1,11 @@
-export default function AuthButtons({ handleVisibility }) {
+export default function AuthButtons({ handleAuthModalVisibility }) {
   return (
     <>
       <button 
         className="btn btn-link" 
         type="button" 
         name="logIn" 
-        onClick={e => handleVisibility(e)}
+        onClick={e => handleAuthModalVisibility(e)}
       > 
         Log In 
       </button>
@@ -13,7 +13,7 @@ export default function AuthButtons({ handleVisibility }) {
         className="btn btn-link" 
         type="button" 
         name="singUp" 
-        onClick={e => handleVisibility(e)}
+        onClick={e => handleAuthModalVisibility(e)}
       > 
         Sign Up 
       </button>

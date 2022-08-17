@@ -18,12 +18,12 @@ export default function ProductInfo({
     <ProductInfoDiv>
       <h1>{title}</h1>
       <h2>Company: {company}</h2>
-      <h2>
+      <h2 className="price-info">
         Price: &nbsp;
         {
           isCurrencySet
           ? (
-            <span>
+            <span className="price-wrapper">
               {
                 attributes.discount.data === null
                 ? (
@@ -32,7 +32,7 @@ export default function ProductInfo({
                     <span>{(price * currencyRate).toFixed(2)}</span>
                   </span>
                 ) : (
-                  <span className="price d-flex flex-column">
+                  <span className="price-with-discount d-flex flex-column">
                     <h4 className="discount-text text-success">
                       {discountPercent} OFF!
                     </h4>
@@ -61,12 +61,14 @@ export default function ProductInfo({
 }
 
 const ProductInfoDiv = styled.div`
+  grid-area: 2 / 2 / 3 / 3;
   display: flex;
   flex-direction: column;
-  margin-top: 5rem;
+  margin-top: 0;
+  align-self: start;  
   padding-left: 1rem;
   padding-right: 1rem;
-  > h2 > span > .price{
+  > .price-info > .price-wrapper > .price-with-discount {
     position: relative;
     > .discount-text {
       position: absolute;
@@ -76,9 +78,8 @@ const ProductInfoDiv = styled.div`
     }
   }
 
-  @media only screen and (min-width: 850px) {
-    grid-area: 2 / 2 / 3 / 3;
-    margin-top: 0;
-    align-self: start;
+  @media only screen and (max-width: 850px) {
+    margin-top: 5rem;
+    align-self: auto;
   }
 `

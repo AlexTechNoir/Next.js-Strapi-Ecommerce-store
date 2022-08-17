@@ -49,5 +49,5 @@ export default async (req, res) => {
 
       res.status(200).json(items)
     })
-    .catch(err => res.status(404).json({ message: `Error in api/available.js, err object: ${err}` }))
+    .catch(err => res.status(404).json({ message: `Error in api/available.js, .catch statement, status 404, err object: ${err}` }))
 }

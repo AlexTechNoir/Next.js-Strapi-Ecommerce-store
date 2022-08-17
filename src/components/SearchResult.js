@@ -30,7 +30,8 @@ export default function SearchResult({ result }) {
   const [ isItemInCart, setIsItemInCart ] = useState(false)
   const [ quantity, setQuantity ] = useState(0)
 
-  useEffect(() => {
+  const setItemAmountIncart = () => {
+    
     if (localStorage.getItem('cartList') !== null) {
       const cartList = JSON.parse(localStorage.cartList)
       const item = cartList.find(cartListItem => cartListItem.id === id)
@@ -40,6 +41,10 @@ export default function SearchResult({ result }) {
         setQuantity(item.selectedAmount)
       }
     }
+  }
+
+  useEffect(() => {
+    setItemAmountIncart()
   }, [])
 
   return (
@@ -101,8 +106,8 @@ export default function SearchResult({ result }) {
 
 const DivSearchResult = styled.div`
   display: grid;
-  grid-template-rows: auto auto;
-  grid-template-columns: auto auto;
+  grid-template-rows: auto;
+  grid-template-columns: auto 1fr 1fr 1fr;
   border: 1px solid #dc3545;
   border-radius: 5px;
   background: #f8f9fa;
@@ -131,51 +136,53 @@ const DivSearchResult = styled.div`
     }
   }
   > .in-cart {
-    grid-area: 2 / 2 / 3 / 3; 
-    display: flex;
-    justify-self: start;
+    grid-area: 1 / 3 / 2 / 4; 
+    justify-self: center;    
+    display: flex;    
     align-self: start; 
   }
   > .price-wrapper {
-    grid-area: 2 / 1 / 3 / 3;    
+    grid-area: 1 / 4 / 2 / 5; 
+    justify-self: end;
+    align-self: start;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin-top: 1em;    
+    margin-top: 0;       
     > h4 > span {
       position: relative;
       > .discount-text {
         position: absolute;
-        top: -9px;
-        right: -50px;
-        transform: rotate(20deg);
-      }
-    } 
-  }
-  > .loader {
-    justify-self: start;
-  }
-
-  @media only screen and (min-width: 600px) {
-    grid-template-rows: auto;
-    grid-template-columns: auto 1fr 1fr 1fr;
-    > .in-cart {
-      grid-area: 1 / 3 / 2 / 4; 
-      justify-self: center;
-    }
-    > .price-wrapper {
-      grid-area: 1 / 4 / 2 / 5; 
-      justify-self: end;
-      align-self: start;
-      margin-top: 0;
-      > h4 > span > .discount-text {
         top: -6px;
         right: 71px;
         transform: rotate(340deg);
       }
+    } 
+  }
+  > .loader {
+    justify-self: end;    
+  }
+
+  @media only screen and (max-width: 600px) {
+    grid-template-rows: auto auto;
+    grid-template-columns: auto auto;
+    > .in-cart {
+      grid-area: 2 / 2 / 3 / 3; 
+      justify-self: start;
+    }
+    > .price-wrapper {
+      grid-area: 2 / 1 / 3 / 3;   
+      justify-self: auto;
+      align-self: auto;
+      margin-top: 1em; 
+      > h4 > span > .discount-text {
+        top: -9px;
+        right: -50px;
+        transform: rotate(20deg);
+      }
     }
     > .loader {
-      justify-self: end;
+      justify-self: start;
     }
   }
 `

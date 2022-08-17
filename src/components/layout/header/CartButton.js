@@ -26,7 +26,10 @@ export default function CartButton() {
 
   useEffect(() => {
     assignItemsAmount()
-  },[cartBadgeToggle])
+  },[cartBadgeToggle]) // triggers in: 1. components/productPage/AddToCart.js in addToCart() and cancelAdding()
+  // 2. components/cart/CartList.js in clearCart()
+  // 3. components/cart/cartList/CartListItem.js in deleteItem()
+  // 4. components/checkout/PayPalCheckoutButton.js in onApprove()
 
   return (
     <Link href="/cart">

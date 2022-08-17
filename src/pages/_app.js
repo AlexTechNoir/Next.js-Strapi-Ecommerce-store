@@ -42,7 +42,7 @@ export default function ContextProvider({ Component, pageProps }) {
           }
           return r.json()
         })
-        .catch(err => console.error(err))
+        .catch(err => console.error('Error in pages/_app.js, assignProductAmountInCart() function, .catch statement, err object:', err))
       
       const productsInCart = data.data.products.data
       // sort in alphabetical order
@@ -167,7 +167,7 @@ export default function ContextProvider({ Component, pageProps }) {
       }).then(r => {
         setFetchedRates(r.rates)
         refreshCurrency()
-      }).catch(err => console.error(err))
+      }).catch(err => console.error('Error in pages/_app.js, setCurrencyCodes() function, .catch statement, err object:', err))
   }
 
   // setting up currency rate based on curreny code

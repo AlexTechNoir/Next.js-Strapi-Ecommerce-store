@@ -191,17 +191,17 @@ export default function CartListItem({
       {
         isCurrencySet
         ? (
-          <h5 className="price">
+          <h5 className="price-info">
             <span>Total price:</span>
             {
               attributes.discount.data === null
               ? (
-                <span className="d-flex no-wrap">
+                <span className="price d-flex no-wrap">
                   <span className="align-self-end">{currency}</span>&nbsp;
                   <span className="align-self-end">{(currentTotalPrice * currencyRate).toFixed(2)}</span>
                 </span>
               ) : (
-                <span className="d-flex flex-column">
+                <span className="price d-flex flex-column">
                   <s className="d-flex no-wrap">
                     <span>{currency}</span>&nbsp;
                     <span>{(currentTotalPrice * currencyRate).toFixed(2)}</span>
@@ -233,8 +233,8 @@ export default function CartListItem({
 
 const DivCartListItem = styled.div`
   display: grid;
-  grid-template-columns: auto 1fr 2fr 1fr auto;
-  grid-template-rows: auto auto auto;
+  grid-template-columns: auto 1fr 1fr 1fr auto;
+  grid-template-rows: auto;
   grid-row-gap: 1rem;
   grid-column-gap: 1rem;
   border-radius: 5px;
@@ -246,7 +246,7 @@ const DivCartListItem = styled.div`
     grid-area: 1 / 1 / 2 / 2;
   }
   > .title-and-company {
-    grid-area: 1 / 2 / 2 / 5;
+    grid-area: 1 / 2 / 2 / 3;    
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -262,7 +262,7 @@ const DivCartListItem = styled.div`
     }
   }
   > .quantity {
-    grid-area: 2 / 1 / 3 / 5;
+    grid-area: 1 / 3 / 2 / 4;    
     display: flex;
     align-items: flex-start;
     margin-bottom: 0;
@@ -279,14 +279,18 @@ const DivCartListItem = styled.div`
       }
     }
   }
-  > .price {
-    grid-area: 3 / 1 / 4 / 5;
+  > .price-info {
+    grid-area: 1 / 4 / 2 / 5;
+    justify-self: end;    
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    > :nth-child(2) {
+    > .price {
       margin-left: .2em;
     }
+  }
+  > .loader {
+    justify-self: end;
   }
   > .close {
     grid-area: 1 / 5 / 2 / 6;
@@ -294,18 +298,17 @@ const DivCartListItem = styled.div`
     align-self: start;
   }
 
-  @media only screen and (min-width: 500px) {
-    grid-template-columns: auto 1fr 1fr 1fr auto;
-    grid-template-rows: auto;
+  @media only screen and (max-width: 500px) {
+    grid-template-columns: auto 1fr 2fr 1fr auto;
+    grid-template-rows: auto auto auto;
     > .title-and-company {
-      grid-area: 1 / 2 / 2 / 3;
+      grid-area: 1 / 2 / 2 / 5;
     }
     > .quantity {
-      grid-area: 1 / 3 / 2 / 4;
+      grid-area: 2 / 1 / 3 / 5;
     }
-    > .price {
-      grid-area: 1 / 4 / 2 / 5;
-      justify-self: end;
+    > .price-info {
+      grid-area: 3 / 1 / 4 / 5;
     }
   }
 `

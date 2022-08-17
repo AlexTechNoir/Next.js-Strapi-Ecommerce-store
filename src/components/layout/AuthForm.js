@@ -6,7 +6,7 @@ import LogIn from './authForm/LogIn'
 import Registration from './authForm/Registration'
 const ResetPassword = dynamic(() => import('./authForm/ResetPassword'))
 
-export default function AuthForm({ isLogInTabVisible, closeAuthModal, handleVisibility }) {
+export default function AuthForm({ isLogInTabVisible, closeAuthModal, handleAuthModalVisibility }) {
   const [ isResetPasswordVisible, setIsResetPasswordVisible ] = useState(false)
 
   const showResetPassword = e => {
@@ -26,7 +26,7 @@ export default function AuthForm({ isLogInTabVisible, closeAuthModal, handleVisi
                 type="button" 
                 name="logIn" 
                 className={`btn ${isLogInTabVisible ? "btn-light" : "btn-secondary"} border-left border-top border-right shadow-none`} 
-                onClick={e => handleVisibility(e)}
+                onClick={e => handleAuthModalVisibility(e)}
               >
                 Sing In
               </button>
@@ -34,7 +34,7 @@ export default function AuthForm({ isLogInTabVisible, closeAuthModal, handleVisi
                 type="button" 
                 name="singUp" 
                 className={`btn ${isLogInTabVisible ? "btn-secondary" : "btn-light"} border-left border-top border-right shadow-none`} 
-                onClick={e => handleVisibility(e)}
+                onClick={e => handleAuthModalVisibility(e)}
               >
                 Registration
               </button>

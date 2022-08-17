@@ -56,13 +56,13 @@ export async function getServerSideProps() {
   })
     .then(r => {
       if (r.status >= 400) {
-        const err = new Error('Error')
+        const err = new Error('Error in pages/index.js, getServerSideProps() function, .then statement, if (r.status >= 400) condition')
         err.data = r
         throw err
       }
       return r.json()
     })
-    .catch(err => console.error(err))
+    .catch(err => console.error('Error in pages/index.js, getServerSideProps() function, .catch statement, err object:', err))
   
   return { props: { data } }
 }

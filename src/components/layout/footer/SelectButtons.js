@@ -1,7 +1,7 @@
 import { useEffect, useContext } from 'react'
 import CurrencyContext from '../../../context/currencyContext'
 
-export default function I18nButtons() {
+export default function SelectButtons() {
   const { refreshCurrency } = useContext(CurrencyContext)
 
   useEffect(() => {
@@ -20,8 +20,8 @@ export default function I18nButtons() {
   }
 
   return (
-    <div>
-      <div>
+    <div className="select-buttons">
+      <div className="currency-and-country-select-buttons currency-select-buttons">
         Currency:
         <select id="rates" aria-label="Currency selection" onChange={e => changeCurrency(e)}>
           <option id="$" value="$">$ (USD) U.S. Dollar</option>
@@ -29,7 +29,7 @@ export default function I18nButtons() {
           <option id="£" value="£">£ (GBP) British Pound</option>
         </select>
       </div>
-      <div>
+      <div className="currency-and-country-select-buttons country-select-buttons">
         Country:
         <select aria-label="Country selection">
           <option value="UK">United Kingdom</option>

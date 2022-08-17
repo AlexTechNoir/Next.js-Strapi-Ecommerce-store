@@ -65,7 +65,7 @@ export default function Reviews({ id, reviewList }) {
           const headingElement = document.getElementById('heading')
           headingElement.scrollIntoView({ behavior: 'smooth' })
         })
-        .catch(err => console.error(err))
+        .catch(err => console.error('Error in components/productPage/Reviews.js, formik onSubmit() function, .catch statement, err object:', err))
     },
     validationSchema: Yup.object().shape({
       name: Yup.string().min(1).max(20),
@@ -197,6 +197,7 @@ export default function Reviews({ id, reviewList }) {
 }
 
 const ReviewsDiv = styled.div`
+  grid-area: 4 / 1 / 5 / 3;
   align-self: stretch;
   display: flex;
   flex-direction: column;
@@ -287,10 +288,5 @@ const ReviewsDiv = styled.div`
       align-self: flex-start;
       margin: 1em 0 0 1em;
     }
-  }
-
-
-  @media only screen and (min-width: 850px) {
-    grid-area: 4 / 1 / 5 / 3;    
   }
 `

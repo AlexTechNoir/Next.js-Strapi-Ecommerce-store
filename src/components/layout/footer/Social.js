@@ -4,13 +4,14 @@ import { faFacebook, faTwitter, faInstagram, faYoutube, faLinkedin } from '@fort
 
 export default function Social() {
   return (
-    <div>
+    <div className="social">
       <form>          
         <label htmlFor="email">Subscribe to the news!</label>
+        <br />
         <input type="email" size="20" id="email" />
         <input type="submit" value="Submit"></input>
       </form>
-      <div>
+      <div className="social-media-links">
         <div>Our social media:</div>
         <Link href="/#">
           <a aria-label="Facebook icon link"><FontAwesomeIcon icon={faFacebook} size="2x" /></a>

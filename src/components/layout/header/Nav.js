@@ -3,16 +3,32 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 export default function Nav({ toggleNav, isNavVisible }) {
+  
   const [ navItems, setNavItems ] = useState([])
 
-  useEffect(async () => {
+  const fetchCategoryNames = async () => {
+
     const data = await fetch(`/api/categories`)
+      .then(r => {
+        if (r.status >= 400) {
+          return r.json().then(errResData => {
+            const err = new Error('Error in components/layout/header/Nav.js, fetchCategoryNames() function, .then statement, if (r.status >= 400) condition')
+            err.data = errResData
+            throw err
+          })
+        }
+        return r.json()
+      })
       .then(res => res.json())
-      .catch(err => console.error(err.message))
+      .catch(err => console.error('Error in components/layout/header/Nav.js, fetchCategoryNames() function, .catch statement, err.message object:', err.message))
 
     const navItems = data.data.categories.data
 
     setNavItems(navItems)
+  }
+
+  useEffect(() => {
+    fetchCategoryNames()
   },[])
 
   return (
