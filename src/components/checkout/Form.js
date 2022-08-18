@@ -44,7 +44,7 @@ export default function Form({
     if (inputName === 'delivery') {
 
       formik.values.delivery = inputValue
-      // We could put this function in useEffect with formik.values.delivery as dependency, but it is not triggerring 🤷 (see more in comment in pages/checkout.js in second useEffect)
+      // We could put this function in useEffect with formik.values.delivery as dependency, but it is not triggering 🤷 (see more in comment in pages/checkout.js in second useEffect)
       estimateShippingCost()
 
     } else {

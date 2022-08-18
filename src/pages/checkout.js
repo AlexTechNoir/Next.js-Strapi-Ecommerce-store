@@ -98,7 +98,7 @@ export default function Checkout() {
         }
 
         // re-estimate shipping cost based on chosen delivery
-        // We could put this function in useEffect with formik.values.delivery as dependency, but it is not triggerring 🤷 (see more in comment in second useEffect)
+        // We could put this function in useEffect with formik.values.delivery as dependency, but it is not triggering 🤷 (see more in comment in second useEffect)
         estimateShippingCost()
       }
     }
