@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
+import Head from 'next/head'
 
 export async function getServerSideProps(ctx) {
   const query = ctx.query
@@ -28,11 +29,17 @@ export default function thankYou({ query }) {
   }
 
   return (
-    <ThankYou>
-      <h1>Thank you for purchase! 🙏</h1>
-      <h2>Your order id is: <b>{query.id}</b></h2>
-      <h2>We have sent you an email with the information about your order 📧</h2>
-    </ThankYou>
+    <>
+      <Head>
+        <title>Thank you for purchase! - Alimazon</title>
+      </Head>
+
+      <ThankYou>
+        <h1>Thank you for purchase! 🙏</h1>
+        <h2>Your order id is: <b>{query.id}</b></h2>
+        <h2>We have sent you an email with the information about your order 📧</h2>
+      </ThankYou>
+    </>
   )
 }
 

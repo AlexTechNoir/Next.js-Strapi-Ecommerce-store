@@ -118,13 +118,15 @@ export default function CartList({ assignProductAmountInCart }) {
     }
   }
 
-  useEffect(() => { 
-    estimateTotalPriceOfAllItems()
-  },[])
-
   useEffect(() => {
-    checkIfItemsAreAvailable()
-  },[cartList]) // triggers in pages/_app.js in assignProductAmountInCart() and in components/checkout/PayPalCheckoutButton.js in onApprove()
+    const localStogareCartList = JSON.parse(localStorage.cartList)
+
+    // check if both cart lists (from localStorage with selected amount and fetched one with prices) are in sync, if they are - launch functions, the correct execution of whose depends on <cartList> value
+    if (localStogareCartList.length === cartList.length) {
+      estimateTotalPriceOfAllItems()
+      checkIfItemsAreAvailable()
+    }
+  },[cartList]) // triggers in pages/_app.js in assignProductAmountInCart()
 
   return (
     <DivCartList>

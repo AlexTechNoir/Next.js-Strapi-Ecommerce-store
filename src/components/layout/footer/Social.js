@@ -6,9 +6,9 @@ export default function Social() {
   return (
     <div className="social">
       <form>          
-        <label htmlFor="email">Subscribe to the news!</label>
+        <label htmlFor="newsletter-subscription">Subscribe to the news!</label>
         <br />
-        <input type="email" size="20" id="email" />
+        <input type="email" size="20" id="newsletter-subscription" />
         <input type="submit" value="Submit"></input>
       </form>
       <div className="social-media-links">

@@ -48,7 +48,7 @@ export default function SearchResult({ result }) {
   }, [])
 
   return (
-    <DivSearchResult>
+    <DivSearchResult tabIndex="0">
       <img src={imgUrl} alt="SearchItem" width={121} height={121} className="image" />
       <div className="title-and-category-wrapper">
         <Link href={`/product-page/${id}`}>

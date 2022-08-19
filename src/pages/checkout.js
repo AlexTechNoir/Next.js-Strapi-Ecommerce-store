@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useFormik } from 'formik'
 import { PayPalScriptProvider } from '@paypal/react-paypal-js'
+import Head from 'next/head'
 
 import PayPalCheckoutButton from '../components/checkout/PayPalCheckoutButton'
 import CartInfo from '../components/checkout/CartInfo'
@@ -224,89 +225,95 @@ export default function Checkout() {
   }
 
   return (
-    <ChekoutDiv>
-      <h1 className="heading">Checkout</h1>
+    <>
+      <Head>
+        <title>Checkout - Alimazon</title>
+      </Head>
 
-      <Form 
-        formik={formik} 
-        isFormSubmitted={isFormSubmitted} 
-        territorialDivisionType={territorialDivisionType} 
-        postCodePattern={postCodePattern} 
-        estimateShippingCost={estimateShippingCost}
-        setIsFormSubmitted={setIsFormSubmitted}
-      />
+      <ChekoutDiv>
+        <h1 className="heading">Checkout</h1>
 
-      <CartInfo 
-        itemsAmountInCart={itemsAmountInCart} 
-        checkoutCartList={checkoutCartList} 
-        isCurrencySet={isCurrencySet} 
-        currency={currency}
-        currencyRate={currencyRate}
-        tax={tax}
-        shippingCost={shippingCost}
-        areThereAnyDiscountsInCart={areThereAnyDiscountsInCart}
-        totalDiscountedPriceInCart={totalDiscountedPriceInCart}
-        totalPriceInCart={totalPriceInCart}
-      />
+        <Form 
+          formik={formik} 
+          isFormSubmitted={isFormSubmitted} 
+          territorialDivisionType={territorialDivisionType} 
+          postCodePattern={postCodePattern} 
+          estimateShippingCost={estimateShippingCost}
+          setIsFormSubmitted={setIsFormSubmitted}
+        />
 
-      {
-        isFormSubmitted && outOfStockMessage 
-        ? <h5 className="error-message">
-            <b className="text-danger">Sorry, some items became out of stock or exceeded available amount! 🙁</b>
-            <br />
-            <b className="text-danger">Please, delete or choose the lesser amount of items in your cart to finish checkout process!</b>
-          </h5>
-        : null
-      }
+        <CartInfo 
+          itemsAmountInCart={itemsAmountInCart} 
+          checkoutCartList={checkoutCartList} 
+          isCurrencySet={isCurrencySet} 
+          currency={currency}
+          currencyRate={currencyRate}
+          tax={tax}
+          shippingCost={shippingCost}
+          areThereAnyDiscountsInCart={areThereAnyDiscountsInCart}
+          totalDiscountedPriceInCart={totalDiscountedPriceInCart}
+          totalPriceInCart={totalPriceInCart}
+        />
 
-      {
-        isFormSubmitted
-        ? (
-          <>
-            {
-              isCurrencySet
-              ? (
-                <PayPalScriptProvider options={{ 
-                  'client-id': process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID,
-                  'merchant-id': process.env.NEXT_PUBLIC_PAYPAL_MERCHANT_ID,
-                  'buyer-country': formik.values.country === 'US' ? 'US' : 'GB',
-                  'locale': formik.values.country === 'US' ? 'en_US' : 'en_GB',
-                  'currency': currencyCode,
-                  'disable-funding': 'paylater',
-                }}>
-                  <PayPalCheckoutButton 
-                    currencyCode={currencyCode}
-                    currency={currency}
-                    checkoutCartList={checkoutCartList}
-                    currencyRate={currencyRate}
-                    priceForAllItems={
-                      areThereAnyDiscountsInCart 
-                      ? (totalDiscountedPriceInCart).toFixed(2) 
-                      : (totalPriceInCart).toFixed(2)
-                    }
-                    tax={(tax).toFixed(2)}
-                    shippingCost={(shippingCost).toFixed(2)}
-                    totalPrice={
-                      (
-                        Number(areThereAnyDiscountsInCart ? totalDiscountedPriceInCart : totalPriceInCart)
-                        + Number(tax * currencyRate)
-                        + Number(shippingCost * currencyRate)
-                      ).toFixed(2)
-                    }
-                    isPayPalButtonDisabled={isPayPalButtonDisabled}
-                    setIsPayPalButtonDisabled={setIsPayPalButtonDisabled}
-                    checkItemsAmount={checkItemsAmount}
-                    assignProductAmountInCart={assignProductAmountInCart}
-                  />
-                </PayPalScriptProvider>
-              ) : (
-                <div className="loader"></div>
-              )
-            }
-          </>
-        ) : null
-      }
-    </ChekoutDiv>
+        {
+          isFormSubmitted && outOfStockMessage 
+          ? <h5 className="error-message">
+              <b className="text-danger">Sorry, some items became out of stock or exceeded available amount! 🙁</b>
+              <br />
+              <b className="text-danger">Please, delete or choose the lesser amount of items in your cart to finish checkout process!</b>
+            </h5>
+          : null
+        }
+
+        {
+          isFormSubmitted
+          ? (
+            <>
+              {
+                isCurrencySet
+                ? (
+                  <PayPalScriptProvider options={{ 
+                    'client-id': process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID,
+                    'merchant-id': process.env.NEXT_PUBLIC_PAYPAL_MERCHANT_ID,
+                    'buyer-country': formik.values.country === 'US' ? 'US' : 'GB',
+                    'locale': formik.values.country === 'US' ? 'en_US' : 'en_GB',
+                    'currency': currencyCode,
+                    'disable-funding': 'paylater',
+                  }}>
+                    <PayPalCheckoutButton 
+                      currencyCode={currencyCode}
+                      currency={currency}
+                      checkoutCartList={checkoutCartList}
+                      currencyRate={currencyRate}
+                      priceForAllItems={
+                        areThereAnyDiscountsInCart 
+                        ? (totalDiscountedPriceInCart).toFixed(2) 
+                        : (totalPriceInCart).toFixed(2)
+                      }
+                      tax={(tax).toFixed(2)}
+                      shippingCost={(shippingCost).toFixed(2)}
+                      totalPrice={
+                        (
+                          Number(areThereAnyDiscountsInCart ? totalDiscountedPriceInCart : totalPriceInCart)
+                          + Number(tax * currencyRate)
+                          + Number(shippingCost * currencyRate)
+                        ).toFixed(2)
+                      }
+                      isPayPalButtonDisabled={isPayPalButtonDisabled}
+                      setIsPayPalButtonDisabled={setIsPayPalButtonDisabled}
+                      checkItemsAmount={checkItemsAmount}
+                      assignProductAmountInCart={assignProductAmountInCart}
+                    />
+                  </PayPalScriptProvider>
+                ) : (
+                  <div className="loader"></div>
+                )
+              }
+            </>
+          ) : null
+        }
+      </ChekoutDiv>
+    </>
   )
 }
 

@@ -153,7 +153,7 @@ export default function CartListItem({
   },[itemsWithExceededAmount]) // triggers in components/cart/CartList.js in checkIfItemsAreAvailable() and goToCheckout()
 
   return (
-    <DivCartListItem selectBorderColor={selectBorderColor}>
+    <DivCartListItem selectBorderColor={selectBorderColor} tabIndex="0">
       <img className="image" src={imgUrl} alt={title} width={100} height={100} />
 
       <div className="title-and-company">

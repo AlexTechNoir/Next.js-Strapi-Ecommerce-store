@@ -2,6 +2,7 @@ import { useEffect, useContext } from 'react'
 import styled from 'styled-components'
 import CartContext from '../context/cartContext'
 import dynamic from 'next/dynamic'
+import Head from 'next/head'
 
 const CartList = dynamic(() => import('../components/cart/CartList'))
 
@@ -13,21 +14,27 @@ export default function Cart() {
   }, [])
   
   return (
-    <DivCart>
-      {
-        itemsAmountInCart === null 
-        ? (
-          <div className="loader"></div>
-        ) 
-        : itemsAmountInCart < 1
-        ? (
-          <h2 className="empty-cart-message">
-            <div>Your shopping cart is empty</div>
-          </h2>
-        ) 
-        : <CartList assignProductAmountInCart={assignProductAmountInCart} />
-      }
-    </DivCart>
+    <> 
+      <Head>
+        <title>Your cart - Alimazon</title>
+      </Head>
+
+      <DivCart>
+        {
+          itemsAmountInCart === null 
+          ? (
+            <div className="loader"></div>
+          ) 
+          : itemsAmountInCart < 1
+          ? (
+            <h2 className="empty-cart-message">
+              <div>Your shopping cart is empty</div>
+            </h2>
+          ) 
+          : <CartList assignProductAmountInCart={assignProductAmountInCart} />
+        }
+      </DivCart>
+    </>
   )
 }
 

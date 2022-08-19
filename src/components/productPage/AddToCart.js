@@ -1,8 +1,11 @@
 import { useState, useEffect, useContext } from 'react'
 import styled from 'styled-components'
 import CartContext from '../../context/cartContext'
+import { useRouter } from 'next/router'
 
 export default function AddToCart({ id, available }) {
+
+  const router = useRouter()
   
   const { cartBadgeToggle, setCartBadgeToggle } = useContext(CartContext)
 
@@ -69,7 +72,7 @@ export default function AddToCart({ id, available }) {
 
   useEffect(() => {
     checkIfProductIsInCart()
-  }, [])
+  }, [router.asPath]) // triggers on route change - we need this to refresh <isProductInCart> state (inside checkIfProductIsInCart() function) to correctly show addToCart button (because this useEffect is not triggering when we transition between /product-page/[id].js routes (throught "You might also like" section))
 
   return (
     <AddToCartDiv className="add-to-cart">
