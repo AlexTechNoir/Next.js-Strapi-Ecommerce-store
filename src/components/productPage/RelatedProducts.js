@@ -8,7 +8,7 @@ export default function RelatedProducts({ relatedProducts }) {
       <h2>You might also like</h2>
       <div className="related-products-list">
         {
-          relatedProducts.map(i => <RelatedProduct i={i} />)
+          relatedProducts.map(i => <RelatedProduct key={i.id} i={i} />)
         }
       </div>
     </RelatedProductsSection>

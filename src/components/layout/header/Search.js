@@ -9,12 +9,13 @@ export default function Search() {
   const [ searchValue, setSearchValue ] = useState('')
   const inputRef = useRef(null)
 
-  const insertSearchValueIntoInput = () => {
+  const handleValueInput = () => {
+
     if (location.pathname.includes('search')) {
       inputRef.current.value = location.pathname.substr(location.pathname.lastIndexOf('/') + 1)
     } else {
       inputRef.current.value = ''
-    }
+    }    
   }
 
   const search = e => {
@@ -25,12 +26,13 @@ export default function Search() {
   }
 
   useEffect(() => {
-    insertSearchValueIntoInput()
-  }, [])
+    handleValueInput()
+  }, [router.asPath]) // triggers on route change
 
   return (
     <SearchForm id="formSearchBar" onSubmit={search}>
       <input 
+        id="search-bar"
         aria-label="Search graph" 
         type="search" 
         name="search" 
