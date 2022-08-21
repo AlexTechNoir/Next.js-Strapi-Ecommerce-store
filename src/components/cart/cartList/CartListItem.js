@@ -47,31 +47,36 @@ export default function CartListItem({
 
     const cartList = JSON.parse(localStorage.cartList)
     const item = cartList.filter(i => i.id === id)
-    const selectedAmount = parseFloat(item[0].selectedAmount)    
 
-    // if there are enough units of item available in stock...
-    if (selectedAmount <= available) {
+    // we do this check to cover the case with stale fetched cart list, where item was deleted. If it was, .filter function above won't find id and return empty array. In this case, the app will crash it attempt to access the undefined values inside empty array
+    if (item.length !== 0) {
 
-      const select = document.getElementById(`itemsOf${id}`)
-      if (select !== null) {
-        // ...we set selected by user amount as it should be, ...
-        select.options[selectedAmount].selected = 'selected'
-        setCurrentTotalPrice(parseFloat(price * selectedAmount).toFixed(2))
-        setSelectBorderColor('lightgrey')
-      }  
-    
-    // ...but if items in stock are not enough comparing to amount user selected...
-    } else if (selectedAmount > available) {
+      const selectedAmount = parseFloat(item[0].selectedAmount)    
 
-      const select = document.getElementById(`itemsOf${id}`)
-      if (select !== null) {
-        // ...we set option as 'unselected' (which is the first in array of option elements)...
-        select.options[0].selected = 'selected'
+      // if there are enough units of item available in stock...
+      if (selectedAmount <= available) {
 
-        // ...and price as zero
-        setCurrentTotalPrice((0).toFixed(2))
-        setSelectBorderColor('red')
-      } 
+        const select = document.getElementById(`itemsOf${id}`)
+        if (select !== null) {
+          // ...we set selected by user amount as it should be, ...
+          select.options[selectedAmount].selected = 'selected'
+          setCurrentTotalPrice(parseFloat(price * selectedAmount).toFixed(2))
+          setSelectBorderColor('lightgrey')
+        }  
+      
+      // ...but if items in stock are not enough comparing to amount user selected...
+      } else if (selectedAmount > available) {
+
+        const select = document.getElementById(`itemsOf${id}`)
+        if (select !== null) {
+          // ...we set option as 'unselected' (which is the first in array of option elements)...
+          select.options[0].selected = 'selected'
+
+          // ...and price as zero
+          setCurrentTotalPrice((0).toFixed(2))
+          setSelectBorderColor('red')
+        } 
+      }
     }
 
     // in condition above we don't need to check if available !== 0, because if it does === 0, <select> element just won't render, user will see "out of stock" message instead, and then we don't need to make any changes ("available === 0" and "0 < selectedAmount <= available" are different cases to handle)

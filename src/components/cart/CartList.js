@@ -118,11 +118,24 @@ export default function CartList({ assignProductAmountInCart }) {
     }
   }
 
-  useEffect(() => {
-    const localStogareCartList = JSON.parse(localStorage.cartList)
+  useEffect(() => {    
+    // we need to check if both cart lists (from localStorage with selected amount and fetched one with prices) are in sync. We need to check 2 conditions: 1. if lengths of both cart lists are the same, and at the same time 2. if fetched cart list contains the same ids as in localStorage cart list. If both conditions are true - cart lists are in sync, and we launch functions, the correct execution of whose depends on up-to-date <cartList> values
+    
+    const localStorageCartList = JSON.parse(localStorage.cartList)
 
-    // check if both cart lists (from localStorage with selected amount and fetched one with prices) are in sync, if they are - launch functions, the correct execution of whose depends on <cartList> value
-    if (localStogareCartList.length === cartList.length) {
+    // for each item in localStorage cart list we check if its id coincides with at least one of ids in fetched cart list
+    const checkResults = localStorageCartList.map(localStorageCartListItem => {
+      return cartList.some(cartListItem => {
+        return localStorageCartListItem.id === cartListItem.id
+      })
+    })
+
+    // this method is not perfect, because it doesn't check the case where stale cart list would've had more items than cart list from localStorage (but all other item ids are coincide just fine), but it doesn't matter, because we check the lengths of both as a separate condition below (and if it has less items, it won't pass this check)
+
+    // if at least one element is false - carts are out of sync, and the check'll return true
+    const areCartsOutOfSync = checkResults.some(result => result !== true)
+
+    if (localStorageCartList.length === cartList.length && !areCartsOutOfSync) {
       estimateTotalPriceOfAllItems()
       checkIfItemsAreAvailable()
     }

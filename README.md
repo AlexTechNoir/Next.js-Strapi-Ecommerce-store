@@ -1,16 +1,31 @@
-# Next.js E-Commerce Store
+# Next.js Strapi E-Commerce Store
+## [Dependencies](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/package.json#L10), 3rd party [links](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/src/pages/_document.js#L34) and [scripts](https://github.com/AlexTechNoir/Next.js-Strapi-Ecommerce-store/blob/master/src/pages/_app.js#L230)
 
-Fully responsive mobile first demo website. Rewritten from [React CRA app](https://github.com/AlexTechNoir/react_e-commerce_online_store).
+## Features
 
-## [Dependencies](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/package.json#L10)
+- built with Next.js 11 and Strapi 4
+- code deployed on Vercel, HCMS uses PostgreSQL and deployed on Heroku, images stored on Cloudinary
 
-## [Scripts and CDN links](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/src/pages/_document.js#L34)
+- guest shopping cart
+- guest checkout
+- no authentication (auth buttons just for show)
+- checkout form data is saved between page reloads
+- product search
+- slider with magnifying glass
+- currency change (3 available)
+- discounts
+- product reviews
+- Google Analytics
+- simple cookie banner
+- pagination
+- available item amount checks ("out-of-stock" and "less than selected")
+- PayPal checkout button (fake payments)
+- email with order info is sent after fake transaction
 
-## What did I use to make this demo:
+## Code examples:
 
-! Many links may be broken for now, I'll fix them ASA I'll finish rewriting this app !
+!Many links might be broken for now, soon I'll fix them!
 
-- [Create Next App](https://nextjs.org/docs/getting-started#setup)
 - [styled-components](https://github.com/styled-components/styled-components) (examples: [global style](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/src/components/Layout.js#L92), [ususal style](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/src/pages/index.js#L69))
 - [Bootstrap 4](https://getbootstrap.com/) - mainly for ready-made buttons and forms
 - [React Font Awesome](https://github.com/FortAwesome/react-fontawesome) ([example](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/src/components/layout/footer/Social.js#L16))
@@ -21,14 +36,10 @@ Fully responsive mobile first demo website. Rewritten from [React CRA app](https
 - [react-paginate](https://github.com/AdeleD/react-paginate) ([example](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/src/pages/products/mobile-phones/%5Bpage%5D.js#L66))
 - [Formik](https://github.com/formik/formik) - just to learn it ([example](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/src/components/layout/authForm/Registration.js#L7))
 - [SWR](https://github.com/vercel/swr) (examples: [classic](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/src/pages/search/%5Bvalue%5D.js#L16), [with SSR](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/src/pages/products/mobile-phones/%5Bpage%5D.js#L31))
-- [Facebook Comments plugin](https://developers.facebook.com/docs/plugins/comments/) ([example](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/src/components/productPage/Comments.js))
 - [PayPal Checkout Button](https://developer.paypal.com/docs/checkout/#) ([example](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/src/components/cart/cartList/PayPalCheckoutButton.js))
 
-## Notes:
 
-- html-to-draftjs library is deliberately downgraded to 1.4.0 to avoid bug (see [issue #78](https://github.com/jpuri/html-to-draftjs/issues/78))
-
-### Info about where Context data goes (from pages/_app.js):
+## Info about where Context data goes (from pages/_app.js):
 
 <details>
   <summary>Show/hide</summary>
@@ -136,3 +147,7 @@ Fully responsive mobile first demo website. Rewritten from [React CRA app](https
 
   `setItemsAmountInCart`, `setTotalPriceInCart`, `setTotalDiscountedPriceInCart`, `fetchedRates`, `setFetchedRates`, `setCurrency`, `setCurrencyCode`, `setCurrencyRate`, `setIsCurrencySet`, `setCurrencyCodes` and `setCurrencyCodes` stay in pages/_app.js
 </details>
+
+## Notes:
+
+- html-to-draftjs library is deliberately downgraded to 1.4.0 to avoid bug (see [issue #78](https://github.com/jpuri/html-to-draftjs/issues/78))
