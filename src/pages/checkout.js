@@ -281,6 +281,7 @@ export default function Checkout() {
                     'disable-funding': 'paylater',
                   }}>
                     <PayPalCheckoutButton 
+                      formik={formik}
                       currencyCode={currencyCode}
                       currency={currency}
                       checkoutCartList={checkoutCartList}

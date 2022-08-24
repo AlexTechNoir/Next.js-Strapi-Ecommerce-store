@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import CartContext from '../../context/cartContext'
 
 export default function PayPalCheckoutButton({ 
+  formik,
   currencyCode, 
   currency,
   checkoutCartList, 
@@ -97,7 +98,7 @@ export default function PayPalCheckoutButton({
               
               return actions.order.capture().then(async res => {
 
-                const orderDetails = JSON.parse(localStorage.order)
+                const orderDetails = formik.values
 
                 const purchasedItems = checkoutCartList.map(i => {
 

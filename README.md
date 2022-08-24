@@ -1,10 +1,9 @@
 # Next.js Strapi E-Commerce Store
+
+Built with Next.js 11 and Strapi 4. Code deployed on Vercel, HCMS uses PostgreSQL and deployed on Heroku, images stored on Cloudinary
 ## [Dependencies](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/package.json#L10), 3rd party [links](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/src/pages/_document.js#L34) and [scripts](https://github.com/AlexTechNoir/Next.js-Strapi-Ecommerce-store/blob/master/src/pages/_app.js#L230)
 
 ## Features
-
-- built with Next.js 11 and Strapi 4
-- code deployed on Vercel, HCMS uses PostgreSQL and deployed on Heroku, images stored on Cloudinary
 
 - guest shopping cart
 - guest checkout
@@ -23,8 +22,6 @@
 - email with order info is sent after fake transaction
 
 ## Code examples:
-
-!Many links might be broken for now, soon I'll fix them!
 
 - [styled-components](https://github.com/styled-components/styled-components) (examples: [global style](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/src/components/Layout.js#L92), [ususal style](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/src/pages/index.js#L69))
 - [Bootstrap 4](https://getbootstrap.com/) - mainly for ready-made buttons and forms
