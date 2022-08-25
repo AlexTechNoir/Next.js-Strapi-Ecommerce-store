@@ -23,6 +23,8 @@ Built with Next.js 11 and Strapi 4. Code deployed on Vercel, HCMS uses PostgreSQ
 
 ## Code examples:
 
+! Many links may be broken, but I'll fix them soon !
+
 - [styled-components](https://github.com/styled-components/styled-components) (examples: [global style](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/src/components/Layout.js#L92), [ususal style](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/src/pages/index.js#L69))
 - [Bootstrap 4](https://getbootstrap.com/) - mainly for ready-made buttons and forms
 - [React Font Awesome](https://github.com/FortAwesome/react-fontawesome) ([example](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/src/components/layout/footer/Social.js#L16))
