@@ -208,7 +208,7 @@ export default function ContextProvider({ Component, pageProps }) {
 
   useEffect(() => {
     setCurrencyRates()
-  },[currency]) // triggers here in setCurrencyRates()
+  },[currency]) // triggers here in refreshCurrency()
 
   return (
     <CookiesContext.Provider value={{ areCookiesAccepted, setAreCookiesAccepted }}>
