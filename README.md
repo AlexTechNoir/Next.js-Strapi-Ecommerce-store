@@ -1,6 +1,19 @@
 # Next.js Strapi E-Commerce Store
 
 Built with Next.js 11.1.4 and Strapi 4.3.4. Code deployed on Vercel, HCMS uses PostgreSQL and deployed on Heroku, images stored on Cloudinary
+
+---
+
+WARNING! 
+
+Strapi is deployed on Heroku. Due to Heroku's financial decision to shut down free plans, this project will most likely crash starting with 28.11.22. But all code examples in this repo are valid! You can still study it and learn how I've done some features!
+
+I tried some alternatives and with couple of failures, unfortunately, right now I don't have time to explore for more.
+
+If you also switching from Heroku, be careful with Railway - if you create an account with one e-mail and then link a GitHub account with another (different) e-mail, they may ban you by mistake for "multiple accounts". Tech support's not answering on ban appeals, at least in my case
+
+---
+
 ## [Dependencies](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/package.json#L10), 3rd party [links](https://github.com/AlexTechNoir/Next.js-e-commerce-online-store/blob/master/src/pages/_document.js#L34) and [scripts](https://github.com/AlexTechNoir/Next.js-Strapi-Ecommerce-store/blob/master/src/pages/_app.js#L230)
 
 ## Features
